@@ -1,0 +1,2 @@
+/usr/bin/ar qc libfort_agent_lib.a CMakeFiles/fort_agent_lib.dir/coapHelpers.cpp.o CMakeFiles/fort_agent_lib.dir/coapPortTracker.cpp.o CMakeFiles/fort_agent_lib.dir/serialHandler.cpp.o CMakeFiles/fort_agent_lib.dir/slip.cpp.o CMakeFiles/fort_agent_lib.dir/uartCoapBridge.cpp.o CMakeFiles/fort_agent_lib.dir/coapJausBridge.cpp.o CMakeFiles/fort_agent_lib.dir/fort_agent.cpp.o
+/usr/bin/ranlib libfort_agent_lib.a

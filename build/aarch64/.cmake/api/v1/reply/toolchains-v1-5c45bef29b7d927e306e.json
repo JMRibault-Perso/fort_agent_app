@@ -1,0 +1,93 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"implicit" : {},
+				"path" : "/usr/bin/aarch64-linux-gnu-gcc"
+			},
+			"language" : "ASM"
+		},
+		{
+			"compiler" : 
+			{
+				"implicit" : {},
+				"path" : "aarch64-linux-gnu-gcc"
+			},
+			"language" : "C"
+		},
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"/usr/aarch64-linux-gnu/include/c++/13",
+						"/usr/aarch64-linux-gnu/include/c++/13/aarch64-linux-gnu",
+						"/usr/aarch64-linux-gnu/include/c++/13/backward",
+						"/usr/lib/gcc-cross/aarch64-linux-gnu/13/include",
+						"/usr/aarch64-linux-gnu/include",
+						"/usr/include"
+					],
+					"linkDirectories" : 
+					[
+						"/usr/lib/gcc-cross/aarch64-linux-gnu/13",
+						"/usr/aarch64-linux-gnu/lib",
+						"/lib/aarch64-linux-gnu",
+						"/lib",
+						"/usr/lib/aarch64-linux-gnu",
+						"/usr/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"stdc++",
+						"m",
+						"gcc_s",
+						"gcc",
+						"c",
+						"gcc_s",
+						"gcc"
+					]
+				},
+				"path" : "/usr/bin/aarch64-linux-gnu-g++",
+				"version" : "13.3.0"
+			},
+			"language" : "CXX",
+			"sourceFileExtensions" : 
+			[
+				"C",
+				"M",
+				"c++",
+				"cc",
+				"cpp",
+				"cxx",
+				"m",
+				"mm",
+				"mpp",
+				"CPP",
+				"ixx",
+				"cppm",
+				"ccm",
+				"cxxm",
+				"c++m"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"implicit" : {}
+			},
+			"language" : "NONE"
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}
