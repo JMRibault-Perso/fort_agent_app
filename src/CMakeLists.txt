@@ -42,17 +42,13 @@ target_include_directories(${CMAKE_PROJECT_NAME}_lib
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
-        ${Boost_INCLUDE_DIRS} 
+        ${Boost_INCLUDE_DIRS}
 )
 
-# Link against external libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}_lib
     PRIVATE
         spdlog::spdlog
         fmt::fmt
-        #boost_asio
-        #boost_circular_buffer
-        #boost_crc
 )
 
 ###############################################################################
@@ -61,9 +57,9 @@ target_link_libraries(${CMAKE_PROJECT_NAME}_lib
 install(TARGETS ${CMAKE_PROJECT_NAME}_lib
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
