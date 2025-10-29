@@ -19,6 +19,7 @@ https://hriwiki.atlassian.net/wiki/spaces/HRIIN/pages/2315813055/Agility
 ### Prerequisites
 1. C++ 17 Compiler
 2. cmake (v3.11 or greater)
+3. sudo apt install libboost-all-dev
 
 ### Dependencies
 At the moment these are pulled in by cmake `FetchContent`

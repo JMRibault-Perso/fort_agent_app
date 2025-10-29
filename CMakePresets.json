@@ -12,7 +12,10 @@
             "generator": "Unix Makefiles",
             "binaryDir": "${sourceDir}/build/x86_64",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "USE_FETCHCONTENT": "ON",      
+                "BUILD_TESTING": "ON"     
+
             }
         },
         {
@@ -22,7 +25,9 @@
             "binaryDir": "${sourceDir}/build/aarch64",
             "toolchainFile": "${sourceDir}/aarch64-toolchain.cmake",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "USE_FETCHCONTENT": "ON",      
+                "BUILD_TESTING": "OFF"     
             }
         }
     ],
