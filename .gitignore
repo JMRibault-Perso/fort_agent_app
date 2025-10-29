@@ -1,0 +1,52 @@
+# === Build folders ===
+build/
+build*/         # wildcard for any build variant
+
+# === CMake artifacts ===
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+install_manifest.txt
+
+# === VSCode ===
+.vscode/
+*.code-workspace
+
+# === Yocto build artifacts ===
+tmp/
+sstate-cache/
+downloads/
+build/
+meta-poky/
+*.lock
+*.log
+
+# === Compiled binaries and objects ===
+*.o
+*.obj
+*.so
+*.a
+*.out
+*.elf
+*.bin
+*.hex
+*.map
+
+# === Logs and runtime files ===
+*.log
+*.pid
+*.db
+*.sqlite
+
+# === System files ===
+.DS_Store
+Thumbs.db
+
+# === Editor backups ===
+*~
+*.swp
+*.bak
+
+# === Journaling ===
+journal/*.md

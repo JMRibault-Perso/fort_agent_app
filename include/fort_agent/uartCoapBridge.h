@@ -54,8 +54,8 @@ private:
     void sendToRemote(boost::asio::ip::udp::endpoint to,
                       std::shared_ptr<uint8_t[]> data, std::size_t length);
 
-    void sendObserveJoystickCombinedRequest();
-    void sendObserveSRCPModeRequest();
+    void sendObserveJoystickCombinedRequest(uint8_t observeValue = 0);
+    void sendObserveSRCPModeRequest(uint8_t observeValue = 0);
     void sendRequest(const std::vector<uint8_t> &coapMsg, const uint16_t port);
     // Relay received CoAP messages to the right client
     CoapPortTracker coapPorts;

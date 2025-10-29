@@ -33,19 +33,20 @@ public:
     }
 
     void flushString(const std::string& msg);
+    // Flush queue from main thread
+    void flushConsoleMessages();
 
 private:
     void flush();
 
     std::ostringstream stream_;
     std::mutex mutex_;
+    std::queue<std::string> queue_;
 };
 
 // Global instance
 extern ConsoleBuffer printToConsole;
 
-// Flush queue from main thread
-void flushConsoleMessages();
 
 
 

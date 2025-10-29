@@ -50,9 +50,12 @@ UartCoapBridge::UartCoapBridge(
                   std::placeholders::_1, std::placeholders::_2));
 
     // send Observe request for joystick/combined resource
-    sendObserveJoystickCombinedRequest();
+    sendObserveJoystickCombinedRequest(1);
+    sendObserveJoystickCombinedRequest(0);
+
     // send Observe request for SRCP Mode resource
-    sendObserveSRCPModeRequest();
+    sendObserveSRCPModeRequest(1);
+    //sendObserveSRCPModeRequest(0);
 
     // bind local socket to local port and begin listening
     bindLocal();
@@ -315,7 +318,7 @@ void UartCoapBridge::sendRequest(const std::vector<uint8_t> &coapMsg, const uint
 }
 
 
-void UartCoapBridge::sendObserveSRCPModeRequest() {
+void UartCoapBridge::sendObserveSRCPModeRequest(uint8_t observeValue) {
     FXN_TRACE;
 
     uint16_t port = 1001;
@@ -328,13 +331,13 @@ void UartCoapBridge::sendObserveSRCPModeRequest() {
         {}, // No Token (added later)
         Coap::Format::NONE, // No specific Content-Format
         true,   // Include Observe option
-        0   // Observe value
+        observeValue   // Observe value
         );
 
     sendRequest(coapMsg, port);
 }
 
-void UartCoapBridge::sendObserveJoystickCombinedRequest() {
+void UartCoapBridge::sendObserveJoystickCombinedRequest(uint8_t observeValue) {
     FXN_TRACE;
 
     uint16_t port = 1000;
@@ -347,7 +350,7 @@ void UartCoapBridge::sendObserveJoystickCombinedRequest() {
         {}, // No Token (added later)
         Coap::Format::NONE, // No specific Content-Format
         true,   // Include Observe option
-        0   // Observe value
+        observeValue   // Observe value
         );
 
     sendRequest(coapMsg, port);

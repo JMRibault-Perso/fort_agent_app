@@ -81,6 +81,12 @@
     "typeinfo": "cpp",
     "valarray": "cpp",
     "variant": "cpp",
-    "csetjmp": "cpp"
+    "csetjmp": "cpp",
+    "barrier": "cpp",
+    "slist": "cpp",
+    "latch": "cpp",
+    "ranges": "cpp",
+    "scoped_allocator": "cpp",
+    "syncstream": "cpp"
   }
 }

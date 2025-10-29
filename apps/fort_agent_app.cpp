@@ -1,10 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include <queue>
-#include <mutex>
 #include <string>
 #include <chrono>
-#include <thread>
 
 #include <boost/asio.hpp>
 #include <boost/program_options.hpp>
@@ -15,36 +12,6 @@
 
 #include <fort_agent/dbgTrace.h>
 #include <fort_agent/fort_agent.h>
-
-ConsoleBuffer printToConsole;
-
-std::queue<std::string> consoleQueue;
-std::mutex queueMutex;
-
-void ConsoleBuffer::flush() {
-    std::string msg = stream_.str();
-    {
-        std::lock_guard<std::mutex> lock(queueMutex);
-        consoleQueue.push(msg);
-    }
-    stream_.str("");
-    stream_.clear();
-}
-
-void ConsoleBuffer::flushString(const std::string& msg) {
-    std::lock_guard<std::mutex> lock(queueMutex);
-    consoleQueue.push(msg);
-}
-
-void flushConsoleMessages() {
-    std::lock_guard<std::mutex> lock(queueMutex);
-    while (!consoleQueue.empty()) {
-        std::cout << consoleQueue.front();
-        consoleQueue.pop();
-    }
-}
-
-
 
 namespace po = boost::program_options;
 
@@ -174,7 +141,7 @@ int main(int argc, char *argv[]) {
         flushTimer->expires_after(std::chrono::milliseconds(100));
         flushTimer->async_wait([&](const boost::system::error_code& ec) {
             if (!ec) {
-                flushConsoleMessages();
+                printToConsole.flushConsoleMessages();
                 scheduleFlush(); // reschedule
             }
         });
@@ -184,7 +151,7 @@ scheduleFlush(); // start the loop
 
 
     try {
-        UartCoapBridge uartCoapBridge1(ioService, config.local_addr, config.local_port,
+        UartCoapBridge agentBridge(ioService, config.local_addr, config.local_port,
                                        config.device, config.remote_addr, config.remote_port, config.jaus_remote_addr, config.jaus_remote_port);
         StatTrace statTrace(ioService);
         ioService.run();

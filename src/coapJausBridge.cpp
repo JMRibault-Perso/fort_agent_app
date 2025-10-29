@@ -123,10 +123,7 @@ void JausBridge::decode_srcp_mode(const uint8_t* data, size_t size) {
             break;
     }
 
-    printToConsole << "JAUS: Received SRCP mode: " << modeStr << std::endl;
-    
-    spdlog::info("SRCP mode {}", modeStr);
-
+    std::cout << "JAUS: Received SRCP mode: " << modeStr << std::endl;
     std::string mode(reinterpret_cast<const char*>(data), size);
     send_jaus_mode(mode);
 }
@@ -266,9 +263,14 @@ void JausBridge::printJoystickStatus(const frc_combined_data_t& js) {
 
 
 void JausBridge::decode_combined_payload(const uint8_t* data, size_t size) {
+    if (size != sizeof(frc_combined_data_t)) {
     if (size < sizeof(frc_combined_data_t)) {
         std::cerr << "Combined payload too small\n";
         return;
+        }
+        else {
+            std::cerr << "Combined payload too large\n";
+        }
     }
 
     frc_combined_data_t payload;
