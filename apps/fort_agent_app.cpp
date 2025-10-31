@@ -22,13 +22,10 @@ struct Configuration {
     std::string log_level = "info";
     std::string log_file = "/var/log/fort-agent/fort-agent.log";
     std::string interface;
-
     std::string device;
     std::string remote_addr;
-    std::string jaus_remote_addr;
     std::string local_addr;
     uint16_t remote_port = 5683;
-    uint16_t jaus_remote_port = 1000;
     uint16_t local_port = 0;
 };
 
@@ -41,10 +38,8 @@ po::options_description getFortAgentOptions(Configuration& config) {
         ("verbose,v", po::value<std::string>(&config.log_level)->implicit_value("trace"), "set verbosity")
         ("device,d", po::value<std::string>(&config.device)->required(), "serial device")
         ("remote,r", po::value<std::string>(&config.remote_addr)->required(), "Remote IP for safety traffic")
-        ("jaus_remote,j", po::value<std::string>(&config.jaus_remote_addr)->required(), "Remote IP for JAUS traffic")
         ("port,p", po::value<uint16_t>(&config.local_port)->required(), "Local CoAP port")
         ("remote_port,q", po::value<uint16_t>(&config.remote_port)->implicit_value(5683), "Remote safety port")
-        ("jaus_remote_port,s", po::value<uint16_t>(&config.jaus_remote_port)->implicit_value(5683), "Remote JAUS port")
         ("net,n", po::value<std::string>(&config.local_addr)->required(), "Local network interface")
         ("config,c", po::value<std::string>(), "Path to config file")
         ("log_file", po::value<std::string>(&config.log_file), "Log file path")
@@ -129,7 +124,6 @@ int main(int argc, char *argv[]) {
     spdlog::info("FORT Agent Version {}", getFortAgentVersion());
     spdlog::info("Using serial port = {}", config.device);
     spdlog::info("Listening for CoAP traffic from {}:{}", config.remote_addr, config.remote_port);
-    spdlog::info("Listening for JAUS traffic from {}:{}", config.jaus_remote_addr, config.jaus_remote_port);
     spdlog::info("Hosting CoAP server on {}:{}", config.local_addr, config.local_port);
     spdlog::info("FORT Agent starting up");
 
@@ -147,26 +141,34 @@ int main(int argc, char *argv[]) {
         });
     };
 
-scheduleFlush(); // start the loop
-
+    scheduleFlush(); // start the loop
 
     try {
-        UartCoapBridge agentBridge(ioService, config.local_addr, config.local_port,
-                                       config.device, config.remote_addr, config.remote_port, config.jaus_remote_addr, config.jaus_remote_port);
-        StatTrace statTrace(ioService);
+        // Initialize JAUS Bridge
+        // Create JAUS client implementation
+        auto client = std::make_unique<JAUSClientImpl>();
+        // Get singleton instance of JausBridge
+        auto& jausBridge = JausBridgeSingleton::instance(std::move(client));
+        jausBridge.startServiceLoop(); // Start JAUS service loop
+
+        // Initialize UART-CoAP Bridge
+        auto& uartCoapBridge = UartCoapBridgeSingleton::instance( 
+            ioService, config.local_addr, config.local_port,
+            config.device, config.remote_addr, config.remote_port);
+
         ioService.run();
         return 0;
     }
     catch (std::runtime_error &e) {
         spdlog::critical("Stopping fort_agent due to fatal exception: {}",
-                         e.what());
+                        e.what());
         ioService.stop();
         spdlog::drop_all();
         return 2;
     }
     catch (std::exception &e) {
         spdlog::critical("Stopping fort_agent due to fatal exception: {}",
-                         e.what());
+                        e.what());
         ioService.stop();
         spdlog::drop_all();
         return 3;

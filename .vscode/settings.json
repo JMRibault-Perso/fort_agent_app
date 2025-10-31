@@ -89,7 +89,17 @@
     "scoped_allocator": "cpp",
     "syncstream": "cpp",
     "*.conf": "bitbake",
-    "*.inc": "bitbake"
+    "*.inc": "bitbake",
+    "stdfloat": "cpp"
+  },
+  "cmake.configureSettings": {
+    "CMAKE_C_COMPILER": "/usr/bin/gcc",
+    "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+  },
+  "terminal.integrated.env.linux": {
+    "CPLUS_INCLUDE_PATH": "",
+    "C_INCLUDE_PATH": "",
+    "CPATH": ""
   },
   "python.autoComplete.extraPaths": [
     "${workspaceFolder}/sources/poky/bitbake/lib",

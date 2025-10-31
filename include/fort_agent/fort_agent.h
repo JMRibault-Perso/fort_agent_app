@@ -6,7 +6,10 @@
 #include <string>
 
 #include <fort_agent/dbgTrace.h>
-#include <fort_agent/uartCoapBridge.h>
+#include <fort_agent/uartCoapBridgeSingleton.h>
+#include <fort_agent/jaus/JausBridgeSingleton.h>
+#include <fort_agent/jaus/JausClientImpl.h>
+
 
 std::string getFortAgentVersion();
 

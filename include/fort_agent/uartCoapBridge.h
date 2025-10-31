@@ -17,12 +17,14 @@ public:
         uint16_t localPort,
         const std::string &serialPath,
         const std::string &remoteAddr,
-        uint16_t remotePort,
-        const std::string &jausRemoteAddr,
-        uint16_t jausRemotePort
+        uint16_t remotePort
     );
 
     ~UartCoapBridge() = default;
+
+    void postUserDisplayTest(const std::string &text, const std::string &subtext);
+    void sendObserveJoystickCombinedRequest(uint8_t observeValue = 0);
+    void sendObserveSRCPModeRequest(uint8_t observeValue = 0);
 
 private:
     // Reference to the boost asio service
@@ -44,8 +46,6 @@ private:
     boost::asio::ip::udp::endpoint from;  // Dummy variable used by async_recv_from, when receiving UDP from local clients
     static constexpr int localBindRetrySeconds = 5;
     boost::asio::ip::address remoteHost;
-    boost::asio::ip::address jausHemoteHost;
-    uint16_t jausRemotePort;
 
     void bindLocal();
 
@@ -54,8 +54,6 @@ private:
     void sendToRemote(boost::asio::ip::udp::endpoint to,
                       std::shared_ptr<uint8_t[]> data, std::size_t length);
 
-    void sendObserveJoystickCombinedRequest(uint8_t observeValue = 0);
-    void sendObserveSRCPModeRequest(uint8_t observeValue = 0);
     void sendRequest(const std::vector<uint8_t> &coapMsg, const uint16_t port);
     // Relay received CoAP messages to the right client
     CoapPortTracker coapPorts;

@@ -5,7 +5,7 @@
 #include <spdlog/fmt/ostr.h>
 
 #include <fort_agent/coapHelpers.h>
-#include <fort_agent/coapJausBridge.h>
+#include <fort_agent/jaus/JausBridgeSingleton.h>
 
 using fmt::format;
 
@@ -13,6 +13,8 @@ using fmt::format;
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iostream>
+
 
 
 UartCoapBridge::UartCoapBridge(
@@ -21,9 +23,7 @@ UartCoapBridge::UartCoapBridge(
     uint16_t localPort,
     const std::string &serialPath,
     const std::string &remoteAddr,
-    uint16_t remotePort,
-    const std::string &jausRemoteAddr,
-    uint16_t jausRemotePort) :
+    uint16_t remotePort) :
     ioService(service),
     serialHandler(),
     listenPort(localPort),
@@ -33,14 +33,12 @@ UartCoapBridge::UartCoapBridge(
     localBindRetryTimer(service),
     from(),
     remoteHost(boost::asio::ip::address::from_string(remoteAddr)),
-    jausHemoteHost(boost::asio::ip::address::from_string(jausRemoteAddr)),
     coapPorts(service, remotePort),
     failedToBindLocal(spdlog::level::err),
     failedToReceiveFromRemote(spdlog::level::err),
     failedToSendSerial(spdlog::level::warn),
     failedToListenSerial(spdlog::level::warn),
-    failedToSendToRemote(),
-    jausRemotePort(jausRemotePort) {
+    failedToSendToRemote() {
     FXN_TRACE;
     serialHandler = std::make_unique<SerialHandler>(
         service,
@@ -89,8 +87,6 @@ void UartCoapBridge::serialDataReceived(uint8_t *message, uint32_t size) {
         return;
     }
 
-    // spdlog::debug("Serial data received, {} bytes payload", size);
-
     uint16_t port = 0;
 
     try {
@@ -103,32 +99,18 @@ void UartCoapBridge::serialDataReceived(uint8_t *message, uint32_t size) {
         // Special handling for JAUS messages - forward to JAUS bridge
         // The port range 900-1100 is reserved for JAUS messages
         if (port >= 900 && port <= 1100) {
-
-            
-            JausBridge JausBridge;
-    
             spdlog::debug("JAUS: Tracking response MID {} -> port {}, msg = {}",
-                Coap::getMid(data.get()), port,
+            Coap::getMid(data.get()), port, 
                 UartCoapBridge::dataToHex(data.get(), len));
 
-                    size_t offset = 0;
-
+            // Get the payload from the CoAP message
             Coap::CoapReply reply = Coap::parseObserveReply(data.get(), len);
 
-            if (JausBridge.EvaluateCoapJausMessage(port, reply.payload.data(), reply.payload.size())) {
+            // Forward to JAUS bridge for evaluation
+            auto& jausBridge = JausBridgeSingleton::instance();
+            if (jausBridge.EvaluateCoapJausMessage((JausBridge::JausPort) port, reply.payload.data(), reply.payload.size())) {
                 // Message was handled by JAUS bridge, do not forward
                 spdlog::debug("JAUS: CoAP message handled by JAUS bridge, not forwarding");
-                return;
-            }
-
-            switch (port)
-            {
-            case 1001: // SRCP Mode
-                /* code */
-                break;
-            
-            default:
-                break;
             }
         } else {
             // Forward everything else to remote CoAP server
@@ -321,7 +303,8 @@ void UartCoapBridge::sendRequest(const std::vector<uint8_t> &coapMsg, const uint
 void UartCoapBridge::sendObserveSRCPModeRequest(uint8_t observeValue) {
     FXN_TRACE;
 
-    uint16_t port = 1001;
+    uint16_t port = (uint16_t)JausBridge::JausPort::SRCP_MODE;
+
     std::vector<uint8_t> coapMsg = Coap::buildMessage(
         Coap::Type::CON,    // Confirmable message
         Coap::Method::GET,  // GET method
@@ -337,10 +320,17 @@ void UartCoapBridge::sendObserveSRCPModeRequest(uint8_t observeValue) {
     sendRequest(coapMsg, port);
 }
 
+void UartCoapBridge::postUserDisplayTest(const std::string &text, const std::string &subtext) {
+    FXN_TRACE;
+    std::cout << "UartCoapBridge::postUserDisplayTest: text='" << text << "', subtext='" << subtext << "'" << std::endl;
+    
+
+    }
+
 void UartCoapBridge::sendObserveJoystickCombinedRequest(uint8_t observeValue) {
     FXN_TRACE;
 
-    uint16_t port = 1000;
+    uint16_t port = (uint16_t)JausBridge::JausPort::COMBINED_JS;
     std::vector<uint8_t> coapMsg = Coap::buildMessage(
         Coap::Type::CON,    // Confirmable message
         Coap::Method::GET,  // GET method

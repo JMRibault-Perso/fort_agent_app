@@ -12,8 +12,23 @@ set(HEADER_LIST
     ${HEADER_PATH}/slip.h
     ${HEADER_PATH}/spammyLogMsg.h
     ${HEADER_PATH}/uartCoapBridge.h
-    ${HEADER_PATH}/coapJausBridge.h
+    ${HEADER_PATH}/uartCoapBridgeSingleton.h
     ${HEADER_PATH}/fort_agent.h
+
+    ${HEADER_PATH}/jaus/JausBridge.h
+    ${HEADER_PATH}/jaus/JausBridgeSingleton.h
+    ${HEADER_PATH}/jaus/JausClient.h
+    ${HEADER_PATH}/jaus/JausClientImpl.h
+    ${HEADER_PATH}/jaus/vehicleStateMachine.h
+
+    ${HEADER_PATH}/jaus/states/IVehicleState.h
+    ${HEADER_PATH}/jaus/states/InitializeState.h
+    ${HEADER_PATH}/jaus/states/StandbyState.h
+    ${HEADER_PATH}/jaus/states/EmergencyState.h
+    ${HEADER_PATH}/jaus/states/ShutdownState.h
+    ${HEADER_PATH}/jaus/states/ReadyState.h
+
+    ${HEADER_PATH}/uart/FORTJoystick/FORTJoystickHelpers.h
 )
 
 set(SOURCE_PATH ${CMAKE_SOURCE_DIR}/src)
@@ -24,8 +39,12 @@ set(SOURCE_LIST
     ${SOURCE_PATH}/serialHandler.cpp
     ${SOURCE_PATH}/slip.cpp
     ${SOURCE_PATH}/uartCoapBridge.cpp
-    ${SOURCE_PATH}/coapJausBridge.cpp
+    ${SOURCE_PATH}/uartCoapBridgeSingleton.cpp
     ${SOURCE_PATH}/fort_agent.cpp
+    ${SOURCE_PATH}/jaus/JausBridge.cpp
+    ${SOURCE_PATH}/jaus/JausBridgeSingleton.cpp
+    ${SOURCE_PATH}/jaus/JausClientImpl.cpp
+    ${SOURCE_PATH}/uart/FORTJoystick/FORTJoystickHelpers.cpp
 )
 
 add_library(${CMAKE_PROJECT_NAME}_lib ${SOURCE_LIST} ${HEADER_LIST})
@@ -51,6 +70,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}_lib
         fmt::fmt
 )
 
+
 ###############################################################################
 # Install
 ###############################################################################
@@ -63,3 +83,7 @@ install(TARGETS ${CMAKE_PROJECT_NAME}_lib
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
+# OpenJAUS configuration file
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/fort_agent_app.ojconf
+        DESTINATION ${CMAKE_INSTALL_BINDIR})
+###############################################################################
