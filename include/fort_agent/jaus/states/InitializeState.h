@@ -2,7 +2,7 @@
 
 #include <fort_agent/jaus/JausClient.h>
 #include <fort_agent/jaus/states/IVehicleState.h>
-#include <fort_agent/jaus/states/StandbyState.h>
+#include <fort_agent/jaus/states/ControlState.h>
 
 class InitializeState : public IVehicleState {
 public:
@@ -30,7 +30,7 @@ public:
     void update() override {}
 
     std::unique_ptr<IVehicleState> next() override {
-        return vehicleFound ? std::make_unique<StandbyState>(client, display) : nullptr;
+        return vehicleFound ? std::make_unique<ControlState>(client, display) : nullptr;
     }
 
 private:

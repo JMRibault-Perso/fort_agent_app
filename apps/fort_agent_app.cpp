@@ -149,13 +149,15 @@ int main(int argc, char *argv[]) {
         auto client = std::make_unique<JAUSClientImpl>();
         // Get singleton instance of JausBridge
         auto& jausBridge = JausBridgeSingleton::instance(std::move(client));
-        jausBridge.startServiceLoop(); // Start JAUS service loop
 
         // Initialize UART-CoAP Bridge
         auto& uartCoapBridge = UartCoapBridgeSingleton::instance( 
             ioService, config.local_addr, config.local_port,
             config.device, config.remote_addr, config.remote_port);
 
+        // Start JAUS service loop, must be done after UartCoapBridge is initialized
+        jausBridge.startServiceLoop(); 
+        // Start IO service loop
         ioService.run();
         return 0;
     }

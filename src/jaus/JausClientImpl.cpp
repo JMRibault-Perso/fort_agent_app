@@ -9,44 +9,28 @@ using namespace openjaus::core_v1_1::accesscontrol;
 using namespace openjaus::core_v1_1::management;
 using namespace openjaus::mobility_v1_1::globalposesensor; // Pull in all GlobalPoseSensor messages
 using namespace openjaus::mobility_v1_1::primitivedriver;  // Pull in all PrimitiveDriver messages
+using namespace openjaus::core_v1_1::informclass::fields::reportstatus;
 using openjaus::mobility_v1_1::GlobalPoseSensor;
 using openjaus::mobility_v1_1::PrimitiveDriver;
 
 const std::string JAUS_CLIENT_VERSION = "1.0.0";
 
+// Static member initialization
+bool JAUSClientImpl::controlGranted = false;
+reportstatusrec::Status JAUSClientImpl::currentStatus = reportstatusrec::Status::INITIALIZE;
+
 // Verbose functions..
-void handleRequestControlResponse(const model::ControlResponse& response);
-void handleReleaseControlResponse(const model::ControlResponse& response);
-
-bool handleIncomingReportControl(ReportControl& incoming);
-bool handleIncomingReportStatus(ReportStatus& incoming);
-bool handleIncomingReportGlobalPose(ReportGlobalPose& incoming);
-bool handleIncomingReportGeomagneticProperty(ReportGeomagneticProperty& incoming);
-bool handleIncomingReportWrenchEffort(ReportWrenchEffort& incoming);
-void handleEventRequestResponse(const model::EventRequestResponseArgs& response);
-
-std::string toString(double value, bool enabled);
-
-double normalizeJoysticValue(int x) {
-    constexpr int min_raw = -2047;
-    constexpr int max_raw = 2048;
-    constexpr double min_norm = -100.0;
-    constexpr double max_norm = 100.0;
-
-    double scale = (max_norm - min_norm) / (max_raw - min_raw);
-    return min_norm + (x - min_raw) * scale;
-}
-
-
 
 JAUSClientImpl::JAUSClientImpl()
-    : component("FORTClientComponent_v1_1"),
-      controlGranted(false),
-      reportGlobalPoseSubscribed(false),
+    : reportGlobalPoseSubscribed(false),
       reportGlobalPoseSubscriptionId(0),
       reportWrenchEffortSubscribed(false),
-      reportWrenchEffortSubscriptionId(0){
-
+      reportWrenchEffortSubscriptionId(0),
+      component("FORTClientComponent_v1_1"){
+      }
+      
+void JAUSClientImpl::initializeJAUS() {
+      
     // Constructor implementation
     spdlog::info("FORT JAUS client version {}", JAUS_CLIENT_VERSION);
 
@@ -56,15 +40,18 @@ JAUSClientImpl::JAUSClientImpl()
     // with the server, it may be better to wrap the Base component inside your own class.
 
     // Add the callbacks that will execute when specific messages are received.
-    component.addMessageCallback(&handleIncomingReportControl);
-    component.addMessageCallback(&handleIncomingReportStatus);
-    component.addMessageCallback(&handleIncomingReportGlobalPose);
-    component.addMessageCallback(&handleIncomingReportGeomagneticProperty);
-    component.addMessageCallback(&handleIncomingReportWrenchEffort);
+    component.addMessageCallback(&JAUSClientImpl::handleIncomingReportControl);
+    component.addMessageCallback(&JAUSClientImpl::handleIncomingReportStatus);
+    component.addMessageCallback(&JAUSClientImpl::handleIncomingReportGlobalPose);
+    component.addMessageCallback(&JAUSClientImpl::handleIncomingReportGeomagneticProperty);
+    component.addMessageCallback(&JAUSClientImpl::handleIncomingReportWrenchEffort);
+
 
     // Run the Components which starts the sending/receiving/processing of messages
     component.run();
+
 }
+
 bool JAUSClientImpl::discoverVehicle() {
     std::vector<transport::Address> pdList = component.getSystemRegistry()->lookupService(PrimitiveDriver::uri());
 
@@ -93,23 +80,48 @@ bool JAUSClientImpl::sendRequestControl() {
         return false;
     }
 
-    std::cout << "Requesting Control of " << serverAddress << std::endl;
-    std::cout << std::endl;
-
     // The Base component exposes methods which do some basic AccessControl message management.
     // The requestControl method sends a RequestControl message with a SAFETY_CRITICAL priority.
     // When a response is received (ConfirmControl or RejectControl) the provided callback will
     // be executed.
     component.requestControl(serverAddress, 128, handleRequestControlResponse);
-    controlGranted = true; // Placeholder
-    return controlGranted;
+
+    return true;
 }
 
 bool JAUSClientImpl::hasControl() const {
     // Implementation to check if control is granted, 
-    return controlGranted;
+    return JAUSClientImpl::controlGranted;
 }
 
+bool JAUSClientImpl::sendRequestResume() {
+    if (!serverAddress.isValid()) {
+        return false;
+    }
+
+    Resume* message = new Resume();
+    message->setDestination(serverAddress);
+    component.sendMessage(message);
+
+    return true;
+}
+
+bool JAUSClientImpl::queryStatus() {
+    if (!serverAddress.isValid()) {
+        return false;
+    }
+
+    QueryStatus* message = new QueryStatus();
+    message->setDestination(serverAddress);
+    component.sendMessage(message);
+
+    return true;
+}
+
+bool JAUSClientImpl::hasReadyState() const {
+    // Implementation of ready state check
+    return currentStatus == reportstatusrec::Status::READY; // Placeholder
+}
 bool JAUSClientImpl::isHeartbeatAlive() const {
     // Implementation of heartbeat check
     return true; // Placeholder
@@ -118,8 +130,7 @@ bool JAUSClientImpl::isHeartbeatAlive() const {
 void JAUSClientImpl::sendWrenchEffort(const frc_joystick_data_t& data) {
     
     // Implementation of sending wrench effort
-    std::cout << "Sending SetWrenchEffort to " << serverAddress << std::endl;
-    std::cout << std::endl;
+    std::ostringstream frame;
 
     auto* message = new SetWrenchEffort();
     message->setDestination(serverAddress);
@@ -149,9 +160,8 @@ void JAUSClientImpl::sendWrenchEffort(const frc_joystick_data_t& data) {
 }
 
 
-void handleRequestControlResponse(const model::ControlResponse& response)
+void JAUSClientImpl::handleRequestControlResponse(const model::ControlResponse& response)
 {
-    printToConsole.flushString("\033[2J\033[3J\033[H\n");
     std::ostringstream frame;
 
     frame << std::endl;
@@ -165,11 +175,18 @@ void handleRequestControlResponse(const model::ControlResponse& response)
 
     // Final flush
     printToConsole.flushString(frame.str());
+
+    // Set controlGranted based on response
+    // We use a static value to support this in a static method
+    if (response.getResponseType() == model::ControlResponseType::CONTROL_ACCEPTED) {
+        JAUSClientImpl::controlGranted = true;
+    } else {
+        JAUSClientImpl::controlGranted = false; 
+    }
 }
 
-void handleReleaseControlResponse(const model::ControlResponse& response)
+void JAUSClientImpl::handleReleaseControlResponse(const model::ControlResponse& response)
 {
-    printToConsole.flushString("\033[2J\033[3J\033[H\n");
     std::ostringstream frame;
 
     frame << std::endl;
@@ -183,13 +200,17 @@ void handleReleaseControlResponse(const model::ControlResponse& response)
 
     // Final flush
     printToConsole.flushString(frame.str());
+
+    // Not sure what to do on release control response and not CONTROL_RELEASED received
+    if (response.getResponseType() == model::ControlResponseType::CONTROL_RELEASED) {
+        JAUSClientImpl::controlGranted = false;
+    } 
 }
 
-bool handleIncomingReportControl(ReportControl& incoming)
+bool JAUSClientImpl::handleIncomingReportControl(ReportControl& incoming)
 {
     auto& controlRec = incoming.getReportControlRec();
 
-    printToConsole.flushString("\033[2J\033[3J\033[H\n");
     std::ostringstream frame;
 
     frame << std::endl;
@@ -209,11 +230,10 @@ bool handleIncomingReportControl(ReportControl& incoming)
     return true;
 }
 
-bool handleIncomingReportStatus(ReportStatus& incoming)
+bool JAUSClientImpl::handleIncomingReportStatus(ReportStatus& incoming)
 {
     const auto& reportRec = incoming.getReportStatusRec();
 
-    printToConsole.flushString("\033[2J\033[3J\033[H\n");
     std::ostringstream frame;
 
     frame << std::endl;
@@ -227,14 +247,15 @@ bool handleIncomingReportStatus(ReportStatus& incoming)
     // Final flush
     printToConsole.flushString(frame.str());
 
+    currentStatus = reportRec.getStatus();
+
     return true;
 }
 
-bool handleIncomingReportGlobalPose(ReportGlobalPose& message)
+bool JAUSClientImpl::handleIncomingReportGlobalPose(ReportGlobalPose& message)
 {
     auto& globalPoseRec = message.getGlobalPoseRec();
 
-    printToConsole.flushString("\033[2J\033[3J\033[H\n");
     std::ostringstream frame;
 
     frame << std::endl;
@@ -256,11 +277,10 @@ bool handleIncomingReportGlobalPose(ReportGlobalPose& message)
     return true;
 }
 
-bool handleIncomingReportGeomagneticProperty(ReportGeomagneticProperty& message)
+bool JAUSClientImpl::handleIncomingReportGeomagneticProperty(ReportGeomagneticProperty& message)
 {
     auto& geomagneticRec = message.getGeomagneticPropertyRec();
 
-    printToConsole.flushString("\033[2J\033[3J\033[H\n");
     std::ostringstream frame;
 
     frame << std::endl;
@@ -277,9 +297,8 @@ bool handleIncomingReportGeomagneticProperty(ReportGeomagneticProperty& message)
     return true;
 }
 
-void handleEventRequestResponse(const model::EventRequestResponseArgs& response)
+void JAUSClientImpl::handleEventRequestResponse(const model::EventRequestResponseArgs& response)
 {
-    printToConsole.flushString("\033[2J\033[3J\033[H\n");
     std::ostringstream frame;
 
     frame << std::endl;
@@ -296,11 +315,10 @@ void handleEventRequestResponse(const model::EventRequestResponseArgs& response)
     printToConsole.flushString(frame.str());
 }
 
-bool handleIncomingReportWrenchEffort(ReportWrenchEffort& message)
+bool JAUSClientImpl::handleIncomingReportWrenchEffort(ReportWrenchEffort& message)
 {
     auto& wrenchEffortRec = message.getWrenchEffortRec();
 
-    printToConsole.flushString("\033[2J\033[3J\033[H\n");
     std::ostringstream frame;
 
     frame << std::endl;
@@ -334,18 +352,31 @@ bool handleIncomingReportWrenchEffort(ReportWrenchEffort& message)
     return true;
 }
 
-std::string toString(double value, bool enabled)
-{
+// TODO: Move to utility file if needed elsewhere
+double JAUSClientImpl::normalizeJoysticValue(int x) {
+    constexpr int min_raw = -2047;
+    constexpr int max_raw = 2047;
+    constexpr double min_norm = -100.0;
+    constexpr double max_norm = 100.0;
+
+    double scale = (max_norm - min_norm) / (max_raw - min_raw);
+    double midpoint_raw = (max_raw + min_raw) / 2.0;
+    double midpoint_norm = (max_norm + min_norm) / 2.0;
+
+    x = std::max(x, min_raw);
+    x = std::min(x, max_raw);
+    return midpoint_norm + (x - midpoint_raw) * scale;
+}
+
+
+std::string JAUSClientImpl::toString(double value, bool enabled) {
     std::string output;
 
-    if (enabled)
-    {
+    if (enabled) {
         std::stringstream ss;
         ss << value;
         output = ss.str();
-    }
-    else
-    {
+    } else {
         output = "N/A";
     }
 

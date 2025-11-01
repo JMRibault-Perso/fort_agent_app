@@ -4,78 +4,75 @@
 
 set(APP_TARGET fort_agent_app)
 
+# ---------------------------------------------------------------------------
+# Source
+# ---------------------------------------------------------------------------
 add_executable(${APP_TARGET}
-    ${CMAKE_CURRENT_SOURCE_DIR}/fort_agent_app.cpp
+    fort_agent_app.cpp
 )
 
-# Public headers are already exported by the library;
-# here we just need the top-level include path for the app.
+# Only need your own project headers here; OpenJAUS includes come via imported targets
 target_include_directories(${APP_TARGET}
     PRIVATE
         ${CMAKE_SOURCE_DIR}/include
 )
 
-find_library(OJ_JAUS_LIB
-    NAMES openjaus
-    PATHS ${OJ_SDK_LIB_DIR}/openjaus
-    NO_DEFAULT_PATH
-)
-
-# Find OpenJAUS core and mobility libraries
-find_library(OJ_CORE_LIB
-    NAMES openjaus-core_v1_1
-    PATHS ${OJ_SDK_LIB_DIR}/core-v1.1
-    NO_DEFAULT_PATH
-)
-
-find_library(OJ_MOB_LIB
-    NAMES openjaus-mobility_v1_1
-    PATHS ${OJ_SDK_LIB_DIR}/mob-v1.1
-    NO_DEFAULT_PATH
-)
-
-# Fail early if not found
-
-if(NOT OJ_JAUS_LIB)
-    message(FATAL_ERROR "Could not find openjaus in ${OJ_SDK_LIB_DIR}/openjaus")
-endif()
-
-
-if(NOT OJ_CORE_LIB)
-    message(FATAL_ERROR "Could not find openjaus-core_v1_1 in ${OJ_SDK_LIB_DIR}/core-v1.1")
-endif()
-
-if(NOT OJ_MOB_LIB)
-    message(FATAL_ERROR "Could not find openjaus-mobility_v1_1 in ${OJ_SDK_LIB_DIR}/mob-v1.1")
-endif()
-
+# ---------------------------------------------------------------------------
+# Link libraries
+# ---------------------------------------------------------------------------
 target_link_libraries(${APP_TARGET}
     PRIVATE
         ${CMAKE_PROJECT_NAME}_lib
-        Boost::program_options   # only the app needs this
+        Boost::program_options
         spdlog::spdlog
         fmt::fmt
-        # Link OpenJAUS libraries
-        ${OJ_CORE_LIB}
-        ${OJ_MOB_LIB}
-        ${OJ_JAUS_LIB}
+        OpenJAUS::core
+        OpenJAUS::mobility
+        OpenJAUS::base
 )
 
+# ---------------------------------------------------------------------------
+# Link options
+# ---------------------------------------------------------------------------
 target_link_options(${APP_TARGET}
     PRIVATE "-Wl,--gc-sections"
 )
 
-# Associate config file with target (optional, for tooling)
-list(APPEND fort_agent_app_CONFIG_FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/fort_agent_app.ojconf)
+# Force full static linking for OpenJAUS libraries on aarch64
+if(CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64")
+    foreach(lib IN ITEMS OpenJAUS::core OpenJAUS::mobility OpenJAUS::base)
+        get_target_property(lib_path ${lib} IMPORTED_LOCATION)
+        target_link_options(${APP_TARGET}
+            PRIVATE "-Wl,--whole-archive" "${lib_path}" "-Wl,--no-whole-archive"
+        )
+    endforeach()
+endif()
 
+# ---------------------------------------------------------------------------
+# Config file handling
+# ---------------------------------------------------------------------------
+set(CONFIG_DIR ${CMAKE_SOURCE_DIR}/config)
+set(CONFIG_DEST ${CMAKE_CURRENT_BINARY_DIR})
 
-# Explicit install rule: always install as /usr/bin/fort_agent_app
+add_custom_target(copy_config_files ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CONFIG_DIR}/fort-agent.conf
+        ${CONFIG_DEST}/fort-agent.conf
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CONFIG_DIR}/fort_agent_app.ojconf
+        ${CONFIG_DEST}/fort_agent_app.ojconf
+    COMMENT "Copying config files into build tree for debugging"
+)
+
+# ---------------------------------------------------------------------------
+# Install rules
+# ---------------------------------------------------------------------------
 install(TARGETS ${APP_TARGET}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-# Install config file next to executable
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/fort_agent_app.ojconf
-        DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/fort-agent.conf
-        DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(FILES
+    ${CONFIG_DIR}/fort-agent.conf
+    ${CONFIG_DIR}/fort_agent_app.ojconf
+    DESTINATION ${CMAKE_INSTALL_BINDIR}
+)

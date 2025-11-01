@@ -4,6 +4,8 @@
 #include <fort_agent/jaus/JausClient.h>
 #include <fort_agent/jaus/states/IVehicleState.h>
 #include <fort_agent/jaus/states/EmergencyState.h>
+#include <fort_agent/jaus/states/StandbyState.h>
+
 
 #include <chrono>
 
@@ -33,7 +35,7 @@ public:
         }
 
         if (!client.hasControl()) {
-            emergencyTriggered = true;
+            hasControl = false;
         }
     }
 
@@ -41,12 +43,18 @@ public:
         if (emergencyTriggered) {
             return std::make_unique<EmergencyState>(client, display);
         }
+
+        if (!hasControl) {
+            // Transition to StandbyState 
+            //return std::make_unique<StandbyState>(client, display);
+        }
         return nullptr;
     }
 
 private:
     JAUSClient& client;
     bool emergencyTriggered = false;
+    bool hasControl = true;
     std::chrono::steady_clock::time_point lastHeartbeatCheck;
 
     bool isButtonPressed(uint16_t status, KeypadButton button) {

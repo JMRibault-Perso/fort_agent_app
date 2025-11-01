@@ -7,7 +7,7 @@ project(
     fort_agent
     VERSION 1.0.2
     DESCRIPTION "Serial UDP Proxy for RTOS devices to communicate over IP"
-    LANGUAGES CXX
+    LANGUAGES C CXX
 )
 
 # Detect architecture and set OpenJAUS SDK paths
@@ -22,13 +22,9 @@ endif()
 set(OJ_SDK_ROOT "$ENV{HOME}/openjaus-customers-iop-sdk/org.openjaus.iop-sdk.cpp")
 set(OJ_SDK_LIB_DIR "${OJ_SDK_ROOT}/${OJ_ARCH}")
 
-# Include OpenJAUS headers
-include_directories(
-    "${OJ_SDK_ROOT}/org.openjaus.core-v1.1.cpp/include"
-    "${OJ_SDK_ROOT}/org.openjaus.core-v1.1.cpp/generated/include"
-    "${OJ_SDK_ROOT}/org.openjaus.mobility-v1.1.cpp/generated/include"
-    "${OJ_SDK_ROOT}/org.openjaus.cpp/include"
-)
+# Include OpenJAUS CMake module
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+include(OpenJAUS)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -69,8 +65,7 @@ if(USE_FETCHCONTENT)
     )
     FetchContent_MakeAvailable(spdlog)
 
-    # Use system Boost for standalone builds (>=1.70 works, 1.78 on your dev box)
-    # find_package(Boost 1.70 REQUIRED COMPONENTS program_options)
+    # Boost (dev builds)
     FetchContent_Declare(
         boost
         GIT_REPOSITORY https://github.com/boostorg/boost.git
@@ -78,11 +73,35 @@ if(USE_FETCHCONTENT)
     )
     FetchContent_MakeAvailable(boost)
 
+    # TinyCBOR (dev builds)
+    FetchContent_Declare(
+        tinycbor
+        GIT_REPOSITORY https://github.com/intel/tinycbor.git
+        GIT_TAG v0.6.0
+    )
+    FetchContent_MakeAvailable(tinycbor)
+
+    set(USE_SYSTEM_TINYCBOR OFF)
+
 else()
-    # Yocto/system packages: enforce Boost 1.84
+    # Yocto/system packages
     find_package(Boost 1.84 EXACT REQUIRED COMPONENTS program_options)
     find_package(fmt REQUIRED)
     find_package(spdlog REQUIRED)
+
+    # Try CMake config first
+    find_package(tinycbor CONFIG)
+    if(tinycbor_FOUND)
+        set(USE_SYSTEM_TINYCBOR ON)
+    else()
+        # Fallback: look for headers and library manually
+        find_path(TINYCBOR_INCLUDE_DIR cbor.h)
+        find_library(TINYCBOR_LIB cbor)
+        if(NOT TINYCBOR_INCLUDE_DIR OR NOT TINYCBOR_LIB)
+            message(FATAL_ERROR "System TinyCBOR not found")
+        endif()
+        set(USE_SYSTEM_TINYCBOR ON)
+    endif()
 endif()
 
 ###############################################################################

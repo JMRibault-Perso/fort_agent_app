@@ -27,6 +27,7 @@ set(HEADER_LIST
     ${HEADER_PATH}/jaus/states/EmergencyState.h
     ${HEADER_PATH}/jaus/states/ShutdownState.h
     ${HEADER_PATH}/jaus/states/ReadyState.h
+    ${HEADER_PATH}/jaus/states/ControlState.h
 
     ${HEADER_PATH}/uart/FORTJoystick/FORTJoystickHelpers.h
 )
@@ -47,6 +48,30 @@ set(SOURCE_LIST
     ${SOURCE_PATH}/uart/FORTJoystick/FORTJoystickHelpers.cpp
 )
 
+# ---------------------------------------------------------------------------
+# TinyCBOR: build from source if not using system package
+# ---------------------------------------------------------------------------
+if(NOT USE_SYSTEM_TINYCBOR)
+    add_library(tinycbor STATIC
+        ${tinycbor_SOURCE_DIR}/src/cborencoder.c
+        ${tinycbor_SOURCE_DIR}/src/cborencoder_close_container_checked.c
+        ${tinycbor_SOURCE_DIR}/src/cborencoder_float.c
+        ${tinycbor_SOURCE_DIR}/src/cborerrorstrings.c
+        ${tinycbor_SOURCE_DIR}/src/cborparser.c
+        ${tinycbor_SOURCE_DIR}/src/cborparser_dup_string.c
+        ${tinycbor_SOURCE_DIR}/src/cborparser_float.c
+        ${tinycbor_SOURCE_DIR}/src/cborpretty.c
+        ${tinycbor_SOURCE_DIR}/src/cborpretty_stdio.c
+        ${tinycbor_SOURCE_DIR}/src/cborvalidation.c
+        ${tinycbor_SOURCE_DIR}/src/cbortojson.c
+        ${tinycbor_SOURCE_DIR}/src/open_memstream.c
+    )
+    target_include_directories(tinycbor PUBLIC ${tinycbor_SOURCE_DIR}/src)
+endif()
+
+# ---------------------------------------------------------------------------
+# Main library
+# ---------------------------------------------------------------------------
 add_library(${CMAKE_PROJECT_NAME}_lib ${SOURCE_LIST} ${HEADER_LIST})
 
 target_compile_definitions(${CMAKE_PROJECT_NAME}_lib
@@ -62,14 +87,32 @@ target_include_directories(${CMAKE_PROJECT_NAME}_lib
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
         ${Boost_INCLUDE_DIRS}
+        $<$<NOT:$<BOOL:${USE_SYSTEM_TINYCBOR}>>:${tinycbor_SOURCE_DIR}/src>
+        $<$<BOOL:${USE_SYSTEM_TINYCBOR}>:${TINYCBOR_INCLUDE_DIR}>
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME}_lib
     PRIVATE
         spdlog::spdlog
         fmt::fmt
+        $<$<NOT:$<BOOL:${USE_SYSTEM_TINYCBOR}>>:tinycbor>
+        $<$<BOOL:${USE_SYSTEM_TINYCBOR}>:${TINYCBOR_LIB}>
+        OpenJAUS::core
+        OpenJAUS::mobility
+        OpenJAUS::base
 )
 
+# ---------------------------------------------------------------------------
+# Force full static linking for OpenJAUS libraries on aarch64
+# ---------------------------------------------------------------------------
+if(CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64")
+    foreach(lib IN ITEMS OpenJAUS::core OpenJAUS::mobility OpenJAUS::base)
+        get_target_property(lib_path ${lib} IMPORTED_LOCATION)
+        target_link_options(${CMAKE_PROJECT_NAME}_lib
+            PRIVATE "-Wl,--whole-archive" "${lib_path}" "-Wl,--no-whole-archive"
+        )
+    endforeach()
+endif()
 
 ###############################################################################
 # Install
@@ -83,6 +126,7 @@ install(TARGETS ${CMAKE_PROJECT_NAME}_lib
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
+
 # OpenJAUS configuration file
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/fort_agent_app.ojconf
         DESTINATION ${CMAKE_INSTALL_BINDIR})

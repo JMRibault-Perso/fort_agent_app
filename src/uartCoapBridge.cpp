@@ -3,6 +3,7 @@
 #include <boost/algorithm/string.hpp>
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
+#include <cbor.h>
 
 #include <fort_agent/coapHelpers.h>
 #include <fort_agent/jaus/JausBridgeSingleton.h>
@@ -40,6 +41,7 @@ UartCoapBridge::UartCoapBridge(
     failedToListenSerial(spdlog::level::warn),
     failedToSendToRemote() {
     FXN_TRACE;
+
     serialHandler = std::make_unique<SerialHandler>(
         service,
         serialPath,
@@ -52,7 +54,7 @@ UartCoapBridge::UartCoapBridge(
     sendObserveJoystickCombinedRequest(0);
 
     // send Observe request for SRCP Mode resource
-    sendObserveSRCPModeRequest(1);
+    //sendObserveSRCPModeRequest(1);
     //sendObserveSRCPModeRequest(0);
 
     // bind local socket to local port and begin listening
@@ -320,12 +322,58 @@ void UartCoapBridge::sendObserveSRCPModeRequest(uint8_t observeValue) {
     sendRequest(coapMsg, port);
 }
 
+void UartCoapBridge::sendDisplayLineText(int lineIndex, const std::string& text) {
+    FXN_TRACE;
+
+    if (lineIndex < 0 || lineIndex > 3) {
+        spdlog::debug("sendDisplayLineText: Invalid line index: {}", lineIndex);
+        return;
+    }
+
+    constexpr size_t segmentCount = 3;
+    constexpr size_t segmentSize = 6;
+
+    for (uint8_t segmentIndex = 0; segmentIndex < segmentCount; ++segmentIndex) {
+        size_t offset = segmentIndex * segmentSize;
+        if (offset >= text.size()) {
+            break; // No more text to send
+        }
+
+        std::string segmentText = text.substr(offset, segmentSize);
+
+        // Prepare fixed-length payload
+        std::array<uint8_t, segmentSize> padded{};
+        std::memcpy(padded.data(), segmentText.c_str(), std::min(segmentText.size(), padded.size()));
+
+        // Build binary payload: [lineIndex][segmentIndex][6-byte payload]
+        std::vector<uint8_t> binaryPayload;
+        binaryPayload.push_back(static_cast<uint8_t>(lineIndex));
+        binaryPayload.push_back(segmentIndex);
+        binaryPayload.insert(binaryPayload.end(), padded.begin(), padded.end());
+
+        // Build CoAP POST message
+        std::vector<uint8_t> coapMsg = Coap::buildMessage(
+            Coap::Type::CON,
+            Coap::Method::POST,
+            0x4321 + segmentIndex, // Unique MID per segment
+            {"st", "display", "text"},
+            binaryPayload,
+            {}, // No token
+            Coap::Format::APPLICATION_OCTET_STREAM,
+            false, // No observe
+            0
+        );
+
+        sendRequest(coapMsg, 1002);
+    }
+}
 void UartCoapBridge::postUserDisplayTest(const std::string &text, const std::string &subtext) {
     FXN_TRACE;
     std::cout << "UartCoapBridge::postUserDisplayTest: text='" << text << "', subtext='" << subtext << "'" << std::endl;
-    
-
-    }
+   
+    //sendDisplayLineText(1, text);
+    //sendDisplayLineText(2, subtext);
+}
 
 void UartCoapBridge::sendObserveJoystickCombinedRequest(uint8_t observeValue) {
     FXN_TRACE;

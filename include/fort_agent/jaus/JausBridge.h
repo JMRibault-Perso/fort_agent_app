@@ -40,9 +40,7 @@ private:
     std::condition_variable queueCV;
     bool running = false;
     std::thread serviceThread;
-
-    VehicleStateMachine stateMachine; // assumes initialized with initial state
-
+    std::unique_ptr<VehicleStateMachine> stateMachine; 
     void serviceLoop();
 };
 

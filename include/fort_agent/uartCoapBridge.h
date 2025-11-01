@@ -27,6 +27,9 @@ public:
     void sendObserveSRCPModeRequest(uint8_t observeValue = 0);
 
 private:
+
+    void sendDisplayLineText(int lineIndex, const std::string& text);
+
     // Reference to the boost asio service
     boost::asio::io_service &ioService;
 

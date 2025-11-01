@@ -2,6 +2,10 @@
 build/
 build*/         # wildcard for any build variant
 
+# === Installation folders ===
+install/
+install*/         # wildcard for any install variant
+
 # === CMake artifacts ===
 CMakeCache.txt
 CMakeFiles/
@@ -50,3 +54,4 @@ Thumbs.db
 
 # === Journaling ===
 journal/*.md
+fort_agent_app.ojconf

@@ -12,11 +12,18 @@
 
 
 JausBridge::JausBridge(std::unique_ptr<JAUSClient> client) : 
-    jausClient(std::move(client)), stateMachine(std::make_unique<InitializeState>(*jausClient, UartCoapBridgeSingleton::instance())) {
+    jausClient(std::move(client))  {
+    stateMachine = nullptr;    
     // Constructor implementation
 }
 
 void JausBridge::startServiceLoop() {
+
+    // Initialize state machine with InitializeState
+    stateMachine = std::make_unique<VehicleStateMachine>(
+    std::make_unique<InitializeState>(*jausClient, UartCoapBridgeSingleton::instance()));
+
+    jausClient->initializeJAUS(); // Initialize JAUS client before starting loop
     running = true;
     serviceThread = std::thread(&JausBridge::serviceLoop, this);
 }
@@ -44,7 +51,7 @@ void JausBridge::serviceLoop() {
             inputQueue.pop();
         }
 
-        stateMachine.handleInput(input); // now takes frc_combined_data_t
+        stateMachine->handleInput(input); // now takes frc_combined_data_t
     }
 }
 
