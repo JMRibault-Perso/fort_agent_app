@@ -126,7 +126,7 @@ static uint16_t computeCRC16(const std::vector<uint8_t>& data) {
 
 std::vector<uint8_t> Coap::buildMessage(Type type, Method method, uint16_t mid,
                                         const std::vector<std::string>& uriSegments,
-                                        const std::vector<uint8_t>& cborPayload,
+                                        const std::vector<uint8_t>& payload,
                                         const std::vector<uint8_t>& token,
                                         Format contentFormat,
                                         bool includeObserve,
@@ -167,9 +167,9 @@ std::vector<uint8_t> Coap::buildMessage(Type type, Method method, uint16_t mid,
     }
 
     // Payload
-    if (method == Method::POST && !cborPayload.empty()) {
+    if (method == Method::POST && !payload.empty()) {
         msg.push_back(0xFF); // Payload marker
-        msg.insert(msg.end(), cborPayload.begin(), cborPayload.end());
+        msg.insert(msg.end(), payload.begin(), payload.end());
     }
 
     return msg;

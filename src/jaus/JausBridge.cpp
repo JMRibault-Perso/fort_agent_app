@@ -10,6 +10,10 @@
 #include <fort_agent/uartCoapBridgeSingleton.h>
 #include <fort_agent/dbgTrace.h>
 
+#include <fort_agent/uart/FORTJoystick/coapSRCPro.h>
+
+#define JB_MID 0x3000
+using namespace coapSRCPro;
 
 JausBridge::JausBridge(std::unique_ptr<JAUSClient> client) : 
     jausClient(std::move(client))  {
@@ -18,10 +22,33 @@ JausBridge::JausBridge(std::unique_ptr<JAUSClient> client) :
 }
 
 void JausBridge::startServiceLoop() {
+    // Let's setup the Joystick uart modes here
+    
+    // Verbose stuff
+    coapSRCPro::getSerialNumber(JB_MID);
+    coapSRCPro::getModelNumber(JB_MID);
+
+    // send Observe request for joystick/combined resource
+    coapSRCPro::unsubscribeCombinedJoystickKeypad(JB_MID);
+    coapSRCPro::subscribeCombinedJoystickKeypad(JB_MID);
+
+
+    //coapSRCPro::getBatteryStatus(JB_MID); // observe battery status
+
+    //coapSRCPro::unsubscribeBatteryStatus(JB_MID);
+    //coapSRCPro::subscribeBatteryStatus(JB_MID); 
+
+    // send Observe request for SRCP Mode resource
+    //sendObserveSRCPModeRequest(1);
+    //sendObserveSRCPModeRequest(0);
+
+    coapSRCPro::postVibrateBoth(JB_MID); // post vibration
+
+
 
     // Initialize state machine with InitializeState
     stateMachine = std::make_unique<VehicleStateMachine>(
-    std::make_unique<InitializeState>(*jausClient, UartCoapBridgeSingleton::instance()));
+    std::make_unique<InitializeState>(*jausClient));
 
     jausClient->initializeJAUS(); // Initialize JAUS client before starting loop
     running = true;
@@ -41,30 +68,111 @@ void JausBridge::stopServiceLoop() {
 
 void JausBridge::serviceLoop() {
     while (running) {
-        frc_combined_data_t input;
+        BridgeMessage msg;
         {
             std::unique_lock<std::mutex> lock(queueMutex);
             queueCV.wait(lock, [&] { return !inputQueue.empty() || !running; });
 
             if (!running) break;
-            input = inputQueue.front();
+            msg = inputQueue.front();
             inputQueue.pop();
         }
 
-        stateMachine->handleInput(input); // now takes frc_combined_data_t
+        switch (msg.kind) {
+            case BridgeMessage::Kind::JoysticInput:
+                stateMachine->handleInput(msg.joystickInput);
+                break;
+            case BridgeMessage::Kind::JAUSResponse:
+                stateMachine->handleResponse();
+                break;
+        }
     }
 }
 
 
-bool JausBridge::EvaluateCoapJausMessage(JausBridge::JausPort jausPort, const uint8_t* payload, size_t payloadLen) {
+bool JausBridge::evaluateCoapJausMessage(JausBridge::JausPort jausPort, const uint8_t* payload, size_t payloadLen) {
     bool ret = true; // Assume we handled the message
 
     switch(jausPort) {
+        case JausPort::SAFETY: // Safety
+            break;
+        case JausPort::DIAGNOSTICS: // Diagnostics
+            break;
+        case JausPort::SAFETYCOMBINED: // Safety Combined
+            break;
+        case JausPort::RADIOMODE: // Radio Mode
+            break;
+        case JausPort::RADIOPOWER: // Radio Power
+            break;
+        case JausPort::RADIOCHANNEL: // Radio Channel
+            break;
+        case JausPort::RADIOSTATUS: // Radio Status
+            break;
+        case JausPort::RADIOUSED: // Radio Used
+            break;
+        case JausPort::FIRMWAREVERSION: // Firmware Version
+            break;
+        case JausPort::CPUTEMP: // CPU Temp
+            break;
+        case JausPort::DEVICETEMP: // Device Temp
+            break;
+        case JausPort::GAUGETEMP: // Gauge Temp
+            break;
+        case JausPort::GYROTEMP: // Gyro Temp
+            break;
+        case JausPort::BATTERYSTATUS: // Battery Status
+            if (payloadLen != 0) {
+                batteryStatus = decode_battery_payload(payload, payloadLen);
+                spdlog::debug("JAUS: Battery Status - {}% | {:.2f}V | {:.2f}C | {:.2f}A",
+                    batteryStatus.percent, batteryStatus.volts, batteryStatus.tempC, batteryStatus.amps);
+                }
+            break;
+        case JausPort::SYSTEMSTATUS: // System Status
+            break;
+        case JausPort::LOCKDOWNSTATUS: // Lockdown Status
+            break;
+        case JausPort::SERIALNUMBER: // Serial Number
+            if (payloadLen != 0) {
+                std::string serial(reinterpret_cast<const char*>(payload), payloadLen);
+                serialNumber = serial;
+                spdlog::debug("JAUS: Received Serial Number: {}", serial);
+                std::cout << "JAUS: Received Serial Number: " << serial << std::endl;
+            }
+            break;
+        case JausPort::MODELNUMBER: // Model Number
+            if (payloadLen != 0) {
+                std::string model(reinterpret_cast<const char*>(payload), payloadLen);
+                modelNumber = model;
+                spdlog::debug("JAUS: Received Model Number: {}", model);
+                std::cout << "JAUS: Received Model Number: " << model << std::endl;
+            }
+            break;
+        case JausPort::DEVICEMAC: // Device MAC
+            break;
+        case JausPort::DEVICEUID: // Device UID
+            break;
+        case JausPort::DEVICEREV: // Device Rev
+            break;
+        case JausPort::SYSTEMRESET: // System Reset
+            break;
+        case JausPort::DISPLAYMODE: // Display Mode
+            break;
+        case JausPort::VIBRATIONLEFT: // Vibration Left
+            break;
+        case JausPort::VIBRATIONRIGHT: // Vibration Right
+            break;
+        case JausPort::VIBRATIONBOTH: // Vibration Both
+            spdlog::debug("JAUS: Decoded combined joystick payload successfully");
+            break;
+        case JausPort::FIRMWAREFILEDATA: // Firmware File Data
+            break;
+        case JausPort::FIRMWAREFILEMETADATA: // Firmware File Metadata
+            break;
         case JausPort::KEYPAD : // Keypad
             break;
-        case JausPort::CALIBRATED_JS : // Calibrated Joystick
+        case JausPort::JOYSTICKCALIBRATED : // Calibrated Joystick
             break;
-        case JausPort::COMBINED_JS: // Combined Joystick
+        case JausPort::COMBINEDJOYSTICKKEYPAD: // Combined Joystick
             if (decode_combined_payload(payload, payloadLen) ){
                 spdlog::debug("JAUS: Decoded combined joystick payload successfully");
                 postInput(*reinterpret_cast<const frc_combined_data_t*>(payload));
@@ -72,18 +180,35 @@ bool JausBridge::EvaluateCoapJausMessage(JausBridge::JausPort jausPort, const ui
                 spdlog::warn("JAUS: Failed to decode combined joystick payload");                       
             }
             break;
-        case JausPort::SRCP_MODE: // SRCP Mode
+        case JausPort::FSODATA: // FSO Data
             break;
-        case JausPort::DISPLAY_TEXT: // Display Text
+        case JausPort::OPTKEY: // OTP Key
+            break;
+        case JausPort::OPTCOMMIT: // OTP Commit
+            break;
+        case JausPort::LOCKDOWNPROCESSORKEY: // Lockdown Processor Key
+            break;
+        case JausPort::SCP03ROTATE: // SCP03 Rotate
+            break;
+        case JausPort::OTPWRITEDEVTEST: // OTP Write Dev Test
             break;
         default:
-            spdlog::warn("JAUS: Unknown port {}, cannot handle message", jausPort);
+            spdlog::warn("JAUS: Unknown port {}, cannot handle message", static_cast<uint16_t>(jausPort));
+            ret = false; // Did not handle the message
             break;
     }
-    
     return ret;
     }
 
+void JausBridge::postJAUSResponse() {
+    {
+        std::lock_guard<std::mutex> lock(queueMutex);
+        BridgeMessage msg;
+        msg.kind = BridgeMessage::Kind::JAUSResponse;
+        inputQueue.push(msg);
+    }
+    queueCV.notify_one();
+}
 
 
 void JausBridge::postInput(const frc_combined_data_t& input) {
@@ -96,8 +221,59 @@ void JausBridge::postInput(const frc_combined_data_t& input) {
 
     {
         std::lock_guard<std::mutex> lock(queueMutex);
-        inputQueue.push(input);
+        BridgeMessage msg;
+        msg.joystickInput = input;
+        msg.kind = BridgeMessage::Kind::JoysticInput;
+        inputQueue.push(msg);
     }
     queueCV.notify_one();
 }
+
+/*
+void JausBridge::sendDisplayLineText(int lineIndex, const std::string& text) {
+    FXN_TRACE;
+
+    if (lineIndex < 0 || lineIndex > 3) {
+        spdlog::debug("sendDisplayLineText: Invalid line index: {}", lineIndex);
+        return;
+    }
+
+    constexpr size_t segmentCount = 3;
+    constexpr size_t segmentSize = 6;
+
+    for (uint8_t segmentIndex = 0; segmentIndex < segmentCount; ++segmentIndex) {
+        size_t offset = segmentIndex * segmentSize;
+        if (offset >= text.size()) {
+            break; // No more text to send
+        }
+
+        std::string segmentText = text.substr(offset, segmentSize);
+
+        // Prepare fixed-length payload
+        std::array<uint8_t, segmentSize> padded{};
+        std::memcpy(padded.data(), segmentText.c_str(), std::min(segmentText.size(), padded.size()));
+
+        // Build binary payload: [lineIndex][segmentIndex][6-byte payload]
+        std::vector<uint8_t> binaryPayload;
+        binaryPayload.push_back(static_cast<uint8_t>(lineIndex));
+        binaryPayload.push_back(segmentIndex);
+        binaryPayload.insert(binaryPayload.end(), padded.begin(), padded.end());
+
+        // Build CoAP POST message
+        std::vector<uint8_t> coapMsg = Coap::buildMessage(
+            Coap::Type::CON,
+            Coap::Method::POST,
+            0x4321 + segmentIndex, // Unique MID per segment
+            {"st", "display", "text"},
+            binaryPayload,
+            {}, // No token
+            Coap::Format::APPLICATION_OCTET_STREAM,
+            false, // No observe
+            0
+        );
+
+        sendRequest(coapMsg, 1002);
+    }
+}
+    */
 

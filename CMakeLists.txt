@@ -20,6 +20,7 @@ else()
 endif()
 
 set(OJ_SDK_ROOT "$ENV{HOME}/openjaus-customers-iop-sdk/org.openjaus.iop-sdk.cpp")
+# set(OJ_SDK_ROOT "${OPENJAUS_SDK_ROOT}")
 set(OJ_SDK_LIB_DIR "${OJ_SDK_ROOT}/${OJ_ARCH}")
 
 # Include OpenJAUS CMake module

@@ -50,7 +50,7 @@ namespace Coap {
     // Building
     std::vector<uint8_t> buildMessage(Type type, Method method, uint16_t mid,
                                     const std::vector<std::string>& uriSegments,
-                                    const std::vector<uint8_t>& cborPayload,
+                                    const std::vector<uint8_t>& payload,
                                     const std::vector<uint8_t>& token,
                                     Format contentFormat = Format::NONE,
                                     bool includeObserve = false,

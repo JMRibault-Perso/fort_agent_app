@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <cstddef> 
+#include <string>
 
 /* C/C++ style structural representation */
 #define CALIBRATED_JS_DATA_BITS (12)
@@ -46,6 +47,14 @@ struct frc_combined_data_t {
 };
 #pragma pack(pop)
 
+struct BatteryStatus {
+    int percent;
+    double volts;
+    double tempC;
+    double amps;
+};
+
+
 enum class KeypadButton : uint16_t {
     Menu     = 1 << 0,
     Pause    = 1 << 1,
@@ -75,4 +84,8 @@ inline bool isButtonPressed(uint16_t status, KeypadButton button) {
 
 void printJoystickStatus(const frc_combined_data_t& js);
 uint16_t compute_crc16(const uint8_t* data, size_t size);
-bool decode_combined_payload(const uint8_t* data, size_t size);    
+bool decode_combined_payload(const uint8_t* data, size_t size);  
+BatteryStatus decode_battery_payload(const uint8_t* payload, size_t size);
+
+void displayTextOnJoystick(const std::string& text, const std::string& subtext);
+void vibrateJoystick(bool leftMotor, bool rightMotor);

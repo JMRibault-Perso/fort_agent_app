@@ -6,11 +6,11 @@
 
 class InitializeState : public IVehicleState {
 public:
-    InitializeState(JAUSClient& client, UartCoapBridge& display) : 
-        IVehicleState(display), client(client), vehicleFound(false), rDownPressed(false) {}
+    InitializeState(JAUSClient& client) : 
+        IVehicleState(), client(client), vehicleFound(false), rDownPressed(false) {}
 
     void enter() override {
-        display.postUserDisplayTest("Searching", "Press R-Down");
+        displayTextOnJoystick("Searching", "Press 1");
     }
 
     void handleInput(const frc_combined_data_t& input) override {
@@ -18,19 +18,20 @@ public:
             rDownPressed = true;
             vehicleFound = client.discoverVehicle();
             if (vehicleFound) {
-                display.postUserDisplayTest("Vehicle found", "Press R-Down");
+                displayTextOnJoystick("Vehicle found", client.getComponentName());
             } else {
-                display.postUserDisplayTest("No vehicle", "Try again");
+                displayTextOnJoystick("No vehicle", "Try again");
             }
         } else if (!isRDown(input.keypad_data.buttonStatus)) {
             rDownPressed = false; // reset for next edge
         }
     }
 
+    void handleResponse() override {}
     void update() override {}
 
     std::unique_ptr<IVehicleState> next() override {
-        return vehicleFound ? std::make_unique<ControlState>(client, display) : nullptr;
+        return vehicleFound ? std::make_unique<ControlState>(client) : nullptr;
     }
 
 private:

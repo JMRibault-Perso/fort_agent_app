@@ -22,14 +22,10 @@ public:
 
     ~UartCoapBridge() = default;
 
-    void postUserDisplayTest(const std::string &text, const std::string &subtext);
-    void sendObserveJoystickCombinedRequest(uint8_t observeValue = 0);
-    void sendObserveSRCPModeRequest(uint8_t observeValue = 0);
+    // This function directly send to the SRC, it will manage the token creation
+    void sendSRCRequest(const std::vector<uint8_t> &coapMsg, const uint16_t port);
 
 private:
-
-    void sendDisplayLineText(int lineIndex, const std::string& text);
-
     // Reference to the boost asio service
     boost::asio::io_service &ioService;
 
@@ -57,7 +53,6 @@ private:
     void sendToRemote(boost::asio::ip::udp::endpoint to,
                       std::shared_ptr<uint8_t[]> data, std::size_t length);
 
-    void sendRequest(const std::vector<uint8_t> &coapMsg, const uint16_t port);
     // Relay received CoAP messages to the right client
     CoapPortTracker coapPorts;
 

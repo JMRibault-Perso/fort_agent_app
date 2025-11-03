@@ -5,16 +5,20 @@
 
 class EmergencyState : public IVehicleState {
 public:
-    EmergencyState(JAUSClient& client, UartCoapBridge& display)
-        : IVehicleState(display), client(client) {}
+    EmergencyState(JAUSClient& client)
+        : IVehicleState(), client(client) {}
 
     void enter() override {
-        display.postUserDisplayTest("EMERGENCY", "Vehicle disabled");
+        displayTextOnJoystick("EMERGENCY", "Vehicle disabled");
         // Optionally send a JAUS emergency message or disable command
     }
 
     void handleInput(const frc_combined_data_t&) override {
         // Ignore input in emergency
+    }
+
+    void handleResponse() override {
+        // Ignore Retry in emergency
     }
 
     void update() override {

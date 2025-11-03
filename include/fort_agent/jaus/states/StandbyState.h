@@ -6,11 +6,11 @@
 
 class StandbyState : public IVehicleState {
 public:
-    StandbyState(JAUSClient& client, UartCoapBridge& display) : 
-        IVehicleState(display), client(client), resumeRequested(false), readyStateGranted(false), rDownPressed(false) {}
+    StandbyState(JAUSClient& client) : 
+        IVehicleState(), client(client), resumeRequested(false), readyStateGranted(false), rDownPressed(false) {}
 
     void enter() override {
-        display.postUserDisplayTest("Vehicle on Standby", "Press R-Down to Resume");
+        displayTextOnJoystick("Vehicle on Standby", "Press 1 to Activate");
     }
 
     // TODO, some of those action should be triggered by JAUS messages/state managment instead of keypad input
@@ -19,14 +19,10 @@ public:
             rDownPressed = true;
             if (!resumeRequested) {
                 resumeRequested = client.sendRequestResume();
-                display.postUserDisplayTest("Requesting", "Resume state...");
+                displayTextOnJoystick("Requesting", "Active state...");
                 // This will trigger a response later to indicate that control is granted
-            } else if (client.hasReadyState()) {
-                readyStateGranted = true;
-            } else {
-                // status is not reported automatically, so we query it
                 client.queryStatus();
-            }
+            } 
         } else if (!isRDown(input.keypad_data.buttonStatus)) {
             rDownPressed = false;
         }
@@ -34,8 +30,18 @@ public:
 
     void update() override {}
 
+    void handleResponse() override { 
+        if (client.hasReadyState() == false) {
+            client.queryStatus();
+            displayTextOnJoystick("Requesting", "Active state Retry...");
+        } else {
+            readyStateGranted = true;
+        }
+    }
+
+
     std::unique_ptr<IVehicleState> next() override {
-        return readyStateGranted ? std::make_unique<ReadyState>(client, display) : nullptr;
+        return readyStateGranted ? std::make_unique<ReadyState>(client) : nullptr;
     }
 
 private:

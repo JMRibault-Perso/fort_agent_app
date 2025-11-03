@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <fort_agent/jaus/JausBridgeSingleton.h>
 
 std::unique_ptr<JausBridge> JausBridgeSingleton::bridgePtr = nullptr;

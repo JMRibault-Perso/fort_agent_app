@@ -15,6 +15,11 @@ public:
         transitionIfNeeded();
     }
 
+    void handleResponse(void) {
+        currentState->handleResponse();
+        transitionIfNeeded();
+    }
+
     void update() {
         currentState->update();
         transitionIfNeeded();

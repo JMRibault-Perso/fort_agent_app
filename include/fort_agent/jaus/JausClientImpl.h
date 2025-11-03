@@ -14,6 +14,8 @@ public:
     bool discoverVehicle() override;
     bool sendRequestControl() override;
     bool hasControl() const override;
+    bool isRequestPending() const override;
+
     bool isHeartbeatAlive() const override;
     void sendWrenchEffort(const frc_joystick_data_t& data) override;
     void initializeJAUS() override;
@@ -21,7 +23,7 @@ public:
     bool hasReadyState() const override;
     bool queryStatus() override;
 
-
+    std::string getComponentName() override;
 
     static void handleRequestControlResponse(const openjaus::model::ControlResponse& response);
     static void handleReleaseControlResponse(const openjaus::model::ControlResponse& response);
@@ -44,6 +46,7 @@ private:
     uint32_t reportWrenchEffortSubscriptionId = 0;
 
     static bool controlGranted;
+    static bool requestPending;
     static openjaus::core_v1_1::informclass::fields::reportstatus::reportstatusrec::Status currentStatus;
 
 };

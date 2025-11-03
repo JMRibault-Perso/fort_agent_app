@@ -6,11 +6,11 @@
 
 class ControlState : public IVehicleState {
 public:
-    ControlState(JAUSClient& client, UartCoapBridge& display) : 
-        IVehicleState(display), client(client), controlRequested(false), controlGranted(false), rDownPressed(false) {}
+    ControlState(JAUSClient& client) : 
+        IVehicleState(), client(client), controlRequested(false), controlGranted(false), rDownPressed(false) {}
 
     void enter() override {
-        display.postUserDisplayTest("Control Vehicle", "Press R-Down to Standby");
+        displayTextOnJoystick("Control Vehicle", "Press 1 to enter Standby");
     }
 
     void handleInput(const frc_combined_data_t& input) override {
@@ -18,21 +18,28 @@ public:
             rDownPressed = true;
             if (!controlRequested) {
                 controlRequested = client.sendRequestControl();
-                display.postUserDisplayTest("Requesting", "Control...");
+                displayTextOnJoystick("Requesting control", "...");
                 // This will trigger a response later to indicate that control is granted
-            } else if (client.hasControl()) {
-                controlGranted = true;
-                // display.postUserDisplayTest("Control Granted", "Press R-Down");
-            }
+            } // else we have to wait
         } else if (!isRDown(input.keypad_data.buttonStatus)) {
             rDownPressed = false;
         }
     }
 
+    void handleResponse() override {
+        if (client.hasControl()) {
+            controlGranted = true;
+        } else {
+            // let ask again?
+            displayTextOnJoystick("Requesting Control", "Retry...");
+            client.sendRequestControl();
+        }
+    }
+    
     void update() override {}
 
     std::unique_ptr<IVehicleState> next() override {
-        return controlGranted ? std::make_unique<StandbyState>(client, display) : nullptr;
+        return controlGranted ? std::make_unique<StandbyState>(client) : nullptr;
     }
 
 private:

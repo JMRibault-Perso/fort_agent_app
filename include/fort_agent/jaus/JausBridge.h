@@ -14,11 +14,52 @@ class JausBridge
 {
 public:
     enum class JausPort : uint16_t {
-        KEYPAD = 900,
-        CALIBRATED_JS = 901,
-        COMBINED_JS = 1000,
-        SRCP_MODE = 1001,
-        DISPLAY_TEXT = 1002
+        START = 900,
+        SAFETY,
+        DIAGNOSTICS,
+        SAFETYCOMBINED,
+        RADIOMODE,
+        RADIOPOWER,
+        RADIOCHANNEL,
+        RADIOSTATUS,
+        RADIOUSED,
+        FIRMWAREVERSION,
+        CPUTEMP,
+        DEVICETEMP,
+        GAUGETEMP,
+        GYROTEMP,
+        BATTERYSTATUS,
+        SYSTEMSTATUS,
+        LOCKDOWNSTATUS,
+        SERIALNUMBER,
+        MODELNUMBER,
+        DEVICEMAC,
+        DEVICEUID,
+        DEVICEREV,
+        SYSTEMRESET,
+        DISPLAYMODE,
+        VIBRATIONLEFT,
+        VIBRATIONRIGHT,
+        VIBRATIONBOTH,
+        FIRMWAREFILEDATA,
+        FIRMWAREFILEMETADATA,
+        JOYSTICKCALIBRATED,
+        KEYPAD,
+        COMBINEDJOYSTICKKEYPAD,
+        MODE,
+        DISPLAYTEXT,
+        SECUREELEMENTID,
+        FSOID,
+        FSODATA,
+        FSOCRC,
+        FSOERASE,
+        FSOLENGTH,
+        OPTKEY,
+        OPTCOMMIT,
+        LOCKDOWNPROCESSORKEY,
+        SCP03ROTATE,
+        OTPWRITEDEVTEST,
+        END
     };
 
 public:
@@ -27,15 +68,25 @@ public:
         stopServiceLoop(); // ensures cleanup
     }
 
-    bool EvaluateCoapJausMessage(JausBridge::JausPort jausPort, const uint8_t* payload, size_t payloadLen);
+    bool evaluateCoapJausMessage(JausBridge::JausPort jausPort, const uint8_t* payload, size_t payloadLen);
     void postInput(const frc_combined_data_t& input);
+    void postJAUSResponse();
     void startServiceLoop();
     void stopServiceLoop();
 
-private:
-    std::unique_ptr<JAUSClient> jausClient;
 
-    std::queue<frc_combined_data_t> inputQueue;
+private:
+    struct BridgeMessage {
+        enum class Kind { JoysticInput, JAUSResponse } kind;
+        frc_combined_data_t joystickInput; // Serial port joystick input
+    };
+
+    std::string serialNumber;
+    std::string modelNumber;
+    BatteryStatus batteryStatus;
+
+    std::unique_ptr<JAUSClient> jausClient;
+    std::queue<BridgeMessage> inputQueue;
     std::mutex queueMutex;
     std::condition_variable queueCV;
     bool running = false;

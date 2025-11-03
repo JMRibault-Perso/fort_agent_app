@@ -11,18 +11,24 @@
 
 class ReadyState : public IVehicleState {
 public:
-    ReadyState(JAUSClient& client, UartCoapBridge& display) : 
-        IVehicleState(display), client(client), lastHeartbeatCheck(std::chrono::steady_clock::now()) 
+    ReadyState(JAUSClient& client) : 
+        IVehicleState(), client(client), lastHeartbeatCheck(std::chrono::steady_clock::now()) 
         {}
 
     void enter() override {
-        display.postUserDisplayTest("Ready", "Joystick active");
+        displayTextOnJoystick("Ready", "Joystick active");
+        vibrateJoystick(true, true); // Vibrate both motors on entering ready state
     }
 
     void handleInput(const frc_combined_data_t& input) override {
         // Send joystick data to JAUS
         client.sendWrenchEffort(input.joystick_data);
         }
+
+    void handleResponse() override {
+        // Really should not have anything but this is where we can handle heartbeat stuff
+    }
+
     
 
     void update() override {
@@ -41,12 +47,12 @@ public:
 
     std::unique_ptr<IVehicleState> next() override {
         if (emergencyTriggered) {
-            return std::make_unique<EmergencyState>(client, display);
+            return std::make_unique<EmergencyState>(client);
         }
 
         if (!hasControl) {
             // Transition to StandbyState 
-            //return std::make_unique<StandbyState>(client, display);
+            //return std::make_unique<StandbyState>(client);
         }
         return nullptr;
     }

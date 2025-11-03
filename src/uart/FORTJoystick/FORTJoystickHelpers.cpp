@@ -1,10 +1,15 @@
-#include <fort_agent/uart/FORTJoystick/FORTJoystickHelpers.h>
-#include <fort_agent/fort_agent.h>
-
 #include <iostream>
 #include <iomanip>
 #include <cstdint>
 
+#include <cbor.h>
+#include <spdlog/spdlog.h>
+
+#include <fort_agent/fort_agent.h>
+#include <fort_agent/uart/FORTJoystick/FORTJoystickHelpers.h>
+#include <fort_agent/uart/FORTJoystick/coapSRCPro.h>
+
+using namespace coapSRCPro;
 
 void printJoystickStatus(const frc_combined_data_t& js) {
     static frc_combined_data_t lastJs = {};
@@ -91,6 +96,60 @@ uint16_t compute_crc16(const uint8_t* data, size_t size) {
     return crc;
 }
 
+
+BatteryStatus decode_battery_payload(const uint8_t* payload, size_t size) {
+    BatteryStatus status{};
+
+    CborParser parser;
+    CborValue it;
+    CborError err = cbor_parser_init(payload, size, 0, &parser, &it);
+    if (err != CborNoError) {
+        throw std::runtime_error("CBOR parse error");
+    }
+
+    if (!cbor_value_is_map(&it)) {
+        throw std::runtime_error("Expected CBOR map for BatteryStatus");
+    }
+
+    CborValue mapIt;
+    cbor_value_enter_container(&it, &mapIt);
+
+    while (!cbor_value_at_end(&mapIt)) {
+        // Keys are text strings
+        char key[32];
+        size_t keyLen = sizeof(key);
+        if (!cbor_value_is_text_string(&mapIt)) {
+            throw std::runtime_error("Expected text key in BatteryStatus map");
+        }
+        cbor_value_copy_text_string(&mapIt, key, &keyLen, &mapIt);
+
+        // Now decode the value
+        if (strcmp(key, "percent") == 0) {
+            int val;
+            cbor_value_get_int(&mapIt, &val);
+            status.percent = val;
+        } else if (strcmp(key, "volts") == 0) {
+            double val;
+            cbor_value_get_double(&mapIt, &val);
+            status.volts = val;
+        } else if (strcmp(key, "tempC") == 0) {
+            double val;
+            cbor_value_get_double(&mapIt, &val);
+            status.tempC = val;
+        } else if (strcmp(key, "amps") == 0) {
+            double val;
+            cbor_value_get_double(&mapIt, &val);
+            status.amps = val;
+        }
+
+        cbor_value_advance(&mapIt); // move to next key
+    }
+
+    cbor_value_leave_container(&it, &mapIt);
+    return status;
+
+}
+
 bool decode_combined_payload(const uint8_t* data, size_t size) {
     if (size < sizeof(frc_combined_data_t)) {
         std::cerr << "Combined payload too small\n";
@@ -114,4 +173,34 @@ bool decode_combined_payload(const uint8_t* data, size_t size) {
 
     // printJoystickStatus(payload);
     return true;
+}
+
+void displayTextOnJoystick(const std::string& text, const std::string& subtext) {
+   std::cout << "UartCoapBridge::postUserDisplayTest: text='" << text << "', subtext='" << subtext << "'" << std::endl;
+   // Implementation to send display text to joystick
+    // This is a placeholder; actual implementation depends on communication protocol
+    std::cout << "Displaying on Joystick:\n";
+    std::cout << "Text: " << text << "\n";
+    std::cout << "Subtext: " << subtext << "\n";
+
+
+}
+
+void vibrateJoystick(bool leftMotor, bool rightMotor) {
+    // Implementation to send vibration command to joystick
+    // This is a placeholder; actual implementation depends on communication protocol
+    std::cout << "Vibrating Joystick - Left Motor: " << (leftMotor ? "ON" : "OFF")
+              << ", Right Motor: " << (rightMotor ? "ON" : "OFF") << "\n";
+
+    if (leftMotor && rightMotor) {
+        coapSRCPro::postVibrateBoth(JB_MID);
+        return;
+    }
+    if (leftMotor) {
+        coapSRCPro::postVibrateLeft(JB_MID);
+    }
+    if (rightMotor) {
+        coapSRCPro::postVibrateRight(JB_MID);
+    }
+
 }

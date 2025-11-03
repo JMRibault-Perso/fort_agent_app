@@ -2,6 +2,7 @@
 
 #include <fort_agent/fort_agent.h>
 #include <fort_agent/jaus/JausClientImpl.h>
+#include <fort_agent/jaus/JausBridgeSingleton.h>
 
 
 using namespace openjaus;
@@ -17,6 +18,9 @@ const std::string JAUS_CLIENT_VERSION = "1.0.0";
 
 // Static member initialization
 bool JAUSClientImpl::controlGranted = false;
+bool JAUSClientImpl::requestPending = false;
+
+
 reportstatusrec::Status JAUSClientImpl::currentStatus = reportstatusrec::Status::INITIALIZE;
 
 // Verbose functions..
@@ -79,6 +83,10 @@ bool JAUSClientImpl::sendRequestControl() {
     if (!serverAddress.isValid()) {
         return false;
     }
+    if (isRequestPending()) {
+        spdlog::info("RequestControl already pending, not sending another request");
+        return true;
+    }
 
     // The Base component exposes methods which do some basic AccessControl message management.
     // The requestControl method sends a RequestControl message with a SAFETY_CRITICAL priority.
@@ -86,8 +94,13 @@ bool JAUSClientImpl::sendRequestControl() {
     // be executed.
     component.requestControl(serverAddress, 128, handleRequestControlResponse);
 
+    JAUSClientImpl::requestPending = true;
     return true;
 }
+
+bool JAUSClientImpl::isRequestPending() const {
+    return JAUSClientImpl::requestPending;
+}   
 
 bool JAUSClientImpl::hasControl() const {
     // Implementation to check if control is granted, 
@@ -110,10 +123,16 @@ bool JAUSClientImpl::queryStatus() {
     if (!serverAddress.isValid()) {
         return false;
     }
+    // previous status request is pending 
+    if (isRequestPending()) {
+        // we must wait for response
+        return false;
+    }
 
     QueryStatus* message = new QueryStatus();
     message->setDestination(serverAddress);
     component.sendMessage(message);
+    JAUSClientImpl::requestPending = true;
 
     return true;
 }
@@ -183,6 +202,8 @@ void JAUSClientImpl::handleRequestControlResponse(const model::ControlResponse& 
     } else {
         JAUSClientImpl::controlGranted = false; 
     }
+    JAUSClientImpl::requestPending = false;
+    JausBridgeSingleton::instance().postJAUSResponse();
 }
 
 void JAUSClientImpl::handleReleaseControlResponse(const model::ControlResponse& response)
@@ -205,6 +226,8 @@ void JAUSClientImpl::handleReleaseControlResponse(const model::ControlResponse& 
     if (response.getResponseType() == model::ControlResponseType::CONTROL_RELEASED) {
         JAUSClientImpl::controlGranted = false;
     } 
+    JAUSClientImpl::requestPending = false;
+    JausBridgeSingleton::instance().postJAUSResponse();
 }
 
 bool JAUSClientImpl::handleIncomingReportControl(ReportControl& incoming)
@@ -249,6 +272,8 @@ bool JAUSClientImpl::handleIncomingReportStatus(ReportStatus& incoming)
 
     currentStatus = reportRec.getStatus();
 
+    JAUSClientImpl::requestPending = false;
+    JausBridgeSingleton::instance().postJAUSResponse();
     return true;
 }
 
@@ -381,4 +406,13 @@ std::string JAUSClientImpl::toString(double value, bool enabled) {
     }
 
     return output;
+}
+
+std::string JAUSClientImpl::getComponentName() {
+    bool success = false;
+    auto Info = component.getSystemRegistry()->getComponent(serverAddress, success);
+    if (success)
+        std::cout << Info.toString();
+
+    return Info.getName();
 }

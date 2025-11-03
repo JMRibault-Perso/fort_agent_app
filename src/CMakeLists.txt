@@ -30,6 +30,7 @@ set(HEADER_LIST
     ${HEADER_PATH}/jaus/states/ControlState.h
 
     ${HEADER_PATH}/uart/FORTJoystick/FORTJoystickHelpers.h
+    ${HEADER_PATH}/uart/FORTJoystick/coapSRCPro.h
 )
 
 set(SOURCE_PATH ${CMAKE_SOURCE_DIR}/src)
@@ -46,6 +47,7 @@ set(SOURCE_LIST
     ${SOURCE_PATH}/jaus/JausBridgeSingleton.cpp
     ${SOURCE_PATH}/jaus/JausClientImpl.cpp
     ${SOURCE_PATH}/uart/FORTJoystick/FORTJoystickHelpers.cpp
+    ${SOURCE_PATH}/uart/FORTJoystick/coapSRCPro.cpp
 )
 
 # ---------------------------------------------------------------------------

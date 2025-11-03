@@ -1,22 +1,19 @@
-#include <fort_agent/uartCoapBridge.h>
-
-#include <boost/algorithm/string.hpp>
-#include <spdlog/spdlog.h>
-#include <spdlog/fmt/ostr.h>
-#include <cbor.h>
-
-#include <fort_agent/coapHelpers.h>
-#include <fort_agent/jaus/JausBridgeSingleton.h>
-
-using fmt::format;
-
 #include <iomanip>
 #include <string>
 #include <vector>
 #include <sstream>
 #include <iostream>
 
+#include <fort_agent/uartCoapBridge.h>
 
+#include <boost/algorithm/string.hpp>
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
+
+#include <fort_agent/coapHelpers.h>
+#include <fort_agent/jaus/JausBridgeSingleton.h>
+
+using fmt::format;
 
 UartCoapBridge::UartCoapBridge(
     boost::asio::io_service &service,
@@ -48,14 +45,6 @@ UartCoapBridge::UartCoapBridge(
         std::bind(&UartCoapBridge::serialError, this, std::placeholders::_1),
         std::bind(&UartCoapBridge::serialDataReceived, this,
                   std::placeholders::_1, std::placeholders::_2));
-
-    // send Observe request for joystick/combined resource
-    sendObserveJoystickCombinedRequest(1);
-    sendObserveJoystickCombinedRequest(0);
-
-    // send Observe request for SRCP Mode resource
-    //sendObserveSRCPModeRequest(1);
-    //sendObserveSRCPModeRequest(0);
 
     // bind local socket to local port and begin listening
     bindLocal();
@@ -100,7 +89,7 @@ void UartCoapBridge::serialDataReceived(uint8_t *message, uint32_t size) {
 
         // Special handling for JAUS messages - forward to JAUS bridge
         // The port range 900-1100 is reserved for JAUS messages
-        if (port >= 900 && port <= 1100) {
+        if (port > (uint16_t) JausBridge::JausPort::START && port < (uint16_t) JausBridge::JausPort::END) {
             spdlog::debug("JAUS: Tracking response MID {} -> port {}, msg = {}",
             Coap::getMid(data.get()), port, 
                 UartCoapBridge::dataToHex(data.get(), len));
@@ -110,7 +99,7 @@ void UartCoapBridge::serialDataReceived(uint8_t *message, uint32_t size) {
 
             // Forward to JAUS bridge for evaluation
             auto& jausBridge = JausBridgeSingleton::instance();
-            if (jausBridge.EvaluateCoapJausMessage((JausBridge::JausPort) port, reply.payload.data(), reply.payload.size())) {
+            if (jausBridge.evaluateCoapJausMessage((JausBridge::JausPort) port, reply.payload.data(), reply.payload.size())) {
                 // Message was handled by JAUS bridge, do not forward
                 spdlog::debug("JAUS: CoAP message handled by JAUS bridge, not forwarding");
             }
@@ -279,117 +268,32 @@ void UartCoapBridge::clearFailedToSendToRemote(uint16_t port) {
     }
 }
 
-void UartCoapBridge::sendRequest(const std::vector<uint8_t> &coapMsg, const uint16_t port) {
-    FXN_TRACE;
-    
-    // Build message with room for tracking tokens
-    size_t len = coapMsg.size();
-    size_t maxLen = len + 3; // room for tracking tokens
-
-    std::vector<uint8_t> buffer(maxLen);
-    std::copy(coapMsg.begin(), coapMsg.end(), buffer.begin());
-
-    coapPorts.udpToSerial(port, buffer.data(), &len, maxLen);
-
-    spdlog::debug("Sending Observe request: MID {} -> port {}, msg = {}",
-        Coap::getMid(buffer.data()), port,
-        UartCoapBridge::dataToHex(buffer.data(), len));
-
-    // Send to serial
-    serialHandler->asyncSendMessageToSerialPort(
-        buffer.data(),
-        len);
-}
-
-
-void UartCoapBridge::sendObserveSRCPModeRequest(uint8_t observeValue) {
+void UartCoapBridge::sendSRCRequest(const std::vector<uint8_t> &coapMsg, const uint16_t port) {
     FXN_TRACE;
 
-    uint16_t port = (uint16_t)JausBridge::JausPort::SRCP_MODE;
+    try {
+        // Build message with room for tracking tokens
+        size_t len = coapMsg.size();
+        size_t maxLen = len + 3; // room for tracking tokens
 
-    std::vector<uint8_t> coapMsg = Coap::buildMessage(
-        Coap::Type::CON,    // Confirmable message
-        Coap::Method::GET,  // GET method
-        0x1235,             // Message ID
-        {"st", "mode"}, // URI Path segments
-        {}, // No CBOR payload
-        {}, // No Token (added later)
-        Coap::Format::NONE, // No specific Content-Format
-        true,   // Include Observe option
-        observeValue   // Observe value
-        );
+        std::vector<uint8_t> buffer(maxLen);
+        std::copy(coapMsg.begin(), coapMsg.end(), buffer.begin());
 
-    sendRequest(coapMsg, port);
-}
+        coapPorts.udpToSerial(port, buffer.data(), &len, maxLen);
 
-void UartCoapBridge::sendDisplayLineText(int lineIndex, const std::string& text) {
-    FXN_TRACE;
+        spdlog::debug("Sending Observe request: MID {} -> port {}, msg = {}",
+            Coap::getMid(buffer.data()), port,
+            UartCoapBridge::dataToHex(buffer.data(), len));
 
-    if (lineIndex < 0 || lineIndex > 3) {
-        spdlog::debug("sendDisplayLineText: Invalid line index: {}", lineIndex);
-        return;
+        // Send to serial
+        serialHandler->asyncSendMessageToSerialPort(
+            buffer.data(),
+            len);
+    }
+    catch (CoapException &e) {
+        failedToSendSerial.log(
+            "Failed to send message to serial: {}",
+            e.what());
     }
 
-    constexpr size_t segmentCount = 3;
-    constexpr size_t segmentSize = 6;
-
-    for (uint8_t segmentIndex = 0; segmentIndex < segmentCount; ++segmentIndex) {
-        size_t offset = segmentIndex * segmentSize;
-        if (offset >= text.size()) {
-            break; // No more text to send
-        }
-
-        std::string segmentText = text.substr(offset, segmentSize);
-
-        // Prepare fixed-length payload
-        std::array<uint8_t, segmentSize> padded{};
-        std::memcpy(padded.data(), segmentText.c_str(), std::min(segmentText.size(), padded.size()));
-
-        // Build binary payload: [lineIndex][segmentIndex][6-byte payload]
-        std::vector<uint8_t> binaryPayload;
-        binaryPayload.push_back(static_cast<uint8_t>(lineIndex));
-        binaryPayload.push_back(segmentIndex);
-        binaryPayload.insert(binaryPayload.end(), padded.begin(), padded.end());
-
-        // Build CoAP POST message
-        std::vector<uint8_t> coapMsg = Coap::buildMessage(
-            Coap::Type::CON,
-            Coap::Method::POST,
-            0x4321 + segmentIndex, // Unique MID per segment
-            {"st", "display", "text"},
-            binaryPayload,
-            {}, // No token
-            Coap::Format::APPLICATION_OCTET_STREAM,
-            false, // No observe
-            0
-        );
-
-        sendRequest(coapMsg, 1002);
-    }
-}
-void UartCoapBridge::postUserDisplayTest(const std::string &text, const std::string &subtext) {
-    FXN_TRACE;
-    std::cout << "UartCoapBridge::postUserDisplayTest: text='" << text << "', subtext='" << subtext << "'" << std::endl;
-   
-    //sendDisplayLineText(1, text);
-    //sendDisplayLineText(2, subtext);
-}
-
-void UartCoapBridge::sendObserveJoystickCombinedRequest(uint8_t observeValue) {
-    FXN_TRACE;
-
-    uint16_t port = (uint16_t)JausBridge::JausPort::COMBINED_JS;
-    std::vector<uint8_t> coapMsg = Coap::buildMessage(
-        Coap::Type::CON,    // Confirmable message
-        Coap::Method::GET,  // GET method
-        0x1234,             // Message ID
-        {"st", "joystick", "combined"}, // URI Path segments
-        {}, // No CBOR payload
-        {}, // No Token (added later)
-        Coap::Format::NONE, // No specific Content-Format
-        true,   // Include Observe option
-        observeValue   // Observe value
-        );
-
-    sendRequest(coapMsg, port);
 }
