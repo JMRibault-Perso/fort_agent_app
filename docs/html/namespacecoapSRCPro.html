@@ -76,10 +76,15 @@ $(function() {
   <div class="headertitle"><div class="title">coapSRCPro Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Message builder helpers intended for communicating with SRC Pro.  
+<a href="namespacecoapSRCPro.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacecoapSRCPro_1_1CBORHelpers" id="r_namespacecoapSRCPro_1_1CBORHelpers"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro_1_1CBORHelpers.html">CBORHelpers</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacecoapSRCPro_1_1detail" id="r_namespacecoapSRCPro_1_1detail"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro_1_1detail.html">detail</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacecoapSRCPro_1_1URIs" id="r_namespacecoapSRCPro_1_1URIs"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro_1_1URIs.html">URIs</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -87,122 +92,179 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcoapSRCPro_1_1Uri.html">Uri</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strongly typed URI segments for composing CoAP paths.  <a href="structcoapSRCPro_1_1Uri.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7c0a5f2fdd9c2658b883a0c290caef10" id="r_a7c0a5f2fdd9c2658b883a0c290caef10"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a7c0a5f2fdd9c2658b883a0c290caef10">build</a> (<a class="el" href="namespaceCoap.html#a7f3783f690e4f99ae5204014b4a79965">Coap::Method</a> method, uint16_t mid, const <a class="el" href="structcoapSRCPro_1_1Uri.html">Uri</a> &amp;uri, const std::vector&lt; uint8_t &gt; &amp;payload={}, <a class="el" href="namespaceCoap.html#a9d5ab8fd70a7b184e53b9b33dac513a2">Coap::Format</a> fmt=<a class="el" href="namespaceCoap.html#a9d5ab8fd70a7b184e53b9b33dac513a2adb753a1d6359f7107a09b10033937504">Coap::Format::TEXT_PLAIN</a>, bool observe=false, uint16_t observeValue=0)</td></tr>
 <tr class="separator:a7c0a5f2fdd9c2658b883a0c290caef10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1272f2e5400eb7ce9330aa0274bad9d" id="r_aa1272f2e5400eb7ce9330aa0274bad9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#aa1272f2e5400eb7ce9330aa0274bad9d">getSMCUSafety</a> (int smcuIndex, uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:aa1272f2e5400eb7ce9330aa0274bad9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41cb0abf7d80154a529fec7f1b6dcbb0" id="r_a41cb0abf7d80154a529fec7f1b6dcbb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a41cb0abf7d80154a529fec7f1b6dcbb0">getSMCUSafety</a> (int smcuIndex, uint16_t mid, bool observe=true, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:a41cb0abf7d80154a529fec7f1b6dcbb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request raw SMCU safety payload, optionally enabling observation.  <br /></td></tr>
+<tr class="separator:a41cb0abf7d80154a529fec7f1b6dcbb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9adad58cacee982e55b8362d673130d" id="r_ae9adad58cacee982e55b8362d673130d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ae9adad58cacee982e55b8362d673130d">postSMCUSafety</a> (int smcuIndex, uint16_t mid, const std::vector&lt; uint8_t &gt; &amp;raw)</td></tr>
+<tr class="memdesc:ae9adad58cacee982e55b8362d673130d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push raw safety block bytes back to the SMCU slot.  <br /></td></tr>
 <tr class="separator:ae9adad58cacee982e55b8362d673130d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff952a12ecdb5a4b6689d6f1fc5dd6f2" id="r_aff952a12ecdb5a4b6689d6f1fc5dd6f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#aff952a12ecdb5a4b6689d6f1fc5dd6f2">getSMCUSafetyDiagnostics</a> (int smcuIndex, uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:aff952a12ecdb5a4b6689d6f1fc5dd6f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8659e2ae6194a040aef2d54b344ede83" id="r_a8659e2ae6194a040aef2d54b344ede83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a8659e2ae6194a040aef2d54b344ede83">getSMCUSystemDiagnostics</a> (int smcuIndex, uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a8659e2ae6194a040aef2d54b344ede83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c15939d02d1c35c3b21f70bed0a19c3" id="r_a2c15939d02d1c35c3b21f70bed0a19c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a2c15939d02d1c35c3b21f70bed0a19c3">getSMCUCombinedSafety</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a2c15939d02d1c35c3b21f70bed0a19c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab16845d02eb09168acebf0377a9c5e0" id="r_aab16845d02eb09168acebf0377a9c5e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#aab16845d02eb09168acebf0377a9c5e0">getSMCUSafetyDiagnostics</a> (int smcuIndex, uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:aab16845d02eb09168acebf0377a9c5e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch CBOR diagnostics for the given SMCU index.  <br /></td></tr>
+<tr class="separator:aab16845d02eb09168acebf0377a9c5e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0c7f123888b4fc5260a32b7a269eaa1" id="r_ae0c7f123888b4fc5260a32b7a269eaa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ae0c7f123888b4fc5260a32b7a269eaa1">getSMCUSystemDiagnostics</a> (int smcuIndex, uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:ae0c7f123888b4fc5260a32b7a269eaa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch system diagnostics data for the given SMCU index.  <br /></td></tr>
+<tr class="separator:ae0c7f123888b4fc5260a32b7a269eaa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93059bb700fa70d19d7fcdc021f5fd23" id="r_a93059bb700fa70d19d7fcdc021f5fd23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a93059bb700fa70d19d7fcdc021f5fd23">getSMCUCombinedSafety</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:a93059bb700fa70d19d7fcdc021f5fd23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream the shared combined transmitter safety block.  <br /></td></tr>
+<tr class="separator:a93059bb700fa70d19d7fcdc021f5fd23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85c319eb7a4dcdb5a0a61c572144e058" id="r_a85c319eb7a4dcdb5a0a61c572144e058"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a85c319eb7a4dcdb5a0a61c572144e058">getRadioMode</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a85c319eb7a4dcdb5a0a61c572144e058"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query current radio operating mode.  <br /></td></tr>
 <tr class="separator:a85c319eb7a4dcdb5a0a61c572144e058"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a24e34b46a973c72863866cbc307b4d" id="r_a6a24e34b46a973c72863866cbc307b4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a6a24e34b46a973c72863866cbc307b4d">getRadioPowerDb</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a6a24e34b46a973c72863866cbc307b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query configured radio output power in dB.  <br /></td></tr>
 <tr class="separator:a6a24e34b46a973c72863866cbc307b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d0a3e4a2808be5df75d1c7800e38862" id="r_a3d0a3e4a2808be5df75d1c7800e38862"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a3d0a3e4a2808be5df75d1c7800e38862">getRadioChannel</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a3d0a3e4a2808be5df75d1c7800e38862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query selected radio channel.  <br /></td></tr>
 <tr class="separator:a3d0a3e4a2808be5df75d1c7800e38862"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc36a69b64ef05433f46b58709cbd0f6" id="r_abc36a69b64ef05433f46b58709cbd0f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#abc36a69b64ef05433f46b58709cbd0f6">getRadioStatus</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:abc36a69b64ef05433f46b58709cbd0f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query radio health/status flags.  <br /></td></tr>
 <tr class="separator:abc36a69b64ef05433f46b58709cbd0f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33dea0c922e0b6a561d4511f90c6b3f8" id="r_a33dea0c922e0b6a561d4511f90c6b3f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a33dea0c922e0b6a561d4511f90c6b3f8">getRadioUsed</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a33dea0c922e0b6a561d4511f90c6b3f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query whether the radio link is currently in use.  <br /></td></tr>
 <tr class="separator:a33dea0c922e0b6a561d4511f90c6b3f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc0039ebea1bf4536d25ca6f63961262" id="r_adc0039ebea1bf4536d25ca6f63961262"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#adc0039ebea1bf4536d25ca6f63961262">getFirmwareVersion</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:adc0039ebea1bf4536d25ca6f63961262"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6d11a47162de20304e8f203a4b9d8cf" id="r_ae6d11a47162de20304e8f203a4b9d8cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ae6d11a47162de20304e8f203a4b9d8cf">getCpuTempC</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:ae6d11a47162de20304e8f203a4b9d8cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a998b975248978e672861940e4c140888" id="r_a998b975248978e672861940e4c140888"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a998b975248978e672861940e4c140888">getDeviceTempC</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a998b975248978e672861940e4c140888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51a0c12a2a9b26e1bf35b3afbba8660e" id="r_a51a0c12a2a9b26e1bf35b3afbba8660e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a51a0c12a2a9b26e1bf35b3afbba8660e">getGaugeTempC</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a51a0c12a2a9b26e1bf35b3afbba8660e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7731e67306d44a1f0082bc17d08a7514" id="r_a7731e67306d44a1f0082bc17d08a7514"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a7731e67306d44a1f0082bc17d08a7514">getGyroTempC</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a7731e67306d44a1f0082bc17d08a7514"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a779e4bd111cfd50683ca2d3c10bb819d" id="r_a779e4bd111cfd50683ca2d3c10bb819d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a779e4bd111cfd50683ca2d3c10bb819d">getBatteryStatus</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a779e4bd111cfd50683ca2d3c10bb819d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8188cfce5ab2d813266ca31679bc804" id="r_aa8188cfce5ab2d813266ca31679bc804"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#aa8188cfce5ab2d813266ca31679bc804">getFirmwareVersion</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:aa8188cfce5ab2d813266ca31679bc804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch firmware version string, optionally enabling observe.  <br /></td></tr>
+<tr class="separator:aa8188cfce5ab2d813266ca31679bc804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa719a1e7cb7c385ac650dc387883ef32" id="r_aa719a1e7cb7c385ac650dc387883ef32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#aa719a1e7cb7c385ac650dc387883ef32">getCpuTempC</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:aa719a1e7cb7c385ac650dc387883ef32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch CPU temperature in Celsius.  <br /></td></tr>
+<tr class="separator:aa719a1e7cb7c385ac650dc387883ef32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87ea004fcf30e632f546120aaa13caab" id="r_a87ea004fcf30e632f546120aaa13caab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a87ea004fcf30e632f546120aaa13caab">getDeviceTempC</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:a87ea004fcf30e632f546120aaa13caab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch device chassis temperature in Celsius.  <br /></td></tr>
+<tr class="separator:a87ea004fcf30e632f546120aaa13caab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8411d930b622240ee26abfbe7b5cdec" id="r_ac8411d930b622240ee26abfbe7b5cdec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ac8411d930b622240ee26abfbe7b5cdec">getGaugeTempC</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:ac8411d930b622240ee26abfbe7b5cdec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch gauge temperature in Celsius.  <br /></td></tr>
+<tr class="separator:ac8411d930b622240ee26abfbe7b5cdec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafcd5e29c0b3d93e4ff4ca3baed8a3ca" id="r_aafcd5e29c0b3d93e4ff4ca3baed8a3ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#aafcd5e29c0b3d93e4ff4ca3baed8a3ca">getGyroTempC</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:aafcd5e29c0b3d93e4ff4ca3baed8a3ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch gyro temperature in Celsius.  <br /></td></tr>
+<tr class="separator:aafcd5e29c0b3d93e4ff4ca3baed8a3ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4eaacef84dcbc7dd5ed41f8aab1859e" id="r_ab4eaacef84dcbc7dd5ed41f8aab1859e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ab4eaacef84dcbc7dd5ed41f8aab1859e">getBatteryStatus</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:ab4eaacef84dcbc7dd5ed41f8aab1859e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch aggregated battery status structure.  <br /></td></tr>
+<tr class="separator:ab4eaacef84dcbc7dd5ed41f8aab1859e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad03fb4c97df8829903e2361126213324" id="r_ad03fb4c97df8829903e2361126213324"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ad03fb4c97df8829903e2361126213324">getSystemStatus</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:ad03fb4c97df8829903e2361126213324"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query global system status bitfield.  <br /></td></tr>
 <tr class="separator:ad03fb4c97df8829903e2361126213324"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad00a8a98bfde42fad93900b34b83fcd6" id="r_ad00a8a98bfde42fad93900b34b83fcd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ad00a8a98bfde42fad93900b34b83fcd6">getLockdownStatus</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:ad00a8a98bfde42fad93900b34b83fcd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provisioning helper reporting lockdown state.  <br /></td></tr>
 <tr class="separator:ad00a8a98bfde42fad93900b34b83fcd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85300431ef4ec4c1f71b2f710870618b" id="r_a85300431ef4ec4c1f71b2f710870618b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a85300431ef4ec4c1f71b2f710870618b">getSerialNumber</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a85300431ef4ec4c1f71b2f710870618b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fab0c7d99769b18286147460fd96ca3" id="r_a9fab0c7d99769b18286147460fd96ca3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a9fab0c7d99769b18286147460fd96ca3">getSerialNumber</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:a9fab0c7d99769b18286147460fd96ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch the configured serial number string.  <br /></td></tr>
+<tr class="separator:a9fab0c7d99769b18286147460fd96ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b55fcc512c48fa76821924b668072e9" id="r_a4b55fcc512c48fa76821924b668072e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a4b55fcc512c48fa76821924b668072e9">postSerialNumber</a> (uint16_t mid, const std::string &amp;serial)</td></tr>
+<tr class="memdesc:a4b55fcc512c48fa76821924b668072e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the device serial number field.  <br /></td></tr>
 <tr class="separator:a4b55fcc512c48fa76821924b668072e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3da6be93f24777906b0ef26cac335c34" id="r_a3da6be93f24777906b0ef26cac335c34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a3da6be93f24777906b0ef26cac335c34">getModelNumber</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a3da6be93f24777906b0ef26cac335c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92b74b170bf36321199baef0ace1ca79" id="r_a92b74b170bf36321199baef0ace1ca79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a92b74b170bf36321199baef0ace1ca79">getModelNumber</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:a92b74b170bf36321199baef0ace1ca79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch the configured model number string.  <br /></td></tr>
+<tr class="separator:a92b74b170bf36321199baef0ace1ca79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99092233a2c8ea3aff045ae1230ca758" id="r_a99092233a2c8ea3aff045ae1230ca758"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a99092233a2c8ea3aff045ae1230ca758">postModelNumber</a> (uint16_t mid, const std::string &amp;model)</td></tr>
+<tr class="memdesc:a99092233a2c8ea3aff045ae1230ca758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the model number field.  <br /></td></tr>
 <tr class="separator:a99092233a2c8ea3aff045ae1230ca758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8480ab2ba50ddb1886939f2247e1bb90" id="r_a8480ab2ba50ddb1886939f2247e1bb90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a8480ab2ba50ddb1886939f2247e1bb90">getDeviceMac</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a8480ab2ba50ddb1886939f2247e1bb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53834c8d26c8d31dac44bc3f29eda2a2" id="r_a53834c8d26c8d31dac44bc3f29eda2a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a53834c8d26c8d31dac44bc3f29eda2a2">getDeviceMac</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:a53834c8d26c8d31dac44bc3f29eda2a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch device MAC address string.  <br /></td></tr>
+<tr class="separator:a53834c8d26c8d31dac44bc3f29eda2a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f0da9600960dff6320bbe41e52a5c51" id="r_a0f0da9600960dff6320bbe41e52a5c51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a0f0da9600960dff6320bbe41e52a5c51">getDeviceUID</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a0f0da9600960dff6320bbe41e52a5c51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve unique device identifier (factory only).  <br /></td></tr>
 <tr class="separator:a0f0da9600960dff6320bbe41e52a5c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7b793a6b3cce5a432053421690da342" id="r_ac7b793a6b3cce5a432053421690da342"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ac7b793a6b3cce5a432053421690da342">getDeviceRev</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:ac7b793a6b3cce5a432053421690da342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve device hardware revision string.  <br /></td></tr>
 <tr class="separator:ac7b793a6b3cce5a432053421690da342"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cbec3c06bc7878bf75df69cc3e76a0e" id="r_a3cbec3c06bc7878bf75df69cc3e76a0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a3cbec3c06bc7878bf75df69cc3e76a0e">postSystemReset</a> (uint16_t mid, char mode)</td></tr>
+<tr class="memdesc:a3cbec3c06bc7878bf75df69cc3e76a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue system reset, providing reset mode character.  <br /></td></tr>
 <tr class="separator:a3cbec3c06bc7878bf75df69cc3e76a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad50d018d0cc6d4338cbf9e96e44dd1f0" id="r_ad50d018d0cc6d4338cbf9e96e44dd1f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ad50d018d0cc6d4338cbf9e96e44dd1f0">getDisplayMode</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:ad50d018d0cc6d4338cbf9e96e44dd1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read current user display mode.  <br /></td></tr>
 <tr class="separator:ad50d018d0cc6d4338cbf9e96e44dd1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92e36f0926dc7a717fb5e6bf59e8cb7e" id="r_a92e36f0926dc7a717fb5e6bf59e8cb7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a92e36f0926dc7a717fb5e6bf59e8cb7e">postDisplayMode</a> (uint16_t mid, uint8_t mode)</td></tr>
+<tr class="memdesc:a92e36f0926dc7a717fb5e6bf59e8cb7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set user display mode (0 = normal, 1 = alternate).  <br /></td></tr>
 <tr class="separator:a92e36f0926dc7a717fb5e6bf59e8cb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c843d1761e3e40b42e9a7f036e59ee9" id="r_a1c843d1761e3e40b42e9a7f036e59ee9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a1c843d1761e3e40b42e9a7f036e59ee9">postVibrateLeft</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a1c843d1761e3e40b42e9a7f036e59ee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vibrate only the left motor.  <br /></td></tr>
 <tr class="separator:a1c843d1761e3e40b42e9a7f036e59ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c8ad3303d88c21dbdd41503f41ad2c2" id="r_a0c8ad3303d88c21dbdd41503f41ad2c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a0c8ad3303d88c21dbdd41503f41ad2c2">postVibrateRight</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a0c8ad3303d88c21dbdd41503f41ad2c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vibrate only the right motor.  <br /></td></tr>
 <tr class="separator:a0c8ad3303d88c21dbdd41503f41ad2c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97d6134ac252833c6d658e346f106665" id="r_a97d6134ac252833c6d658e346f106665"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a97d6134ac252833c6d658e346f106665">postVibrateBoth</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a97d6134ac252833c6d658e346f106665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vibrate both motors simultaneously.  <br /></td></tr>
 <tr class="separator:a97d6134ac252833c6d658e346f106665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bcc28160eb76c0f533585f436e9b430" id="r_a7bcc28160eb76c0f533585f436e9b430"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a7bcc28160eb76c0f533585f436e9b430">getFirmwareFileData</a> (uint16_t mid, const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a7bcc28160eb76c0f533585f436e9b430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a block-wise GET for firmware file contents.  <br /></td></tr>
 <tr class="separator:a7bcc28160eb76c0f533585f436e9b430"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeb82239e52a1a08819884bc697e127d" id="r_aaeb82239e52a1a08819884bc697e127d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#aaeb82239e52a1a08819884bc697e127d">postFirmwareFileData</a> (uint16_t mid, const std::string &amp;filename, const std::vector&lt; uint8_t &gt; &amp;data)</td></tr>
+<tr class="memdesc:aaeb82239e52a1a08819884bc697e127d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload firmware file chunk data.  <br /></td></tr>
 <tr class="separator:aaeb82239e52a1a08819884bc697e127d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f5029e63a6ecce67895065868990010" id="r_a5f5029e63a6ecce67895065868990010"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a5f5029e63a6ecce67895065868990010">getFirmwareFileMetadata</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a5f5029e63a6ecce67895065868990010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve metadata describing the current firmware file.  <br /></td></tr>
 <tr class="separator:a5f5029e63a6ecce67895065868990010"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17f60832cd8717bb8aa457f1bae0da33" id="r_a17f60832cd8717bb8aa457f1bae0da33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a17f60832cd8717bb8aa457f1bae0da33">postFirmwareFileMetadata</a> (uint16_t mid, const std::string &amp;filename, uint32_t length, uint32_t crc32)</td></tr>
+<tr class="memdesc:a17f60832cd8717bb8aa457f1bae0da33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload firmware metadata (filename, length, CRC32).  <br /></td></tr>
 <tr class="separator:a17f60832cd8717bb8aa457f1bae0da33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a877b764b0a4177080248089625b777d9" id="r_a877b764b0a4177080248089625b777d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a877b764b0a4177080248089625b777d9">getJoystickCalibrated</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a877b764b0a4177080248089625b777d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a806c041b6019c30f7e53f65065247b" id="r_a7a806c041b6019c30f7e53f65065247b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a7a806c041b6019c30f7e53f65065247b">getKeypad</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a7a806c041b6019c30f7e53f65065247b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e124efee53b2e62649555d5b7fc3926" id="r_a5e124efee53b2e62649555d5b7fc3926"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a5e124efee53b2e62649555d5b7fc3926">getCombinedJoystickKeypad</a> (uint16_t mid, bool observe, uint16_t observeValue)</td></tr>
-<tr class="separator:a5e124efee53b2e62649555d5b7fc3926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf7e5c432ae16ec2a8159acbd427ceb6" id="r_aaf7e5c432ae16ec2a8159acbd427ceb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#aaf7e5c432ae16ec2a8159acbd427ceb6">getJoystickCalibrated</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:aaf7e5c432ae16ec2a8159acbd427ceb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch joystick calibration status bit.  <br /></td></tr>
+<tr class="separator:aaf7e5c432ae16ec2a8159acbd427ceb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec5934fbc55e3f15be0380523006011c" id="r_aec5934fbc55e3f15be0380523006011c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#aec5934fbc55e3f15be0380523006011c">getKeypad</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:aec5934fbc55e3f15be0380523006011c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch keypad button payload.  <br /></td></tr>
+<tr class="separator:aec5934fbc55e3f15be0380523006011c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a654791971735cd97221c68b1ffdd4ba7" id="r_a654791971735cd97221c68b1ffdd4ba7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a654791971735cd97221c68b1ffdd4ba7">getCombinedJoystickKeypad</a> (uint16_t mid, bool observe=false, uint16_t observeValue=0)</td></tr>
+<tr class="memdesc:a654791971735cd97221c68b1ffdd4ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch combined joystick and keypad snapshot.  <br /></td></tr>
+<tr class="separator:a654791971735cd97221c68b1ffdd4ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90b61956186afe3ac5d7bfcec54efe50" id="r_a90b61956186afe3ac5d7bfcec54efe50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a90b61956186afe3ac5d7bfcec54efe50">getMode</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a90b61956186afe3ac5d7bfcec54efe50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch current SRC operating mode enumeration.  <br /></td></tr>
 <tr class="separator:a90b61956186afe3ac5d7bfcec54efe50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07aec681f68e7c76caae493ee1fb6b91" id="r_a07aec681f68e7c76caae493ee1fb6b91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a07aec681f68e7c76caae493ee1fb6b91">postDisplayTextRawLines</a> (uint16_t mid, const std::string &amp;line0_18chars, const std::string &amp;line1_18chars, bool upperHalf)</td></tr>
+<tr class="memdesc:a07aec681f68e7c76caae493ee1fb6b91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update two 18-character lines on the user display.  <br /></td></tr>
 <tr class="separator:a07aec681f68e7c76caae493ee1fb6b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9db469100d704b2bbd0aac406a20a5e3" id="r_a9db469100d704b2bbd0aac406a20a5e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a9db469100d704b2bbd0aac406a20a5e3">postDisplayTextSegment</a> (uint16_t mid, uint8_t line, uint8_t segment, const std::string &amp;text6chars)</td></tr>
+<tr class="memdesc:a9db469100d704b2bbd0aac406a20a5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post a 6-character segment within a display quadrant.  <br /></td></tr>
 <tr class="separator:a9db469100d704b2bbd0aac406a20a5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdff55549e4339e2d94ea0f8163d1893" id="r_afdff55549e4339e2d94ea0f8163d1893"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#afdff55549e4339e2d94ea0f8163d1893">getSecureElementID</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:afdff55549e4339e2d94ea0f8163d1893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query secure element unique identifier.  <br /></td></tr>
 <tr class="separator:afdff55549e4339e2d94ea0f8163d1893"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d3d500e580f6195203f2d86111d4e55" id="r_a7d3d500e580f6195203f2d86111d4e55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a7d3d500e580f6195203f2d86111d4e55">postFsoId</a> (uint16_t mid, const std::string &amp;idString)</td></tr>
+<tr class="memdesc:a7d3d500e580f6195203f2d86111d4e55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select factory secure object ID for subsequent requests.  <br /></td></tr>
 <tr class="separator:a7d3d500e580f6195203f2d86111d4e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d9b526b5f9127898fd3fd1a7e5c90e9" id="r_a1d9b526b5f9127898fd3fd1a7e5c90e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a1d9b526b5f9127898fd3fd1a7e5c90e9">getFsoLength</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a1d9b526b5f9127898fd3fd1a7e5c90e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve FSO length in bytes.  <br /></td></tr>
 <tr class="separator:a1d9b526b5f9127898fd3fd1a7e5c90e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98c00bcfa260d6f655cc15b20054bbc0" id="r_a98c00bcfa260d6f655cc15b20054bbc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a98c00bcfa260d6f655cc15b20054bbc0">getFsoCrc</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a98c00bcfa260d6f655cc15b20054bbc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve FSO CRC32 value.  <br /></td></tr>
 <tr class="separator:a98c00bcfa260d6f655cc15b20054bbc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17e5c7e581dd4d4c7936b381f81f0340" id="r_a17e5c7e581dd4d4c7936b381f81f0340"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a17e5c7e581dd4d4c7936b381f81f0340">getFsoErase</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a17e5c7e581dd4d4c7936b381f81f0340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger FSO erase operation.  <br /></td></tr>
 <tr class="separator:a17e5c7e581dd4d4c7936b381f81f0340"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b2d2e9e208b0e4dd5412c76c8ee5f53" id="r_a5b2d2e9e208b0e4dd5412c76c8ee5f53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a5b2d2e9e208b0e4dd5412c76c8ee5f53">getFsoData</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a5b2d2e9e208b0e4dd5412c76c8ee5f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Download FSO DER data.  <br /></td></tr>
 <tr class="separator:a5b2d2e9e208b0e4dd5412c76c8ee5f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44c6b31f76a35a7ccac472b462af4bab" id="r_a44c6b31f76a35a7ccac472b462af4bab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a44c6b31f76a35a7ccac472b462af4bab">postFsoData</a> (uint16_t mid, const std::vector&lt; uint8_t &gt; &amp;der)</td></tr>
+<tr class="memdesc:a44c6b31f76a35a7ccac472b462af4bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload FSO DER payload.  <br /></td></tr>
 <tr class="separator:a44c6b31f76a35a7ccac472b462af4bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a051fe1c9ba28da8ad88df3686b8c8990" id="r_a051fe1c9ba28da8ad88df3686b8c8990"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a051fe1c9ba28da8ad88df3686b8c8990">getOtpKey</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a051fe1c9ba28da8ad88df3686b8c8990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve OTP key material (factory only).  <br /></td></tr>
 <tr class="separator:a051fe1c9ba28da8ad88df3686b8c8990"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01ff1912208934ab7a077e3f89441a6" id="r_ab01ff1912208934ab7a077e3f89441a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ab01ff1912208934ab7a077e3f89441a6">postOtpCommit</a> (uint16_t mid, const std::string &amp;phrase, const std::string &amp;seedHex)</td></tr>
+<tr class="memdesc:ab01ff1912208934ab7a077e3f89441a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize OTP provisioning using phrase and seed.  <br /></td></tr>
 <tr class="separator:ab01ff1912208934ab7a077e3f89441a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ec0d1a6d5d12e3806ba46eec4307e4a" id="r_a5ec0d1a6d5d12e3806ba46eec4307e4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a5ec0d1a6d5d12e3806ba46eec4307e4a">getLockdownProcessorKey</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:a5ec0d1a6d5d12e3806ba46eec4307e4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve lockdown processor key.  <br /></td></tr>
 <tr class="separator:a5ec0d1a6d5d12e3806ba46eec4307e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c234996bbdf516010f1740f5a05bc50" id="r_a2c234996bbdf516010f1740f5a05bc50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a2c234996bbdf516010f1740f5a05bc50">postLockdownProcessor</a> (uint16_t mid, const std::string &amp;phrase, const std::string &amp;keyHex)</td></tr>
+<tr class="memdesc:a2c234996bbdf516010f1740f5a05bc50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program lockdown processor secret.  <br /></td></tr>
 <tr class="separator:a2c234996bbdf516010f1740f5a05bc50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace94fe7456e198ac8f2bc8c7ff609542" id="r_ace94fe7456e198ac8f2bc8c7ff609542"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#ace94fe7456e198ac8f2bc8c7ff609542">getScp03Rotate</a> (uint16_t mid)</td></tr>
+<tr class="memdesc:ace94fe7456e198ac8f2bc8c7ff609542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request SCP03 key rotation.  <br /></td></tr>
 <tr class="separator:ace94fe7456e198ac8f2bc8c7ff609542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ca30c8043b12091fec1b795c98a44e6" id="r_a6ca30c8043b12091fec1b795c98a44e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecoapSRCPro.html#a6ca30c8043b12091fec1b795c98a44e6">postOtpWriteDevTest</a> (uint16_t mid, const std::string &amp;asciiHex)</td></tr>
+<tr class="memdesc:a6ca30c8043b12091fec1b795c98a44e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Developer-only helper to write raw OTP data.  <br /></td></tr>
 <tr class="separator:a6ca30c8043b12091fec1b795c98a44e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Message builder helpers intended for communicating with SRC Pro. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a7c0a5f2fdd9c2658b883a0c290caef10" name="a7c0a5f2fdd9c2658b883a0c290caef10"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7c0a5f2fdd9c2658b883a0c290caef10">&#9670;&#160;</a></span>build()</h2>
 
@@ -266,11 +328,16 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a7c0a5f2fdd9c2658b883a0c290caef10_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
-<a id="a779e4bd111cfd50683ca2d3c10bb819d" name="a779e4bd111cfd50683ca2d3c10bb819d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a779e4bd111cfd50683ca2d3c10bb819d">&#9670;&#160;</a></span>getBatteryStatus()</h2>
+<a id="ab4eaacef84dcbc7dd5ed41f8aab1859e" name="ab4eaacef84dcbc7dd5ed41f8aab1859e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4eaacef84dcbc7dd5ed41f8aab1859e">&#9670;&#160;</a></span>getBatteryStatus()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,16 +367,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch aggregated battery status structure. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a779e4bd111cfd50683ca2d3c10bb819d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_ab4eaacef84dcbc7dd5ed41f8aab1859e_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a5e124efee53b2e62649555d5b7fc3926" name="a5e124efee53b2e62649555d5b7fc3926"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e124efee53b2e62649555d5b7fc3926">&#9670;&#160;</a></span>getCombinedJoystickKeypad()</h2>
+<a id="a654791971735cd97221c68b1ffdd4ba7" name="a654791971735cd97221c68b1ffdd4ba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a654791971735cd97221c68b1ffdd4ba7">&#9670;&#160;</a></span>getCombinedJoystickKeypad()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,16 +408,18 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch combined joystick and keypad snapshot. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a5e124efee53b2e62649555d5b7fc3926_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a654791971735cd97221c68b1ffdd4ba7_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="ae6d11a47162de20304e8f203a4b9d8cf" name="ae6d11a47162de20304e8f203a4b9d8cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6d11a47162de20304e8f203a4b9d8cf">&#9670;&#160;</a></span>getCpuTempC()</h2>
+<a id="aa719a1e7cb7c385ac650dc387883ef32" name="aa719a1e7cb7c385ac650dc387883ef32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa719a1e7cb7c385ac650dc387883ef32">&#9670;&#160;</a></span>getCpuTempC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -378,16 +449,18 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch CPU temperature in Celsius. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_ae6d11a47162de20304e8f203a4b9d8cf_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_aa719a1e7cb7c385ac650dc387883ef32_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a8480ab2ba50ddb1886939f2247e1bb90" name="a8480ab2ba50ddb1886939f2247e1bb90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8480ab2ba50ddb1886939f2247e1bb90">&#9670;&#160;</a></span>getDeviceMac()</h2>
+<a id="a53834c8d26c8d31dac44bc3f29eda2a2" name="a53834c8d26c8d31dac44bc3f29eda2a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53834c8d26c8d31dac44bc3f29eda2a2">&#9670;&#160;</a></span>getDeviceMac()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,10 +490,12 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch device MAC address string. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a8480ab2ba50ddb1886939f2247e1bb90_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a53834c8d26c8d31dac44bc3f29eda2a2_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -440,6 +515,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieve device hardware revision string. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -448,8 +525,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a998b975248978e672861940e4c140888" name="a998b975248978e672861940e4c140888"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a998b975248978e672861940e4c140888">&#9670;&#160;</a></span>getDeviceTempC()</h2>
+<a id="a87ea004fcf30e632f546120aaa13caab" name="a87ea004fcf30e632f546120aaa13caab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87ea004fcf30e632f546120aaa13caab">&#9670;&#160;</a></span>getDeviceTempC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -479,10 +556,12 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch device chassis temperature in Celsius. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a998b975248978e672861940e4c140888_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a87ea004fcf30e632f546120aaa13caab_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -502,6 +581,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieve unique device identifier (factory only). </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -525,6 +606,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Read current user display mode. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -558,6 +641,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Start a block-wise GET for firmware file contents. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -581,6 +666,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieve metadata describing the current firmware file. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -589,8 +676,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="adc0039ebea1bf4536d25ca6f63961262" name="adc0039ebea1bf4536d25ca6f63961262"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc0039ebea1bf4536d25ca6f63961262">&#9670;&#160;</a></span>getFirmwareVersion()</h2>
+<a id="aa8188cfce5ab2d813266ca31679bc804" name="aa8188cfce5ab2d813266ca31679bc804"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8188cfce5ab2d813266ca31679bc804">&#9670;&#160;</a></span>getFirmwareVersion()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -620,10 +707,12 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch firmware version string, optionally enabling observe. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_adc0039ebea1bf4536d25ca6f63961262_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_aa8188cfce5ab2d813266ca31679bc804_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -643,6 +732,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieve FSO CRC32 value. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -666,6 +757,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Download FSO DER data. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -689,6 +782,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Trigger FSO erase operation. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -712,6 +807,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieve FSO length in bytes. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -720,8 +817,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a51a0c12a2a9b26e1bf35b3afbba8660e" name="a51a0c12a2a9b26e1bf35b3afbba8660e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51a0c12a2a9b26e1bf35b3afbba8660e">&#9670;&#160;</a></span>getGaugeTempC()</h2>
+<a id="ac8411d930b622240ee26abfbe7b5cdec" name="ac8411d930b622240ee26abfbe7b5cdec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8411d930b622240ee26abfbe7b5cdec">&#9670;&#160;</a></span>getGaugeTempC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -751,16 +848,18 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch gauge temperature in Celsius. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a51a0c12a2a9b26e1bf35b3afbba8660e_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_ac8411d930b622240ee26abfbe7b5cdec_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a7731e67306d44a1f0082bc17d08a7514" name="a7731e67306d44a1f0082bc17d08a7514"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7731e67306d44a1f0082bc17d08a7514">&#9670;&#160;</a></span>getGyroTempC()</h2>
+<a id="aafcd5e29c0b3d93e4ff4ca3baed8a3ca" name="aafcd5e29c0b3d93e4ff4ca3baed8a3ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafcd5e29c0b3d93e4ff4ca3baed8a3ca">&#9670;&#160;</a></span>getGyroTempC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -790,16 +889,18 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch gyro temperature in Celsius. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a7731e67306d44a1f0082bc17d08a7514_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_aafcd5e29c0b3d93e4ff4ca3baed8a3ca_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a877b764b0a4177080248089625b777d9" name="a877b764b0a4177080248089625b777d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a877b764b0a4177080248089625b777d9">&#9670;&#160;</a></span>getJoystickCalibrated()</h2>
+<a id="aaf7e5c432ae16ec2a8159acbd427ceb6" name="aaf7e5c432ae16ec2a8159acbd427ceb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf7e5c432ae16ec2a8159acbd427ceb6">&#9670;&#160;</a></span>getJoystickCalibrated()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -829,16 +930,18 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch joystick calibration status bit. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a877b764b0a4177080248089625b777d9_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_aaf7e5c432ae16ec2a8159acbd427ceb6_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a7a806c041b6019c30f7e53f65065247b" name="a7a806c041b6019c30f7e53f65065247b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a806c041b6019c30f7e53f65065247b">&#9670;&#160;</a></span>getKeypad()</h2>
+<a id="aec5934fbc55e3f15be0380523006011c" name="aec5934fbc55e3f15be0380523006011c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec5934fbc55e3f15be0380523006011c">&#9670;&#160;</a></span>getKeypad()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -868,10 +971,12 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch keypad button payload. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a7a806c041b6019c30f7e53f65065247b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_aec5934fbc55e3f15be0380523006011c_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -891,6 +996,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieve lockdown processor key. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -914,6 +1021,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Provisioning helper reporting lockdown state. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -937,6 +1046,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch current SRC operating mode enumeration. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -945,8 +1056,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a3da6be93f24777906b0ef26cac335c34" name="a3da6be93f24777906b0ef26cac335c34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3da6be93f24777906b0ef26cac335c34">&#9670;&#160;</a></span>getModelNumber()</h2>
+<a id="a92b74b170bf36321199baef0ace1ca79" name="a92b74b170bf36321199baef0ace1ca79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92b74b170bf36321199baef0ace1ca79">&#9670;&#160;</a></span>getModelNumber()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -976,15 +1087,17 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch the configured model number string. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a3da6be93f24777906b0ef26cac335c34_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a92b74b170bf36321199baef0ace1ca79_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a3da6be93f24777906b0ef26cac335c34_icgraph.svg" width="488" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a92b74b170bf36321199baef0ace1ca79_icgraph.svg" width="488" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1004,6 +1117,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieve OTP key material (factory only). </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1027,6 +1142,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Query selected radio channel. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1050,6 +1167,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Query current radio operating mode. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1073,6 +1192,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Query configured radio output power in dB. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1096,6 +1217,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Query radio health/status flags. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1119,6 +1242,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Query whether the radio link is currently in use. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1142,6 +1267,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Request SCP03 key rotation. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1165,6 +1292,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Query secure element unique identifier. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1173,8 +1302,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a85300431ef4ec4c1f71b2f710870618b" name="a85300431ef4ec4c1f71b2f710870618b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85300431ef4ec4c1f71b2f710870618b">&#9670;&#160;</a></span>getSerialNumber()</h2>
+<a id="a9fab0c7d99769b18286147460fd96ca3" name="a9fab0c7d99769b18286147460fd96ca3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fab0c7d99769b18286147460fd96ca3">&#9670;&#160;</a></span>getSerialNumber()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1204,21 +1333,23 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch the configured serial number string. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a85300431ef4ec4c1f71b2f710870618b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a9fab0c7d99769b18286147460fd96ca3_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a85300431ef4ec4c1f71b2f710870618b_icgraph.svg" width="486" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a9fab0c7d99769b18286147460fd96ca3_icgraph.svg" width="486" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a2c15939d02d1c35c3b21f70bed0a19c3" name="a2c15939d02d1c35c3b21f70bed0a19c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c15939d02d1c35c3b21f70bed0a19c3">&#9670;&#160;</a></span>getSMCUCombinedSafety()</h2>
+<a id="a93059bb700fa70d19d7fcdc021f5fd23" name="a93059bb700fa70d19d7fcdc021f5fd23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93059bb700fa70d19d7fcdc021f5fd23">&#9670;&#160;</a></span>getSMCUCombinedSafety()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1248,16 +1379,18 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Stream the shared combined transmitter safety block. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a2c15939d02d1c35c3b21f70bed0a19c3_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a93059bb700fa70d19d7fcdc021f5fd23_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="aa1272f2e5400eb7ce9330aa0274bad9d" name="aa1272f2e5400eb7ce9330aa0274bad9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1272f2e5400eb7ce9330aa0274bad9d">&#9670;&#160;</a></span>getSMCUSafety()</h2>
+<a id="a41cb0abf7d80154a529fec7f1b6dcbb0" name="a41cb0abf7d80154a529fec7f1b6dcbb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41cb0abf7d80154a529fec7f1b6dcbb0">&#9670;&#160;</a></span>getSMCUSafety()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1293,16 +1426,18 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Request raw SMCU safety payload, optionally enabling observation. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_aa1272f2e5400eb7ce9330aa0274bad9d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a41cb0abf7d80154a529fec7f1b6dcbb0_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="aff952a12ecdb5a4b6689d6f1fc5dd6f2" name="aff952a12ecdb5a4b6689d6f1fc5dd6f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff952a12ecdb5a4b6689d6f1fc5dd6f2">&#9670;&#160;</a></span>getSMCUSafetyDiagnostics()</h2>
+<a id="aab16845d02eb09168acebf0377a9c5e0" name="aab16845d02eb09168acebf0377a9c5e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab16845d02eb09168acebf0377a9c5e0">&#9670;&#160;</a></span>getSMCUSafetyDiagnostics()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1338,16 +1473,18 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch CBOR diagnostics for the given SMCU index. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_aff952a12ecdb5a4b6689d6f1fc5dd6f2_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_aab16845d02eb09168acebf0377a9c5e0_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a8659e2ae6194a040aef2d54b344ede83" name="a8659e2ae6194a040aef2d54b344ede83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8659e2ae6194a040aef2d54b344ede83">&#9670;&#160;</a></span>getSMCUSystemDiagnostics()</h2>
+<a id="ae0c7f123888b4fc5260a32b7a269eaa1" name="ae0c7f123888b4fc5260a32b7a269eaa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0c7f123888b4fc5260a32b7a269eaa1">&#9670;&#160;</a></span>getSMCUSystemDiagnostics()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1383,10 +1520,12 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fetch system diagnostics data for the given SMCU index. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a8659e2ae6194a040aef2d54b344ede83_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_ae0c7f123888b4fc5260a32b7a269eaa1_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1406,6 +1545,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Query global system status bitfield. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1439,6 +1580,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Set user display mode (0 = normal, 1 = alternate). </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1484,10 +1627,25 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Update two 18-character lines on the user display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">line0_18chars</td><td>First line of display text. </td></tr>
+    <tr><td class="paramname">line1_18chars</td><td>Second line of display text. </td></tr>
+    <tr><td class="paramname">upperHalf</td><td>true targets upper display region, false targets lower. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a07aec681f68e7c76caae493ee1fb6b91_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacecoapSRCPro_a07aec681f68e7c76caae493ee1fb6b91_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1529,6 +1687,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Post a 6-character segment within a display quadrant. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1568,6 +1728,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Upload firmware file chunk data. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1613,6 +1775,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Upload firmware metadata (filename, length, CRC32). </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1646,6 +1810,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Upload FSO DER payload. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1679,6 +1845,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Select factory secure object ID for subsequent requests. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1718,6 +1886,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Program lockdown processor secret. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1751,6 +1921,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Update the model number field. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1790,6 +1962,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Finalize OTP provisioning using phrase and seed. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1823,6 +1997,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Developer-only helper to write raw OTP data. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1856,6 +2032,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Update the device serial number field. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1895,6 +2073,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Push raw safety block bytes back to the SMCU slot. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1928,6 +2108,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Issue system reset, providing reset mode character. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1951,6 +2133,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Vibrate both motors simultaneously. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1979,6 +2163,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Vibrate only the left motor. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2007,6 +2193,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Vibrate only the right motor. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

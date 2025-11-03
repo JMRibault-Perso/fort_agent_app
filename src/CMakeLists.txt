@@ -14,6 +14,7 @@ set(HEADER_LIST
     ${HEADER_PATH}/uartCoapBridge.h
     ${HEADER_PATH}/uartCoapBridgeSingleton.h
     ${HEADER_PATH}/fort_agent.h
+    ${HEADER_PATH}/version.h
 
     ${HEADER_PATH}/jaus/JausBridge.h
     ${HEADER_PATH}/jaus/JausBridgeSingleton.h

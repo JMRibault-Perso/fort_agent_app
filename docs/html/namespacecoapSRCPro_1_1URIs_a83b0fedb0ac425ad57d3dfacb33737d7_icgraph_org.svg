@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#a8659e2ae6194a040aef2d54b344ede83" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#ae0c7f123888b4fc5260a32b7a269eaa1" target="_top" xlink:title="Fetch system diagnostics data for the given SMCU index.">
 <polygon fill="white" stroke="#666666" points="163,-30 0,-30 0,0 163,0 163,-30"/>
 <text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::getSMCUSystem</text>
 <text text-anchor="middle" x="81.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Diagnostics</text>

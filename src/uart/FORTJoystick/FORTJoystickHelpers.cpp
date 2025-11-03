@@ -183,7 +183,7 @@ void displayTextOnJoystick(const std::string& text, const std::string& subtext) 
     std::cout << "Text: " << text << "\n";
     std::cout << "Subtext: " << subtext << "\n";
 
-
+    coapSRCPro::postDisplayTextRawLines(JS_MID, text, subtext, true);
 }
 
 void vibrateJoystick(bool leftMotor, bool rightMotor) {
@@ -193,14 +193,14 @@ void vibrateJoystick(bool leftMotor, bool rightMotor) {
               << ", Right Motor: " << (rightMotor ? "ON" : "OFF") << "\n";
 
     if (leftMotor && rightMotor) {
-        coapSRCPro::postVibrateBoth(JB_MID);
+        coapSRCPro::postVibrateBoth(JS_MID);
         return;
     }
     if (leftMotor) {
-        coapSRCPro::postVibrateLeft(JB_MID);
+        coapSRCPro::postVibrateLeft(JS_MID);
     }
     if (rightMotor) {
-        coapSRCPro::postVibrateRight(JB_MID);
+        coapSRCPro::postVibrateRight(JS_MID);
     }
 
 }

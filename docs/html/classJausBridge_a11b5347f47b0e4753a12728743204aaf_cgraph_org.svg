@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="FORTJoystickHelpers_8cpp.html#a3413a023e32b549e81549f69ddc78761" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="FORTJoystickHelpers_8cpp.html#a3413a023e32b549e81549f69ddc78761" target="_top" xlink:title="Extract battery telemetry values from a CBOR payload.">
 <polygon fill="white" stroke="#666666" points="321,-93 184,-93 184,-74 321,-74 321,-93"/>
 <text text-anchor="middle" x="252.5" y="-81" font-family="Helvetica,sans-Serif" font-size="10.00">decode_battery_payload</text>
 </a>
@@ -39,7 +39,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="FORTJoystickHelpers_8cpp.html#a7d0ef2e3f3dd15201b18b4146732befd" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="FORTJoystickHelpers_8cpp.html#a7d0ef2e3f3dd15201b18b4146732befd" target="_top" xlink:title="Decode a combined report and update cached state structures.">
 <polygon fill="white" stroke="#666666" points="327,-56 178,-56 178,-37 327,-37 327,-56"/>
 <text text-anchor="middle" x="252.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">decode_combined_payload</text>
 </a>
@@ -75,7 +75,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="FORTJoystickHelpers_8cpp.html#a4f8045a15a5adcb76e648f3e2fb496d8" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="FORTJoystickHelpers_8cpp.html#a4f8045a15a5adcb76e648f3e2fb496d8" target="_top" xlink:title="Compute CRC&#45;16 used by joystick and keypad payloads.">
 <polygon fill="white" stroke="#666666" points="454,-56 363,-56 363,-37 454,-37 454,-56"/>
 <text text-anchor="middle" x="408.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">compute_crc16</text>
 </a>

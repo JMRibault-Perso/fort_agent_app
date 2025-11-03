@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Vibrate both motors simultaneously.">
 <polygon fill="#999999" stroke="#666666" points="492,-37 332,-37 332,-18 492,-18 492,-37"/>
 <text text-anchor="middle" x="412" y="-25" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::postVibrateBoth</text>
 </a>
@@ -38,7 +38,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="FORTJoystickHelpers_8cpp.html#a21971a6ea22f0b02b9ddfcbaebb7600f" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="FORTJoystickHelpers_8cpp.html#a21971a6ea22f0b02b9ddfcbaebb7600f" target="_top" xlink:title="Trigger joystick vibration motors.">
 <polygon fill="white" stroke="#666666" points="262.5,-19 173.5,-19 173.5,0 262.5,0 262.5,-19"/>
 <text text-anchor="middle" x="218" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">vibrateJoystick</text>
 </a>

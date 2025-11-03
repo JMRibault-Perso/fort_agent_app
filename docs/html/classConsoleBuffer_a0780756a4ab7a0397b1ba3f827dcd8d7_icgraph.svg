@@ -218,7 +218,7 @@ var sectionId = 'dynsection-1';
 <!-- Node12 -->
 <g id="Node000012" class="node">
 <title>Node12</title>
-<g id="a_Node000012"><a xlink:href="FORTJoystickHelpers_8cpp.html#a2fa084c688310613f3bad7bef64cc45f" target="_top" xlink:title=" ">
+<g id="a_Node000012"><a xlink:href="FORTJoystickHelpers_8cpp.html#a2fa084c688310613f3bad7bef64cc45f" target="_top" xlink:title="Dump joystick and keypad state to stdout for debugging.">
 <polygon fill="white" stroke="#666666" points="338,-19 230,-19 230,0 338,0 338,-19"/>
 <text text-anchor="middle" x="284" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">printJoystickStatus</text>
 </a>

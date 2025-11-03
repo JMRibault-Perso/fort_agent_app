@@ -175,7 +175,7 @@ var sectionId = 'dynsection-0';
 <!-- Node9 -->
 <g id="Node000009" class="node">
 <title>Node9</title>
-<g id="a_Node000009"><a xlink:href="FORTJoystickHelpers_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000009"><a xlink:href="FORTJoystickHelpers_8h.html" target="_top" xlink:title="Strongly typed helpers for decoding Fort joystick and keypad payloads.">
 <polygon fill="white" stroke="#666666" points="519,-85 363,-85 363,-55 519,-55 519,-85"/>
 <text text-anchor="start" x="371" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">fort_agent/uart/FORTJoystick</text>
 <text text-anchor="middle" x="441" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">/FORTJoystickHelpers.h</text>

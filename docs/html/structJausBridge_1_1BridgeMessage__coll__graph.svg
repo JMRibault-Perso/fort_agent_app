@@ -30,7 +30,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="structfrc__combined__data__t.html" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="structfrc__combined__data__t.html" target="_top" xlink:title="Composite report carrying keypad and joystick blocks back&#45;to&#45;back.">
 <polygon fill="white" stroke="#666666" points="156.5,-85 37.5,-85 37.5,-66 156.5,-66 156.5,-85"/>
 <text text-anchor="middle" x="97" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">frc_combined_data_t</text>
 </a>
@@ -49,7 +49,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="structfrc__keypad__data__t.html" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="structfrc__keypad__data__t.html" target="_top" xlink:title="Keypad button payload coupled with a CRC&#45;16 guard.">
 <polygon fill="white" stroke="#666666" points="106,-151 0,-151 0,-132 106,-132 106,-151"/>
 <text text-anchor="middle" x="53" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">frc_keypad_data_t</text>
 </a>
@@ -68,7 +68,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="structfrc__joystick__data__t.html" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="structfrc__joystick__data__t.html" target="_top" xlink:title="Aggregated calibrated joystick axes reported by the SRC Pro handheld.">
 <polygon fill="white" stroke="#666666" points="233.5,-151 124.5,-151 124.5,-132 233.5,-132 233.5,-151"/>
 <text text-anchor="middle" x="179" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">frc_joystick_data_t</text>
 </a>
@@ -87,7 +87,7 @@
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="unionjsCal__t.html" target="_top" xlink:title="Calibrated joystick data, includes a field for if the data is valid.">
+<g id="a_Node000005"><a xlink:href="unionjsCal__t.html" target="_top" xlink:title="Packed joystick sample with a validity flag supplied by the controller.">
 <polygon fill="white" stroke="#666666" points="204,-272 154,-272 154,-253 204,-253 204,-272"/>
 <text text-anchor="middle" x="179" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">jsCal_t</text>
 </a>

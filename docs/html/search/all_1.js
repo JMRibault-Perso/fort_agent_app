@@ -8,8 +8,9 @@ var searchData=
   ['application_5flink_5fformat_5',['APPLICATION_LINK_FORMAT',['../namespaceCoap.html#a9d5ab8fd70a7b184e53b9b33dac513a2a4cda558567ca9823864038b2a6207b44',1,'Coap']]],
   ['application_5foctet_5fstream_6',['APPLICATION_OCTET_STREAM',['../namespaceCoap.html#a9d5ab8fd70a7b184e53b9b33dac513a2adfd2a83e07387e9c7889141d9433e296',1,'Coap']]],
   ['application_5fxml_7',['APPLICATION_XML',['../namespaceCoap.html#a9d5ab8fd70a7b184e53b9b33dac513a2ab990a51f88121f475a0a3735e42781db',1,'Coap']]],
-  ['asraw_8',['asRaw',['../unionjsCal__t.html#ab1d86482a67a9d109b0f779d1f8788e5',1,'jsCal_t']]],
-  ['asyncsenddatatoserialport_9',['asyncSendDataToSerialPort',['../classSerialHandler.html#aa4b1150064c4c168b7255fb455db4277',1,'SerialHandler']]],
-  ['asyncsendmessagetoserialport_10',['asyncSendMessageToSerialPort',['../classSerialHandler.html#abbc07ff9d699303061acb16d32e39daf',1,'SerialHandler']]],
-  ['asyncwritetoserialportcb_11',['asyncWriteToSerialPortCb',['../classSerialHandler.html#ac83afef13f1f6cc7663038215fed61b5',1,'SerialHandler']]]
+  ['asciipayload_8',['asciiPayload',['../namespacecoapSRCPro_1_1detail.html#a16910ed35e9771ed9f3758fef2a66ec4',1,'coapSRCPro::detail']]],
+  ['asraw_9',['asRaw',['../unionjsCal__t.html#ab1d86482a67a9d109b0f779d1f8788e5',1,'jsCal_t']]],
+  ['asyncsenddatatoserialport_10',['asyncSendDataToSerialPort',['../classSerialHandler.html#aa4b1150064c4c168b7255fb455db4277',1,'SerialHandler']]],
+  ['asyncsendmessagetoserialport_11',['asyncSendMessageToSerialPort',['../classSerialHandler.html#abbc07ff9d699303061acb16d32e39daf',1,'SerialHandler']]],
+  ['asyncwritetoserialportcb_12',['asyncWriteToSerialPortCb',['../classSerialHandler.html#ac83afef13f1f6cc7663038215fed61b5',1,'SerialHandler']]]
 ];

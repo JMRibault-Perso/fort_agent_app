@@ -46,9 +46,9 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 945;
+var viewWidth = 1090;
 var viewHeight = 419;
-var sectionId = 'dynsection-52';
+var sectionId = 'dynsection-53';
 </script>
 <script type="application/ecmascript" xlink:href="svg.min.js"/>
 <svg id="graph" class="graph">
@@ -57,7 +57,7 @@ var sectionId = 'dynsection-52';
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Issue system reset, providing reset mode character.">
 <polygon fill="#999999" stroke="#666666" points="167,-368 0,-368 0,-349 167,-349 167,-368"/>
 <text text-anchor="middle" x="83.5" y="-356" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::postSystemReset</text>
 </a>
@@ -66,9 +66,10 @@ var sectionId = 'dynsection-52';
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#a7c0a5f2fdd9c2658b883a0c290caef10" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="346.5,-411 241.5,-411 241.5,-392 346.5,-392 346.5,-411"/>
-<text text-anchor="middle" x="294" y="-399" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::build</text>
+<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro_1_1detail.html#a57db511d79e1217412f2e7b4b6b87414" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="312,-373.5 203,-373.5 203,-343.5 312,-343.5 312,-373.5"/>
+<text text-anchor="start" x="211" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::detail</text>
+<text text-anchor="middle" x="257.5" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">::sendRequest</text>
 </a>
 </g>
 </g>
@@ -76,351 +77,369 @@ var sectionId = 'dynsection-52';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M130.77,-368.04C162.09,-374.5 203.63,-383.07 236.84,-389.92"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="236.36,-393.39 246.86,-391.98 237.77,-386.54 236.36,-393.39"/>
+<path fill="none" stroke="#63b8ff" d="M167.23,-358.5C175.7,-358.5 184.21,-358.5 192.44,-358.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="192.68,-362 202.68,-358.5 192.68,-355 192.68,-362"/>
 </a>
 </g>
 </g>
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="classUartCoapBridgeSingleton.html#afc600618aaee339e66b8047b4084af42" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="364,-373.5 224,-373.5 224,-343.5 364,-343.5 364,-373.5"/>
-<text text-anchor="start" x="232" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">UartCoapBridgeSingleton</text>
-<text text-anchor="middle" x="294" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">::instance</text>
+<g id="a_Node000003"><a xlink:href="namespacecoapSRCPro.html#a7c0a5f2fdd9c2658b883a0c290caef10" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="491.5,-411 386.5,-411 386.5,-392 491.5,-392 491.5,-411"/>
+<text text-anchor="middle" x="439" y="-399" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::build</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node3 -->
-<g id="edge2_Node000001_Node000003" class="edge">
-<title>Node1&#45;&gt;Node3</title>
-<g id="a_edge2_Node000001_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M167.2,-358.5C182.45,-358.5 198.33,-358.5 213.48,-358.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="213.83,-362 223.83,-358.5 213.83,-355 213.83,-362"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2_Node000002_Node000003" class="edge">
+<title>Node2&#45;&gt;Node3</title>
+<g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M312.33,-373.44C324.06,-376.55 336.42,-379.73 348,-382.5 358.46,-385.01 369.65,-387.51 380.46,-389.84"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="379.74,-393.26 390.25,-391.92 381.2,-386.41 379.74,-393.26"/>
 </a>
 </g>
 </g>
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="classUartCoapBridge.html#aa4ee44522786a3581ea4d787ff3c1b10" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="385,-325 203,-325 203,-306 385,-306 385,-325"/>
-<text text-anchor="middle" x="294" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00">UartCoapBridge::sendSRCRequest</text>
+<g id="a_Node000004"><a xlink:href="classUartCoapBridgeSingleton.html#afc600618aaee339e66b8047b4084af42" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="509,-373.5 369,-373.5 369,-343.5 509,-343.5 509,-373.5"/>
+<text text-anchor="start" x="377" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">UartCoapBridgeSingleton</text>
+<text text-anchor="middle" x="439" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">::instance</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node4 -->
-<g id="edge3_Node000001_Node000004" class="edge">
-<title>Node1&#45;&gt;Node4</title>
-<g id="a_edge3_Node000001_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M130.77,-348.96C162.09,-342.5 203.63,-333.93 236.84,-327.08"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="237.77,-330.46 246.86,-325.02 236.36,-323.61 237.77,-330.46"/>
+<!-- Node2&#45;&gt;Node4 -->
+<g id="edge3_Node000002_Node000004" class="edge">
+<title>Node2&#45;&gt;Node4</title>
+<g id="a_edge3_Node000002_Node000004"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M312.36,-358.5C326.93,-358.5 343.01,-358.5 358.66,-358.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="358.87,-362 368.87,-358.5 358.87,-355 358.87,-362"/>
 </a>
 </g>
 </g>
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="classUartCoapBridge.html#ae8f44c298022621122992b98cde6b4dc" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="576,-382 424,-382 424,-363 576,-363 576,-382"/>
-<text text-anchor="middle" x="500" y="-370" font-family="Helvetica,sans-Serif" font-size="10.00">UartCoapBridge::dataToHex</text>
+<g id="a_Node000005"><a xlink:href="classUartCoapBridge.html#aa4ee44522786a3581ea4d787ff3c1b10" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="530,-325 348,-325 348,-306 530,-306 530,-325"/>
+<text text-anchor="middle" x="439" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00">UartCoapBridge::sendSRCRequest</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node5 -->
-<g id="edge4_Node000004_Node000005" class="edge">
-<title>Node4&#45;&gt;Node5</title>
-<g id="a_edge4_Node000004_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M347.24,-325.02C359.71,-327.71 372.91,-330.9 385,-334.5 401.45,-339.4 404.79,-342.86 421,-348.5 432.39,-352.46 444.82,-356.44 456.34,-359.99"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="455.61,-363.42 466.19,-362.98 457.64,-356.72 455.61,-363.42"/>
+<!-- Node2&#45;&gt;Node5 -->
+<g id="edge4_Node000002_Node000005" class="edge">
+<title>Node2&#45;&gt;Node5</title>
+<g id="a_edge4_Node000002_Node000005"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M312.33,-343.56C324.06,-340.45 336.42,-337.27 348,-334.5 358.46,-331.99 369.65,-329.49 380.46,-327.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="381.2,-330.59 390.25,-325.08 379.74,-323.74 381.2,-330.59"/>
 </a>
 </g>
 </g>
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="namespaceCoap.html#a4eafc1dd1abf0cd1b2cea134fd3c7fa0" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="736.5,-391 655.5,-391 655.5,-372 736.5,-372 736.5,-391"/>
-<text text-anchor="middle" x="696" y="-379" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::getMid</text>
+<g id="a_Node000006"><a xlink:href="classUartCoapBridge.html#ae8f44c298022621122992b98cde6b4dc" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="721,-382 569,-382 569,-363 721,-363 721,-382"/>
+<text text-anchor="middle" x="645" y="-370" font-family="Helvetica,sans-Serif" font-size="10.00">UartCoapBridge::dataToHex</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node6 -->
-<g id="edge5_Node000004_Node000006" class="edge">
-<title>Node4&#45;&gt;Node6</title>
-<g id="a_edge5_Node000004_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M382.41,-325.02C438.78,-331.76 513.52,-341.86 579,-354.5 595.19,-357.63 598.95,-359.69 615,-363.5 624.87,-365.84 635.44,-368.28 645.56,-370.57"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="644.96,-374.02 655.49,-372.8 646.5,-367.19 644.96,-374.02"/>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge5_Node000005_Node000006" class="edge">
+<title>Node5&#45;&gt;Node6</title>
+<g id="a_edge5_Node000005_Node000006"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M492.24,-325.02C504.71,-327.71 517.91,-330.9 530,-334.5 546.45,-339.4 549.79,-342.86 566,-348.5 577.39,-352.46 589.82,-356.44 601.34,-359.99"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="600.61,-363.42 611.19,-362.98 602.64,-356.72 600.61,-363.42"/>
 </a>
 </g>
 </g>
 <!-- Node7 -->
 <g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_Node000007"><a xlink:href="classSpammyLogMsg.html#aeca5f9ecea6b9b3f3725e9f1a8875f73" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="559.5,-306 440.5,-306 440.5,-287 559.5,-287 559.5,-306"/>
-<text text-anchor="middle" x="500" y="-294" font-family="Helvetica,sans-Serif" font-size="10.00">SpammyLogMsg::log</text>
+<g id="a_Node000007"><a xlink:href="namespaceCoap.html#a4eafc1dd1abf0cd1b2cea134fd3c7fa0" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="881.5,-391 800.5,-391 800.5,-372 881.5,-372 881.5,-391"/>
+<text text-anchor="middle" x="841" y="-379" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::getMid</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node7 -->
-<g id="edge6_Node000004_Node000007" class="edge">
-<title>Node4&#45;&gt;Node7</title>
-<g id="a_edge6_Node000004_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M385.07,-307.11C400.19,-305.7 415.66,-304.26 430.13,-302.91"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="430.84,-306.36 440.47,-301.95 430.19,-299.39 430.84,-306.36"/>
+<!-- Node5&#45;&gt;Node7 -->
+<g id="edge6_Node000005_Node000007" class="edge">
+<title>Node5&#45;&gt;Node7</title>
+<g id="a_edge6_Node000005_Node000007"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M527.41,-325.02C583.78,-331.76 658.52,-341.86 724,-354.5 740.19,-357.63 743.95,-359.69 760,-363.5 769.87,-365.84 780.44,-368.28 790.56,-370.57"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="789.96,-374.02 800.49,-372.8 791.5,-367.19 789.96,-374.02"/>
 </a>
 </g>
 </g>
 <!-- Node8 -->
 <g id="Node000008" class="node">
 <title>Node8</title>
-<g id="a_Node000008"><a xlink:href="classCoapPortTracker.html#a463ad2f33a1aae8905340f5f7881754a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="579,-222 421,-222 421,-203 579,-203 579,-222"/>
-<text text-anchor="middle" x="500" y="-210" font-family="Helvetica,sans-Serif" font-size="10.00">CoapPortTracker::udpToSerial</text>
+<g id="a_Node000008"><a xlink:href="classSpammyLogMsg.html#aeca5f9ecea6b9b3f3725e9f1a8875f73" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="704.5,-306 585.5,-306 585.5,-287 704.5,-287 704.5,-306"/>
+<text text-anchor="middle" x="645" y="-294" font-family="Helvetica,sans-Serif" font-size="10.00">SpammyLogMsg::log</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node8 -->
-<g id="edge7_Node000004_Node000008" class="edge">
-<title>Node4&#45;&gt;Node8</title>
-<g id="a_edge7_Node000004_Node000008"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M313.83,-305.99C349.79,-287.84 428.43,-248.13 470.74,-226.77"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="472.57,-229.76 479.92,-222.13 469.42,-223.51 472.57,-229.76"/>
-</a>
-</g>
-</g>
-<!-- Node8&#45;&gt;Node6 -->
-<g id="edge10_Node000008_Node000006" class="edge">
-<title>Node8&#45;&gt;Node6</title>
-<g id="a_edge10_Node000008_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M516.05,-222.03C533.26,-233.58 561.33,-254.5 579,-278.5 603.32,-311.54 583.51,-337.2 615,-363.5 623.62,-370.7 634.52,-375.17 645.47,-377.91"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="644.99,-381.38 655.49,-379.97 646.4,-374.52 644.99,-381.38"/>
+<!-- Node5&#45;&gt;Node8 -->
+<g id="edge7_Node000005_Node000008" class="edge">
+<title>Node5&#45;&gt;Node8</title>
+<g id="a_edge7_Node000005_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M530.07,-307.11C545.19,-305.7 560.66,-304.26 575.13,-302.91"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="575.84,-306.36 585.47,-301.95 575.19,-299.39 575.84,-306.36"/>
 </a>
 </g>
 </g>
 <!-- Node9 -->
 <g id="Node000009" class="node">
 <title>Node9</title>
-<g id="a_Node000009"><a xlink:href="classCoapPortTracker.html#a23f5ab92e35e4717b2cfd603d55d05a4" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="777,-354 615,-354 615,-335 777,-335 777,-354"/>
-<text text-anchor="middle" x="696" y="-342" font-family="Helvetica,sans-Serif" font-size="10.00">CoapPortTracker::dataToString</text>
+<g id="a_Node000009"><a xlink:href="classCoapPortTracker.html#a463ad2f33a1aae8905340f5f7881754a" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="724,-222 566,-222 566,-203 724,-203 724,-222"/>
+<text text-anchor="middle" x="645" y="-210" font-family="Helvetica,sans-Serif" font-size="10.00">CoapPortTracker::udpToSerial</text>
 </a>
 </g>
 </g>
-<!-- Node8&#45;&gt;Node9 -->
-<g id="edge8_Node000008_Node000009" class="edge">
-<title>Node8&#45;&gt;Node9</title>
-<g id="a_edge8_Node000008_Node000009"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M514.2,-222.2C530.38,-234.4 558.19,-256.43 579,-278.5 597.29,-297.9 592.61,-312.01 615,-326.5 617.47,-328.1 620.05,-329.55 622.73,-330.88"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="621.53,-334.17 632.1,-334.91 624.3,-327.74 621.53,-334.17"/>
+<!-- Node5&#45;&gt;Node9 -->
+<g id="edge8_Node000005_Node000009" class="edge">
+<title>Node5&#45;&gt;Node9</title>
+<g id="a_edge8_Node000005_Node000009"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M458.83,-305.99C494.79,-287.84 573.43,-248.13 615.74,-226.77"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="617.57,-229.76 624.92,-222.13 614.42,-223.51 617.57,-229.76"/>
+</a>
+</g>
+</g>
+<!-- Node9&#45;&gt;Node7 -->
+<g id="edge11_Node000009_Node000007" class="edge">
+<title>Node9&#45;&gt;Node7</title>
+<g id="a_edge11_Node000009_Node000007"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M661.05,-222.03C678.26,-233.58 706.33,-254.5 724,-278.5 748.32,-311.54 728.51,-337.2 760,-363.5 768.62,-370.7 779.52,-375.17 790.47,-377.91"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="789.99,-381.38 800.49,-379.97 791.4,-374.52 789.99,-381.38"/>
 </a>
 </g>
 </g>
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="namespaceCoap.html#a2c7ef4d78f7140c8b5d78554527bde07" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="751,-317 641,-317 641,-298 751,-298 751,-317"/>
-<text text-anchor="middle" x="696" y="-305" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::getCoapType</text>
+<g id="a_Node000010"><a xlink:href="classCoapPortTracker.html#a23f5ab92e35e4717b2cfd603d55d05a4" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="922,-354 760,-354 760,-335 922,-335 922,-354"/>
+<text text-anchor="middle" x="841" y="-342" font-family="Helvetica,sans-Serif" font-size="10.00">CoapPortTracker::dataToString</text>
 </a>
 </g>
 </g>
-<!-- Node8&#45;&gt;Node10 -->
-<g id="edge9_Node000008_Node000010" class="edge">
-<title>Node8&#45;&gt;Node10</title>
-<g id="a_edge9_Node000008_Node000010"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M514.04,-222.24C534.57,-237.2 576.11,-265.94 615,-283.5 624.71,-287.89 635.45,-291.73 645.81,-294.99"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="645,-298.4 655.59,-297.93 647.02,-291.7 645,-298.4"/>
+<!-- Node9&#45;&gt;Node10 -->
+<g id="edge9_Node000009_Node000010" class="edge">
+<title>Node9&#45;&gt;Node10</title>
+<g id="a_edge9_Node000009_Node000010"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M659.2,-222.2C675.38,-234.4 703.19,-256.43 724,-278.5 742.29,-297.9 737.61,-312.01 760,-326.5 762.47,-328.1 765.05,-329.55 767.73,-330.88"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="766.53,-334.17 777.1,-334.91 769.3,-327.74 766.53,-334.17"/>
 </a>
 </g>
 </g>
 <!-- Node11 -->
 <g id="Node000011" class="node">
 <title>Node11</title>
-<g id="a_Node000011"><a xlink:href="namespaceCoap.html#ae7eaf13c2533f43da88cc4543c5497f7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="937,-260 813,-260 813,-241 937,-241 937,-260"/>
-<text text-anchor="middle" x="875" y="-248" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::getTokenLength</text>
+<g id="a_Node000011"><a xlink:href="namespaceCoap.html#a2c7ef4d78f7140c8b5d78554527bde07" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="896,-317 786,-317 786,-298 896,-298 896,-317"/>
+<text text-anchor="middle" x="841" y="-305" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::getCoapType</text>
 </a>
 </g>
 </g>
-<!-- Node8&#45;&gt;Node11 -->
-<g id="edge11_Node000008_Node000011" class="edge">
-<title>Node8&#45;&gt;Node11</title>
-<g id="a_edge11_Node000008_Node000011"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M522.75,-222.09C545.3,-231.48 581.85,-245.12 615,-250.5 677.83,-260.7 750.37,-259.62 802.67,-256.61"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="803.09,-260.09 812.85,-255.99 802.66,-253.11 803.09,-260.09"/>
+<!-- Node9&#45;&gt;Node11 -->
+<g id="edge10_Node000009_Node000011" class="edge">
+<title>Node9&#45;&gt;Node11</title>
+<g id="a_edge10_Node000009_Node000011"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M659.04,-222.24C679.57,-237.2 721.11,-265.94 760,-283.5 769.71,-287.89 780.45,-291.73 790.81,-294.99"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="790,-298.4 800.59,-297.93 792.02,-291.7 790,-298.4"/>
 </a>
 </g>
 </g>
 <!-- Node12 -->
 <g id="Node000012" class="node">
 <title>Node12</title>
-<g id="a_Node000012"><a xlink:href="namespaceCoap.html#aef9b24c76b4b954e229fc746b0005dfe" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="739.5,-204 652.5,-204 652.5,-185 739.5,-185 739.5,-204"/>
-<text text-anchor="middle" x="696" y="-192" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::isEmpty</text>
+<g id="a_Node000012"><a xlink:href="namespaceCoap.html#ae7eaf13c2533f43da88cc4543c5497f7" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="1082,-260 958,-260 958,-241 1082,-241 1082,-260"/>
+<text text-anchor="middle" x="1020" y="-248" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::getTokenLength</text>
 </a>
 </g>
 </g>
-<!-- Node8&#45;&gt;Node12 -->
-<g id="edge12_Node000008_Node000012" class="edge">
-<title>Node8&#45;&gt;Node12</title>
-<g id="a_edge12_Node000008_Node000012"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M579.07,-205.26C600.31,-203.29 622.81,-201.2 642.28,-199.39"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="642.83,-202.86 652.46,-198.45 642.18,-195.89 642.83,-202.86"/>
-</a>
-</g>
-</g>
-<!-- Node14 -->
-<g id="Node000014" class="node">
-<title>Node14</title>
-<g id="a_Node000014"><a xlink:href="namespaceCoap.html#af7c1dbc78feb0dbbfd48ba9a6f079b33" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="743.5,-167 648.5,-167 648.5,-148 743.5,-148 743.5,-167"/>
-<text text-anchor="middle" x="696" y="-155" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::isRequest</text>
-</a>
-</g>
-</g>
-<!-- Node8&#45;&gt;Node14 -->
-<g id="edge14_Node000008_Node000014" class="edge">
-<title>Node8&#45;&gt;Node14</title>
-<g id="a_edge14_Node000008_Node000014"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M529.41,-202.9C552.37,-195.29 585.59,-184.62 615,-176.5 623.79,-174.07 633.18,-171.67 642.31,-169.44"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="643.19,-172.83 652.09,-167.08 641.55,-166.02 643.19,-172.83"/>
-</a>
-</g>
-</g>
-<!-- Node15 -->
-<g id="Node000015" class="node">
-<title>Node15</title>
-<g id="a_Node000015"><a xlink:href="namespaceCoap.html#a73ff002a1ba1c6f6fbbf4e03d223046c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="747.5,-130 644.5,-130 644.5,-111 747.5,-111 747.5,-130"/>
-<text text-anchor="middle" x="696" y="-118" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::isResponse</text>
-</a>
-</g>
-</g>
-<!-- Node8&#45;&gt;Node15 -->
-<g id="edge16_Node000008_Node000015" class="edge">
-<title>Node8&#45;&gt;Node15</title>
-<g id="a_edge16_Node000008_Node000015"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M512.84,-202.75C532.7,-186.88 574.55,-155.53 615,-138.5 621.17,-135.9 627.77,-133.65 634.44,-131.71"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="635.47,-135.05 644.22,-129.07 633.65,-128.3 635.47,-135.05"/>
-</a>
-</g>
-</g>
-<!-- Node16 -->
-<g id="Node000016" class="node">
-<title>Node16</title>
-<g id="a_Node000016"><a xlink:href="namespaceCoap.html#a6cddead9a1fe130c6d4698b525c56a88" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="755,-241 637,-241 637,-222 755,-222 755,-241"/>
-<text text-anchor="middle" x="696" y="-229" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::looksLikeCoap</text>
-</a>
-</g>
-</g>
-<!-- Node8&#45;&gt;Node16 -->
-<g id="edge18_Node000008_Node000016" class="edge">
-<title>Node8&#45;&gt;Node16</title>
-<g id="a_edge18_Node000008_Node000016"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M579.07,-220.15C594.87,-221.69 611.38,-223.31 626.81,-224.82"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="626.49,-228.31 636.78,-225.8 627.17,-221.34 626.49,-228.31"/>
-</a>
-</g>
-</g>
-<!-- Node17 -->
-<g id="Node000017" class="node">
-<title>Node17</title>
-<g id="a_Node000017"><a xlink:href="classCoapPortTracker.html#a875af97a61e91d36996d45c8a3124f18" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="775,-93 617,-93 617,-74 775,-74 775,-93"/>
-<text text-anchor="middle" x="696" y="-81" font-family="Helvetica,sans-Serif" font-size="10.00">CoapPortTracker::markerByte</text>
-</a>
-</g>
-</g>
-<!-- Node8&#45;&gt;Node17 -->
-<g id="edge20_Node000008_Node000017" class="edge">
-<title>Node8&#45;&gt;Node17</title>
-<g id="a_edge20_Node000008_Node000017"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M507.77,-202.99C523.75,-181.3 566.19,-127.96 615,-101.5 618.32,-99.7 621.82,-98.08 625.42,-96.62"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="626.9,-99.8 635.12,-93.12 624.53,-93.22 626.9,-99.8"/>
-</a>
-</g>
-</g>
-<!-- Node18 -->
-<g id="Node000018" class="node">
-<title>Node18</title>
-<g id="a_Node000018"><a xlink:href="namespaceCoap.html#af739c916bfe029196c6587127eeed23e" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="757.5,-56 634.5,-56 634.5,-37 757.5,-37 757.5,-56"/>
-<text text-anchor="middle" x="696" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::setTokenLength</text>
-</a>
-</g>
-</g>
-<!-- Node8&#45;&gt;Node18 -->
-<g id="edge21_Node000008_Node000018" class="edge">
-<title>Node8&#45;&gt;Node18</title>
-<g id="a_edge21_Node000008_Node000018"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M505.52,-202.67C518.41,-175.81 558.13,-100.78 615,-64.5 618.12,-62.51 621.44,-60.73 624.88,-59.15"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="626.23,-62.38 634.21,-55.41 623.62,-55.89 626.23,-62.38"/>
-</a>
-</g>
-</g>
-<!-- Node19 -->
-<g id="Node000019" class="node">
-<title>Node19</title>
-<g id="a_Node000019"><a xlink:href="classCoapPortTracker.html#ae0f104887b55cf7f419dc8398e6c1edf" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="768,-19 624,-19 624,0 768,0 768,-19"/>
-<text text-anchor="middle" x="696" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">CoapPortTracker::trackMid</text>
-</a>
-</g>
-</g>
-<!-- Node8&#45;&gt;Node19 -->
-<g id="edge22_Node000008_Node000019" class="edge">
-<title>Node8&#45;&gt;Node19</title>
-<g id="a_edge22_Node000008_Node000019"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M503.89,-202.98C513.78,-172.17 549.29,-74.4 615,-27.5 617.08,-26.02 619.26,-24.65 621.52,-23.4"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="623.03,-26.55 630.55,-19.09 620.02,-20.23 623.03,-26.55"/>
+<!-- Node9&#45;&gt;Node12 -->
+<g id="edge12_Node000009_Node000012" class="edge">
+<title>Node9&#45;&gt;Node12</title>
+<g id="a_edge12_Node000009_Node000012"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M667.75,-222.09C690.3,-231.48 726.85,-245.12 760,-250.5 822.83,-260.7 895.37,-259.62 947.67,-256.61"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="948.09,-260.09 957.85,-255.99 947.66,-253.11 948.09,-260.09"/>
 </a>
 </g>
 </g>
 <!-- Node13 -->
 <g id="Node000013" class="node">
 <title>Node13</title>
-<g id="a_Node000013"><a xlink:href="namespaceCoap.html#a16f4853eb0c40d26d7905ebfadd9d5e7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="919,-167 831,-167 831,-148 919,-148 919,-167"/>
-<text text-anchor="middle" x="875" y="-155" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::getCode</text>
+<g id="a_Node000013"><a xlink:href="namespaceCoap.html#aef9b24c76b4b954e229fc746b0005dfe" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="884.5,-204 797.5,-204 797.5,-185 884.5,-185 884.5,-204"/>
+<text text-anchor="middle" x="841" y="-192" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::isEmpty</text>
 </a>
 </g>
 </g>
-<!-- Node12&#45;&gt;Node13 -->
-<g id="edge13_Node000012_Node000013" class="edge">
-<title>Node12&#45;&gt;Node13</title>
-<g id="a_edge13_Node000012_Node000013"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M739.85,-185.54C764.23,-180.45 794.99,-174.02 820.9,-168.6"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="821.86,-171.97 830.93,-166.5 820.43,-165.12 821.86,-171.97"/>
+<!-- Node9&#45;&gt;Node13 -->
+<g id="edge13_Node000009_Node000013" class="edge">
+<title>Node9&#45;&gt;Node13</title>
+<g id="a_edge13_Node000009_Node000013"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M724.07,-205.26C745.31,-203.29 767.81,-201.2 787.28,-199.39"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="787.83,-202.86 797.46,-198.45 787.18,-195.89 787.83,-202.86"/>
 </a>
 </g>
 </g>
-<!-- Node14&#45;&gt;Node13 -->
-<g id="edge15_Node000014_Node000013" class="edge">
-<title>Node14&#45;&gt;Node13</title>
-<g id="a_edge15_Node000014_Node000013"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M743.5,-157.5C767.17,-157.5 796.04,-157.5 820.61,-157.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="820.84,-161 830.84,-157.5 820.84,-154 820.84,-161"/>
+<!-- Node15 -->
+<g id="Node000015" class="node">
+<title>Node15</title>
+<g id="a_Node000015"><a xlink:href="namespaceCoap.html#af7c1dbc78feb0dbbfd48ba9a6f079b33" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="888.5,-167 793.5,-167 793.5,-148 888.5,-148 888.5,-167"/>
+<text text-anchor="middle" x="841" y="-155" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::isRequest</text>
 </a>
 </g>
 </g>
-<!-- Node15&#45;&gt;Node13 -->
-<g id="edge17_Node000015_Node000013" class="edge">
-<title>Node15&#45;&gt;Node13</title>
-<g id="a_edge17_Node000015_Node000013"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M742.58,-130.03C766.44,-135.02 795.79,-141.15 820.69,-146.36"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="820.2,-149.83 830.71,-148.45 821.63,-142.98 820.2,-149.83"/>
+<!-- Node9&#45;&gt;Node15 -->
+<g id="edge15_Node000009_Node000015" class="edge">
+<title>Node9&#45;&gt;Node15</title>
+<g id="a_edge15_Node000009_Node000015"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M674.41,-202.9C697.37,-195.29 730.59,-184.62 760,-176.5 768.79,-174.07 778.18,-171.67 787.31,-169.44"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="788.19,-172.83 797.09,-167.08 786.55,-166.02 788.19,-172.83"/>
 </a>
 </g>
 </g>
-<!-- Node16&#45;&gt;Node11 -->
-<g id="edge19_Node000016_Node000011" class="edge">
-<title>Node16&#45;&gt;Node11</title>
-<g id="a_edge19_Node000016_Node000011"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M755.45,-237.77C770.56,-239.4 787.01,-241.16 802.7,-242.85"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="802.57,-246.35 812.88,-243.94 803.31,-239.39 802.57,-246.35"/>
+<!-- Node16 -->
+<g id="Node000016" class="node">
+<title>Node16</title>
+<g id="a_Node000016"><a xlink:href="namespaceCoap.html#a73ff002a1ba1c6f6fbbf4e03d223046c" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="892.5,-130 789.5,-130 789.5,-111 892.5,-111 892.5,-130"/>
+<text text-anchor="middle" x="841" y="-118" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::isResponse</text>
+</a>
+</g>
+</g>
+<!-- Node9&#45;&gt;Node16 -->
+<g id="edge17_Node000009_Node000016" class="edge">
+<title>Node9&#45;&gt;Node16</title>
+<g id="a_edge17_Node000009_Node000016"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M657.84,-202.75C677.7,-186.88 719.55,-155.53 760,-138.5 766.17,-135.9 772.77,-133.65 779.44,-131.71"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="780.47,-135.05 789.22,-129.07 778.65,-128.3 780.47,-135.05"/>
+</a>
+</g>
+</g>
+<!-- Node17 -->
+<g id="Node000017" class="node">
+<title>Node17</title>
+<g id="a_Node000017"><a xlink:href="namespaceCoap.html#a6cddead9a1fe130c6d4698b525c56a88" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="900,-241 782,-241 782,-222 900,-222 900,-241"/>
+<text text-anchor="middle" x="841" y="-229" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::looksLikeCoap</text>
+</a>
+</g>
+</g>
+<!-- Node9&#45;&gt;Node17 -->
+<g id="edge19_Node000009_Node000017" class="edge">
+<title>Node9&#45;&gt;Node17</title>
+<g id="a_edge19_Node000009_Node000017"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M724.07,-220.15C739.87,-221.69 756.38,-223.31 771.81,-224.82"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="771.49,-228.31 781.78,-225.8 772.17,-221.34 771.49,-228.31"/>
+</a>
+</g>
+</g>
+<!-- Node18 -->
+<g id="Node000018" class="node">
+<title>Node18</title>
+<g id="a_Node000018"><a xlink:href="classCoapPortTracker.html#a875af97a61e91d36996d45c8a3124f18" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="920,-93 762,-93 762,-74 920,-74 920,-93"/>
+<text text-anchor="middle" x="841" y="-81" font-family="Helvetica,sans-Serif" font-size="10.00">CoapPortTracker::markerByte</text>
+</a>
+</g>
+</g>
+<!-- Node9&#45;&gt;Node18 -->
+<g id="edge21_Node000009_Node000018" class="edge">
+<title>Node9&#45;&gt;Node18</title>
+<g id="a_edge21_Node000009_Node000018"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M652.77,-202.99C668.75,-181.3 711.19,-127.96 760,-101.5 763.32,-99.7 766.82,-98.08 770.42,-96.62"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="771.9,-99.8 780.12,-93.12 769.53,-93.22 771.9,-99.8"/>
+</a>
+</g>
+</g>
+<!-- Node19 -->
+<g id="Node000019" class="node">
+<title>Node19</title>
+<g id="a_Node000019"><a xlink:href="namespaceCoap.html#af739c916bfe029196c6587127eeed23e" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="902.5,-56 779.5,-56 779.5,-37 902.5,-37 902.5,-56"/>
+<text text-anchor="middle" x="841" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::setTokenLength</text>
+</a>
+</g>
+</g>
+<!-- Node9&#45;&gt;Node19 -->
+<g id="edge22_Node000009_Node000019" class="edge">
+<title>Node9&#45;&gt;Node19</title>
+<g id="a_edge22_Node000009_Node000019"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M650.52,-202.67C663.41,-175.81 703.13,-100.78 760,-64.5 763.12,-62.51 766.44,-60.73 769.88,-59.15"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="771.23,-62.38 779.21,-55.41 768.62,-55.89 771.23,-62.38"/>
+</a>
+</g>
+</g>
+<!-- Node20 -->
+<g id="Node000020" class="node">
+<title>Node20</title>
+<g id="a_Node000020"><a xlink:href="classCoapPortTracker.html#ae0f104887b55cf7f419dc8398e6c1edf" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="913,-19 769,-19 769,0 913,0 913,-19"/>
+<text text-anchor="middle" x="841" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">CoapPortTracker::trackMid</text>
+</a>
+</g>
+</g>
+<!-- Node9&#45;&gt;Node20 -->
+<g id="edge23_Node000009_Node000020" class="edge">
+<title>Node9&#45;&gt;Node20</title>
+<g id="a_edge23_Node000009_Node000020"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M648.89,-202.98C658.78,-172.17 694.29,-74.4 760,-27.5 762.08,-26.02 764.26,-24.65 766.52,-23.4"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="768.03,-26.55 775.55,-19.09 765.02,-20.23 768.03,-26.55"/>
+</a>
+</g>
+</g>
+<!-- Node14 -->
+<g id="Node000014" class="node">
+<title>Node14</title>
+<g id="a_Node000014"><a xlink:href="namespaceCoap.html#a16f4853eb0c40d26d7905ebfadd9d5e7" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="1064,-167 976,-167 976,-148 1064,-148 1064,-167"/>
+<text text-anchor="middle" x="1020" y="-155" font-family="Helvetica,sans-Serif" font-size="10.00">Coap::getCode</text>
+</a>
+</g>
+</g>
+<!-- Node13&#45;&gt;Node14 -->
+<g id="edge14_Node000013_Node000014" class="edge">
+<title>Node13&#45;&gt;Node14</title>
+<g id="a_edge14_Node000013_Node000014"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M884.85,-185.54C909.23,-180.45 939.99,-174.02 965.9,-168.6"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="966.86,-171.97 975.93,-166.5 965.43,-165.12 966.86,-171.97"/>
+</a>
+</g>
+</g>
+<!-- Node15&#45;&gt;Node14 -->
+<g id="edge16_Node000015_Node000014" class="edge">
+<title>Node15&#45;&gt;Node14</title>
+<g id="a_edge16_Node000015_Node000014"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M888.5,-157.5C912.17,-157.5 941.04,-157.5 965.61,-157.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="965.84,-161 975.84,-157.5 965.84,-154 965.84,-161"/>
+</a>
+</g>
+</g>
+<!-- Node16&#45;&gt;Node14 -->
+<g id="edge18_Node000016_Node000014" class="edge">
+<title>Node16&#45;&gt;Node14</title>
+<g id="a_edge18_Node000016_Node000014"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M887.58,-130.03C911.44,-135.02 940.79,-141.15 965.69,-146.36"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="965.2,-149.83 975.71,-148.45 966.63,-142.98 965.2,-149.83"/>
+</a>
+</g>
+</g>
+<!-- Node17&#45;&gt;Node12 -->
+<g id="edge20_Node000017_Node000012" class="edge">
+<title>Node17&#45;&gt;Node12</title>
+<g id="a_edge20_Node000017_Node000012"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M900.45,-237.77C915.56,-239.4 932.01,-241.16 947.7,-242.85"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="947.57,-246.35 957.88,-243.94 948.31,-239.39 947.57,-246.35"/>
 </a>
 </g>
 </g>

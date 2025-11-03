@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#a17f60832cd8717bb8aa457f1bae0da33" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#a17f60832cd8717bb8aa457f1bae0da33" target="_top" xlink:title="Upload firmware metadata (filename, length, CRC32).">
 <polygon fill="white" stroke="#666666" points="148,-30 0,-30 0,0 148,0 148,-30"/>
 <text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::postFirmware</text>
 <text text-anchor="middle" x="74" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">FileMetadata</text>

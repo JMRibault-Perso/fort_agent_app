@@ -99,7 +99,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
 </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="ttc" id="aFORTJoystickHelpers_8h_html"><div class="ttname"><a href="FORTJoystickHelpers_8h.html">FORTJoystickHelpers.h</a></div></div>
+<div class="ttc" id="aFORTJoystickHelpers_8h_html"><div class="ttname"><a href="FORTJoystickHelpers_8h.html">FORTJoystickHelpers.h</a></div><div class="ttdoc">Strongly typed helpers for decoding Fort joystick and keypad payloads.</div></div>
 <div class="ttc" id="aclassIVehicleState_html"><div class="ttname"><a href="classIVehicleState.html">IVehicleState</a></div><div class="ttdoc">Interface implemented by each high-level vehicle state.</div><div class="ttdef"><b>Definition</b> IVehicleState.h:12</div></div>
 <div class="ttc" id="aclassIVehicleState_html_a5ce65a552ad448ae366aa901eb65b53e"><div class="ttname"><a href="classIVehicleState.html#a5ce65a552ad448ae366aa901eb65b53e">IVehicleState::update</a></div><div class="ttdeci">virtual void update()=0</div><div class="ttdoc">Periodic tick invoked from the bridge service loop.</div></div>
 <div class="ttc" id="aclassIVehicleState_html_a5e02cacf294d2fa2024d20cde91371af"><div class="ttname"><a href="classIVehicleState.html#a5e02cacf294d2fa2024d20cde91371af">IVehicleState::handleInput</a></div><div class="ttdeci">virtual void handleInput(const frc_combined_data_t &amp;input)=0</div><div class="ttdoc">Process joystick/keypad input pulled from the FORT controller.</div></div>
@@ -108,7 +108,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aclassIVehicleState_html_a8fa0393daec08faa0f46c0fb1535022f"><div class="ttname"><a href="classIVehicleState.html#a8fa0393daec08faa0f46c0fb1535022f">IVehicleState::next</a></div><div class="ttdeci">virtual std::unique_ptr&lt; IVehicleState &gt; next()=0</div><div class="ttdoc">Optionally return the next state.</div></div>
 <div class="ttc" id="aclassIVehicleState_html_a96855e7fb65d74ad19ad39a20fff176b"><div class="ttname"><a href="classIVehicleState.html#a96855e7fb65d74ad19ad39a20fff176b">IVehicleState::enter</a></div><div class="ttdeci">virtual void enter()=0</div><div class="ttdoc">Called once when the state becomes active.</div></div>
 <div class="ttc" id="aclassIVehicleState_html_ae74f37bcb10e0c3f651388ceea911f1f"><div class="ttname"><a href="classIVehicleState.html#ae74f37bcb10e0c3f651388ceea911f1f">IVehicleState::~IVehicleState</a></div><div class="ttdeci">virtual ~IVehicleState()=default</div></div>
-<div class="ttc" id="astructfrc__combined__data__t_html"><div class="ttname"><a href="structfrc__combined__data__t.html">frc_combined_data_t</a></div><div class="ttdef"><b>Definition</b> FORTJoystickHelpers.h:44</div></div>
+<div class="ttc" id="astructfrc__combined__data__t_html"><div class="ttname"><a href="structfrc__combined__data__t.html">frc_combined_data_t</a></div><div class="ttdoc">Composite report carrying keypad and joystick blocks back-to-back.</div><div class="ttdef"><b>Definition</b> FORTJoystickHelpers.h:52</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

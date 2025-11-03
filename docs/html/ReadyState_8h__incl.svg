@@ -142,7 +142,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="FORTJoystickHelpers_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="FORTJoystickHelpers_8h.html" target="_top" xlink:title="Strongly typed helpers for decoding Fort joystick and keypad payloads.">
 <polygon fill="white" stroke="#666666" points="221.5,-85 65.5,-85 65.5,-55 221.5,-55 221.5,-85"/>
 <text text-anchor="start" x="73.5" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">fort_agent/uart/FORTJoystick</text>
 <text text-anchor="middle" x="143.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">/FORTJoystickHelpers.h</text>

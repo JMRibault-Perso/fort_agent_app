@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jb_5fmid_0',['jb_mid',['../JausBridge_8cpp.html#a8bb2c6e2030beaeda501dca3a0851c25',1,'JB_MID:&#160;JausBridge.cpp'],['../coapSRCPro_8h.html#a8bb2c6e2030beaeda501dca3a0851c25',1,'JB_MID:&#160;coapSRCPro.h']]]
+  ['js_5fmid_0',['js_mid',['../JausBridge_8cpp.html#af9364df568aee4cb7bf108aa4bf139e7',1,'JS_MID:&#160;JausBridge.cpp'],['../coapSRCPro_8h.html#af9364df568aee4cb7bf108aa4bf139e7',1,'JS_MID:&#160;coapSRCPro.h']]]
 ];

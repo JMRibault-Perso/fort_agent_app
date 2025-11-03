@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#a9db469100d704b2bbd0aac406a20a5e3" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#a9db469100d704b2bbd0aac406a20a5e3" target="_top" xlink:title="Post a 6&#45;character segment within a display quadrant.">
 <polygon fill="white" stroke="#666666" points="159,-30 0,-30 0,0 159,0 159,-30"/>
 <text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::postDisplayText</text>
 <text text-anchor="middle" x="79.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Segment</text>

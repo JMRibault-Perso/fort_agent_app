@@ -42,6 +42,33 @@ namespace coapSRCPro {
                                 uri.segments, payload, {}, fmt, observe, observeValue);
         }
 
+    namespace detail {
+        template<Coap::Method Method, Coap::Format Format, JausBridge::JausPort Port>
+        void sendRequest(uint16_t mid, const Uri& uri,
+                        const std::vector<uint8_t>& payload,
+                        bool observe, uint16_t observeValue) {
+            auto coapMsg = build(Method, mid, uri, payload, Format, observe, observeValue);
+            UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, static_cast<uint16_t>(Port));
+        }
+
+        template<Coap::Method Method, Coap::Format Format, JausBridge::JausPort Port>
+        void sendRequest(uint16_t mid, const Uri& uri,
+                        const std::vector<uint8_t>& payload) {
+            sendRequest<Method, Format, Port>(mid, uri, payload, false, 0);
+        }
+
+        template<Coap::Method Method, Coap::Format Format, JausBridge::JausPort Port>
+        void sendRequest(uint16_t mid, const Uri& uri,
+                        bool observe = false, uint16_t observeValue = 0) {
+            static const std::vector<uint8_t> emptyPayload;
+            sendRequest<Method, Format, Port>(mid, uri, emptyPayload, observe, observeValue);
+        }
+
+        inline std::vector<uint8_t> asciiPayload(const std::string& text) {
+            return std::vector<uint8_t>(text.begin(), text.end());
+        }
+    }
+
     namespace CBORHelpers {
         // -------------------- CBOR helpers --------------------
         std::vector<uint8_t> cborEncodeUint(uint64_t value) {
@@ -143,245 +170,204 @@ namespace coapSRCPro {
 
     // -------------------- Safety Domain --------------------
     void getSMCUSafety(int smcuIndex, uint16_t mid, bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::SMCUSafety(smcuIndex),
-                    {}, Coap::Format::APPLICATION_OCTET_STREAM, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::SAFETY);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::SAFETY>(
+            mid, URIs::SMCUSafety(smcuIndex), observe, observeValue);
     }
 
     void postSMCUSafety(int smcuIndex, uint16_t mid,
                                                     const std::vector<uint8_t>& raw) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::SMCUSafety(smcuIndex),
-                    raw, Coap::Format::APPLICATION_OCTET_STREAM, false, 0);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::SAFETY);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::SAFETY>(
+            mid, URIs::SMCUSafety(smcuIndex), raw);
     }
 
     void getSMCUSafetyDiagnostics(int smcuIndex, uint16_t mid,
                                                             bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::SMCUSafetyDiagnostics(smcuIndex),
-                    {}, Coap::Format::APPLICATION_CBOR, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DIAGNOSTICS);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::DIAGNOSTICS>(
+            mid, URIs::SMCUSafetyDiagnostics(smcuIndex), observe, observeValue);
     }
 
     void getSMCUSystemDiagnostics(int smcuIndex, uint16_t mid,
                                                             bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::SMCUSystemDiagnostics(smcuIndex),
-                    {}, Coap::Format::APPLICATION_CBOR, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DIAGNOSTICS);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::DIAGNOSTICS>(
+            mid, URIs::SMCUSystemDiagnostics(smcuIndex), observe, observeValue);
     }
 
     void getSMCUCombinedSafety(uint16_t mid,
                                                         bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::SMCUCombinedSafety,
-                    {}, Coap::Format::APPLICATION_OCTET_STREAM, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::SAFETYCOMBINED);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::SAFETYCOMBINED>(
+            mid, URIs::SMCUCombinedSafety, observe, observeValue);
     }
 
     // -------------------- Device Info Domain --------------------
     void getRadioMode(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::RadioMode, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::RADIOMODE);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::RADIOMODE>(
+            mid, URIs::RadioMode);
     }
 
     void getRadioPowerDb(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::RadioPower, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::RADIOPOWER);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::RADIOPOWER>(
+            mid, URIs::RadioPower);
     }
 
     void getRadioChannel(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::RadioChannel, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::RADIOCHANNEL);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::RADIOCHANNEL>(
+            mid, URIs::RadioChannel);
     }
 
     void getRadioStatus(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::RadioChannel, {}, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::RADIOSTATUS);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::RADIOSTATUS>(
+            mid, URIs::RadioChannel);
     }
 
     void getRadioUsed(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::RadioUsed, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::RADIOUSED);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::RADIOUSED>(
+            mid, URIs::RadioUsed);
     }
 
     void getFirmwareVersion(uint16_t mid,
                                        bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::FirmwareVersion, {}, Coap::Format::TEXT_PLAIN, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FIRMWAREVERSION);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::FIRMWAREVERSION>(
+            mid, URIs::FirmwareVersion, observe, observeValue);
     }
 
     void getCpuTempC(uint16_t mid,
                                        bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::CpuTemp, {}, Coap::Format::TEXT_PLAIN, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::CPUTEMP);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::CPUTEMP>(
+            mid, URIs::CpuTemp, observe, observeValue);
     }
 
     void getDeviceTempC(uint16_t mid,
                                        bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::DeviceTemp, {}, Coap::Format::TEXT_PLAIN, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DEVICETEMP);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::DEVICETEMP>(
+            mid, URIs::DeviceTemp, observe, observeValue);
     }
 
     void getGaugeTempC(uint16_t mid,
                                        bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::GaugeTemp, {}, Coap::Format::TEXT_PLAIN, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::GAUGETEMP);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::GAUGETEMP>(
+            mid, URIs::GaugeTemp, observe, observeValue);
     }
 
     void getGyroTempC(uint16_t mid,
                                        bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::GyroTemp, {}, Coap::Format::TEXT_PLAIN, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::GYROTEMP);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::GYROTEMP>(
+            mid, URIs::GyroTemp, observe, observeValue);
     }
 
     void getBatteryStatus(uint16_t mid,
                                        bool observe, uint16_t observeValue) {
         // Spec says "text/plain (0)" but content described as CBOR object; we respect the table's format field.
         // If the implementation expects CBOR, adjust Coap::Format::APPLICATION_CBOR here.
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::BatteryStatus, {}, Coap::Format::TEXT_PLAIN, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::BATTERYSTATUS);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::BATTERYSTATUS>(
+            mid, URIs::BatteryStatus, observe, observeValue);
     }
 
     void getSystemStatus(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::SystemStatus, {}, Coap::Format::APPLICATION_OCTET_STREAM);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::SYSTEMSTATUS);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::SYSTEMSTATUS>(
+            mid, URIs::SystemStatus);
     }
 
     void getLockdownStatus(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::LockdownStatus, {}, Coap::Format::APPLICATION_OCTET_STREAM);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::LOCKDOWNSTATUS);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::LOCKDOWNSTATUS>(
+            mid, URIs::LockdownStatus);
     }
 
     // -------------------- Config Domain --------------------
     void getSerialNumber(uint16_t mid,
                                        bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::SerialNumber, {}, Coap::Format::TEXT_PLAIN, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::SERIALNUMBER);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::SERIALNUMBER>(
+            mid, URIs::SerialNumber, observe, observeValue);
     }
 
     void postSerialNumber(uint16_t mid, const std::string& serial) {
-        vector<uint8_t> payload(serial.begin(), serial.end());
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::SerialNumber, payload, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::SERIALNUMBER);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::SERIALNUMBER>(
+            mid, URIs::SerialNumber, detail::asciiPayload(serial));
     }
 
     void getModelNumber(uint16_t mid,
                                        bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::ModelNumber, {}, Coap::Format::TEXT_PLAIN, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::MODELNUMBER);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::MODELNUMBER>(
+            mid, URIs::ModelNumber, observe, observeValue);
     }
 
     void postModelNumber(uint16_t mid, const std::string& model) {
-        vector<uint8_t> payload(model.begin(), model.end());
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::ModelNumber, payload, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::MODELNUMBER);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::MODELNUMBER>(
+            mid, URIs::ModelNumber, detail::asciiPayload(model));
     }
 
     void getDeviceMac(uint16_t mid,
                                        bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::DeviceMac, {}, Coap::Format::TEXT_PLAIN, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DEVICEMAC);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::DEVICEMAC>(
+            mid, URIs::DeviceMac, observe, observeValue);
     }
 
     void getDeviceUID(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::DeviceUID, {}, Coap::Format::APPLICATION_OCTET_STREAM);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DEVICEUID);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::DEVICEUID>(
+            mid, URIs::DeviceUID);
     }
 
     void getDeviceRev(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::DeviceRev, {}, Coap::Format::APPLICATION_OCTET_STREAM);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DEVICEREV);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::DEVICEREV>(
+            mid, URIs::DeviceRev);
     }
 
     void postSystemReset(uint16_t mid, char mode) {
         // ASCII 'n' or 'b'
-        vector<uint8_t> payload{static_cast<uint8_t>(mode)};
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::SystemReset, payload, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::SYSTEMRESET);
+        std::vector<uint8_t> payload{static_cast<uint8_t>(mode)};
+        detail::sendRequest<Coap::Method::POST, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::SYSTEMRESET>(
+            mid, URIs::SystemReset, payload);
     }
 
     void getDisplayMode(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::DisplayMode, {}, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DISPLAYMODE);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::DISPLAYMODE>(
+            mid, URIs::DisplayMode);
     }
 
     void postDisplayMode(uint16_t mid, uint8_t mode) {
         // payload is CBOR-encoded byte string containing number 0 or 1 (single byte)
         vector<uint8_t> raw{mode};
         auto payload = CBORHelpers::cborEncodeByteString(raw);
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::DisplayMode, payload, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DISPLAYMODE);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::DISPLAYMODE>(
+            mid, URIs::DisplayMode, payload);
     }
 
     void postVibrateLeft(uint16_t mid) {
         vector<uint8_t> raw{1};
         auto payload = CBORHelpers::cborEncodeByteString(raw);
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::VibrateLeft, payload, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::VIBRATIONLEFT);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::VIBRATIONLEFT>(
+            mid, URIs::VibrateLeft, payload);
     }
 
     void postVibrateRight(uint16_t mid) {
         vector<uint8_t> raw{1};
         auto payload = CBORHelpers::cborEncodeByteString(raw);
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::VibrateRight, payload, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::VIBRATIONRIGHT);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::VIBRATIONRIGHT>(
+            mid, URIs::VibrateRight, payload);
     }
 
     void postVibrateBoth(uint16_t mid) {
         vector<uint8_t> raw{1};
         auto payload = CBORHelpers::cborEncodeByteString(raw);
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::VibrateBoth, payload, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::VIBRATIONBOTH);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::VIBRATIONBOTH>(
+            mid, URIs::VibrateBoth, payload);
     }
 
     // -------------------- File Endpoints --------------------
     void getFirmwareFileData(uint16_t mid, const std::string& filename) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::FirmareFileData(filename), {}, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FIRMWAREFILEDATA);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::FIRMWAREFILEDATA>(
+            mid, URIs::FirmareFileData(filename));
     }
 
     void postFirmwareFileData(uint16_t mid, const std::string& filename,
                                                         const std::vector<uint8_t>& data) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::FirmareFileData(filename), data, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FIRMWAREFILEDATA);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::FIRMWAREFILEDATA>(
+            mid, URIs::FirmareFileData(filename), data);
     }
 
     void getFirmwareFileMetadata(uint16_t mid) {
         // Example: fs/metadata?computed (optional query); we provide base endpoint and allow caller to add query if needed
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::FirmwareMetaData, {}, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FIRMWAREFILEMETADATA);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::FIRMWAREFILEMETADATA>(
+            mid, URIs::FirmwareMetaData);
     }
 
     void postFirmwareFileMetadata(uint16_t mid,
@@ -389,37 +375,32 @@ namespace coapSRCPro {
                                                             uint32_t length,
                                                             uint32_t crc32) {
         auto payload = CBORHelpers::cborEncodeFileMetadata(filename, length, crc32);
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::FirmwareMetaData, payload, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FIRMWAREFILEMETADATA);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::FIRMWAREFILEMETADATA>(
+            mid, URIs::FirmwareMetaData, payload);
     }
 
     // -------------------- State Endpoints --------------------
     void getJoystickCalibrated(uint16_t mid,
                                                         bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::JoystickCalibrated, {}, Coap::Format::APPLICATION_OCTET_STREAM, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::JOYSTICKCALIBRATED);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::JOYSTICKCALIBRATED>(
+            mid, URIs::JoystickCalibrated, observe, observeValue);
     }
 
     void getKeypad(uint16_t mid,
                                             bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::Keypad, {}, Coap::Format::APPLICATION_OCTET_STREAM, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::KEYPAD);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::KEYPAD>(
+            mid, URIs::Keypad, observe, observeValue);
     }
 
     void getCombinedJoystickKeypad(uint16_t mid,
                                                             bool observe, uint16_t observeValue) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::CombinedJoystickKeypad, {}, Coap::Format::APPLICATION_OCTET_STREAM, observe, observeValue);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::COMBINEDJOYSTICKKEYPAD);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_OCTET_STREAM, JausBridge::JausPort::COMBINEDJOYSTICKKEYPAD>(
+            mid, URIs::CombinedJoystickKeypad, observe, observeValue);
     }
 
     void getMode(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::Mode, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::MODE);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::MODE>(
+            mid, URIs::Mode);
     }
 
     void postDisplayTextRawLines(uint16_t mid,
@@ -427,111 +408,92 @@ namespace coapSRCPro {
                                                             const std::string& line1_18chars,
                                                             bool upperHalf) {
         auto payload = CBORHelpers::cborEncodeTwoLines18(line0_18chars, line1_18chars, upperHalf);
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::DisplayText, payload, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DISPLAYTEXT);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::DISPLAYTEXT>(
+            mid, URIs::DisplayText, payload);
     }
 
     void postDisplayTextSegment(uint16_t mid,
                                                             uint8_t line, uint8_t segment,
                                                             const std::string& text6chars) {
         auto payload = CBORHelpers::cborEncodeDisplaySegment(line, segment, text6chars);
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::DisplayText, payload, Coap::Format::APPLICATION_CBOR);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::DISPLAYTEXT);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::DISPLAYTEXT>(
+            mid, URIs::DisplayText, payload);
     }
 
     // -------------------- Security Endpoints --------------------
     void getSecureElementID(uint16_t mid) {
         // ASCII encoded hex
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::SecureElementID, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::SECUREELEMENTID);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::SECUREELEMENTID>(
+            mid, URIs::SecureElementID);
     }
 
     // FSO selection/id
     void postFsoId(uint16_t mid, const std::string& idString) {
         // POST String (plain text)
-        vector<uint8_t> payload(idString.begin(), idString.end());
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::FsoId, payload, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FSOID);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::FSOID>(
+            mid, URIs::FsoId, detail::asciiPayload(idString));
     }
 
     void getFsoLength(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::FsoLength, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FSOLENGTH);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::FSOLENGTH>(
+            mid, URIs::FsoLength);
     }
 
     void getFsoCrc(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::FsoCrc, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FSOCRC);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::FSOCRC>(
+            mid, URIs::FsoCrc);
     }
 
     void getFsoErase(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::FsoErase, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FSOERASE);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::FSOERASE>(
+            mid, URIs::FsoErase);
     }
 
     void getFsoData(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::FsoData, {}, Coap::Format::TEXT_PLAIN /*DER - opaque*/);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FSODATA);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::FSODATA>(
+            mid, URIs::FsoData);
     }
 
     void postFsoData(uint16_t mid, const std::vector<uint8_t>& der) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::FsoData, der, Coap::Format::TEXT_PLAIN /*DER - opaque*/);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::FSODATA);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::FSODATA>(
+            mid, URIs::FsoData, der);
     }
 
     // Lockdown OTP flow
     void getOtpKey(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::Otp, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::OPTKEY);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::OPTKEY>(
+            mid, URIs::Otp);
     }
 
     void postOtpCommit(uint16_t mid, const std::string& phrase,
                                                 const std::string& seedHex) {
         // ASCII encoded hex: phrase and seed packed as "<phrase> <seed>"
         string payloadStr = phrase + " " + seedHex;
-        vector<uint8_t> payload(payloadStr.begin(), payloadStr.end());
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::Otp, payload, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::OPTCOMMIT);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::OPTCOMMIT>(
+            mid, URIs::Otp, detail::asciiPayload(payloadStr));
     }
 
     void getLockdownProcessorKey(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::LockdownProcessor, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::LOCKDOWNPROCESSORKEY);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::LOCKDOWNPROCESSORKEY>(
+            mid, URIs::LockdownProcessor);
     }
 
     void postLockdownProcessor(uint16_t mid, const std::string& phrase,
                                                         const std::string& keyHex) {
         // ASCII encoded hex "<phrase> <key>"
         string payloadStr = phrase + " " + keyHex;
-        vector<uint8_t> payload(payloadStr.begin(), payloadStr.end());
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::LockdownProcessor, payload, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::LOCKDOWNPROCESSORKEY);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::LOCKDOWNPROCESSORKEY>(
+            mid, URIs::LockdownProcessor, detail::asciiPayload(payloadStr));
     }
 
     void getScp03Rotate(uint16_t mid) {
-        std::vector<uint8_t> coapMsg = build(Coap::Method::GET, mid,
-                    URIs::Scp03, {}, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::SCP03ROTATE);
+        detail::sendRequest<Coap::Method::GET, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::SCP03ROTATE>(
+            mid, URIs::Scp03);
     }
 
     void postOtpWriteDevTest(uint16_t mid, const std::string& asciiHex) {
         // Development Test Only, ASCII encoded hex via POST
-        vector<uint8_t> payload(asciiHex.begin(), asciiHex.end());
-        std::vector<uint8_t> coapMsg = build(Coap::Method::POST, mid,
-                    URIs::OtpWrite, payload, Coap::Format::TEXT_PLAIN);
-        UartCoapBridgeSingleton::instance().sendSRCRequest(coapMsg, (uint16_t) JausBridge::JausPort::OTPWRITEDEVTEST);
+        detail::sendRequest<Coap::Method::POST, Coap::Format::TEXT_PLAIN, JausBridge::JausPort::OTPWRITEDEVTEST>(
+            mid, URIs::OtpWrite, detail::asciiPayload(asciiHex));
     }
 }

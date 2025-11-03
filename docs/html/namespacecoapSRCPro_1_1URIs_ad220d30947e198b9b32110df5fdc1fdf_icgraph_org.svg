@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#a7bcc28160eb76c0f533585f436e9b430" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#a7bcc28160eb76c0f533585f436e9b430" target="_top" xlink:title="Start a block&#45;wise GET for firmware file contents.">
 <polygon fill="white" stroke="#666666" points="183,-67.5 0,-67.5 0,-48.5 183,-48.5 183,-67.5"/>
 <text text-anchor="middle" x="91.5" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::getFirmwareFileData</text>
 </a>
@@ -39,7 +39,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="namespacecoapSRCPro.html#aaeb82239e52a1a08819884bc697e127d" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="namespacecoapSRCPro.html#aaeb82239e52a1a08819884bc697e127d" target="_top" xlink:title="Upload firmware file chunk data.">
 <polygon fill="white" stroke="#666666" points="165.5,-30 17.5,-30 17.5,0 165.5,0 165.5,-30"/>
 <text text-anchor="start" x="25.5" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::postFirmware</text>
 <text text-anchor="middle" x="91.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">FileData</text>

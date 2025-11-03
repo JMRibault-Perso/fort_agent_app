@@ -95,16 +95,22 @@ Include dependency graph for FORTJoystickHelpers.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2fa084c688310613f3bad7bef64cc45f" id="r_a2fa084c688310613f3bad7bef64cc45f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8cpp.html#a2fa084c688310613f3bad7bef64cc45f">printJoystickStatus</a> (const <a class="el" href="structfrc__combined__data__t.html">frc_combined_data_t</a> &amp;js)</td></tr>
+<tr class="memdesc:a2fa084c688310613f3bad7bef64cc45f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump joystick and keypad state to stdout for debugging.  <br /></td></tr>
 <tr class="separator:a2fa084c688310613f3bad7bef64cc45f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f8045a15a5adcb76e648f3e2fb496d8" id="r_a4f8045a15a5adcb76e648f3e2fb496d8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8cpp.html#a4f8045a15a5adcb76e648f3e2fb496d8">compute_crc16</a> (const uint8_t *data, size_t size)</td></tr>
+<tr class="memdesc:a4f8045a15a5adcb76e648f3e2fb496d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute CRC-16 used by joystick and keypad payloads.  <br /></td></tr>
 <tr class="separator:a4f8045a15a5adcb76e648f3e2fb496d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3413a023e32b549e81549f69ddc78761" id="r_a3413a023e32b549e81549f69ddc78761"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structBatteryStatus.html">BatteryStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8cpp.html#a3413a023e32b549e81549f69ddc78761">decode_battery_payload</a> (const uint8_t *payload, size_t size)</td></tr>
+<tr class="memdesc:a3413a023e32b549e81549f69ddc78761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract battery telemetry values from a CBOR payload.  <br /></td></tr>
 <tr class="separator:a3413a023e32b549e81549f69ddc78761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d0ef2e3f3dd15201b18b4146732befd" id="r_a7d0ef2e3f3dd15201b18b4146732befd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8cpp.html#a7d0ef2e3f3dd15201b18b4146732befd">decode_combined_payload</a> (const uint8_t *data, size_t size)</td></tr>
+<tr class="memdesc:a7d0ef2e3f3dd15201b18b4146732befd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode a combined report and update cached state structures.  <br /></td></tr>
 <tr class="separator:a7d0ef2e3f3dd15201b18b4146732befd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a321879b3aa9e7522c584aeb21bf5d966" id="r_a321879b3aa9e7522c584aeb21bf5d966"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8cpp.html#a321879b3aa9e7522c584aeb21bf5d966">displayTextOnJoystick</a> (const std::string &amp;text, const std::string &amp;subtext)</td></tr>
+<tr class="memdesc:a321879b3aa9e7522c584aeb21bf5d966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render text on the SRC Pro user display.  <br /></td></tr>
 <tr class="separator:a321879b3aa9e7522c584aeb21bf5d966"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21971a6ea22f0b02b9ddfcbaebb7600f" id="r_a21971a6ea22f0b02b9ddfcbaebb7600f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8cpp.html#a21971a6ea22f0b02b9ddfcbaebb7600f">vibrateJoystick</a> (bool leftMotor, bool rightMotor)</td></tr>
+<tr class="memdesc:a21971a6ea22f0b02b9ddfcbaebb7600f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger joystick vibration motors.  <br /></td></tr>
 <tr class="separator:a21971a6ea22f0b02b9ddfcbaebb7600f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -133,6 +139,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Compute CRC-16 used by joystick and keypad payloads. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -166,6 +174,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Extract battery telemetry values from a CBOR payload. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -199,6 +209,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Decode a combined report and update cached state structures. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -237,6 +249,13 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Render text on the SRC Pro user display. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="FORTJoystickHelpers_8cpp_a321879b3aa9e7522c584aeb21bf5d966_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -260,6 +279,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Dump joystick and keypad state to stdout for debugging. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -293,6 +314,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Trigger joystick vibration motors. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

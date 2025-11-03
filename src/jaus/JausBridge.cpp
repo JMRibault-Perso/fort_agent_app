@@ -12,7 +12,7 @@
 
 #include <fort_agent/uart/FORTJoystick/coapSRCPro.h>
 
-#define JB_MID 0x3000
+#define JS_MID 0x3000
 using namespace coapSRCPro;
 
 JausBridge::JausBridge(std::unique_ptr<JAUSClient> client) : 
@@ -25,24 +25,24 @@ void JausBridge::startServiceLoop() {
     // Let's setup the Joystick uart modes here
     
     // Verbose stuff
-    coapSRCPro::getSerialNumber(JB_MID);
-    coapSRCPro::getModelNumber(JB_MID);
+    coapSRCPro::getSerialNumber(JS_MID);
+    coapSRCPro::getModelNumber(JS_MID);
 
     // send Observe request for joystick/combined resource
-    coapSRCPro::unsubscribeCombinedJoystickKeypad(JB_MID);
-    coapSRCPro::subscribeCombinedJoystickKeypad(JB_MID);
+    coapSRCPro::unsubscribeCombinedJoystickKeypad(JS_MID);
+    coapSRCPro::subscribeCombinedJoystickKeypad(JS_MID);
 
 
-    //coapSRCPro::getBatteryStatus(JB_MID); // observe battery status
+    //coapSRCPro::getBatteryStatus(JS_MID); // observe battery status
 
-    //coapSRCPro::unsubscribeBatteryStatus(JB_MID);
-    //coapSRCPro::subscribeBatteryStatus(JB_MID); 
+    //coapSRCPro::unsubscribeBatteryStatus(JS_MID);
+    //coapSRCPro::subscribeBatteryStatus(JS_MID); 
 
     // send Observe request for SRCP Mode resource
     //sendObserveSRCPModeRequest(1);
     //sendObserveSRCPModeRequest(0);
 
-    coapSRCPro::postVibrateBoth(JB_MID); // post vibration
+    coapSRCPro::postVibrateBoth(JS_MID); // post vibration
 
 
 

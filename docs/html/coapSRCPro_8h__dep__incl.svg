@@ -21,7 +21,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="High level CoAP request builders targeting the SRC Pro joystick.">
 <polygon fill="#999999" stroke="#666666" points="305.5,-96 129.5,-96 129.5,-66 305.5,-66 305.5,-96"/>
 <text text-anchor="start" x="137.5" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">include/fort_agent</text>
 <text text-anchor="middle" x="217.5" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">/uart/FORTJoystick/coapSRCPro.h</text>

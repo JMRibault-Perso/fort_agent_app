@@ -9,9 +9,7 @@
 #include <fort_agent/uartCoapBridgeSingleton.h>
 #include <fort_agent/jaus/JausBridgeSingleton.h>
 #include <fort_agent/jaus/JausClientImpl.h>
-
-
-std::string getFortAgentVersion();
+#include <fort_agent/version.h>
 
 // Stream-like console output
 class ConsoleBuffer {

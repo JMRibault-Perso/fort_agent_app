@@ -57,7 +57,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="coapSRCPro_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="coapSRCPro_8h.html" target="_top" xlink:title="High level CoAP request builders targeting the SRC Pro joystick.">
 <polygon fill="white" stroke="#666666" points="382.64,-206 226.64,-206 226.64,-176 382.64,-176 382.64,-206"/>
 <text text-anchor="start" x="234.64" y="-194" font-family="Helvetica,sans-Serif" font-size="10.00">fort_agent/uart/FORTJoystick</text>
 <text text-anchor="middle" x="304.64" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">/coapSRCPro.h</text>
@@ -817,7 +817,7 @@
 <!-- Node37 -->
 <g id="Node000037" class="node">
 <title>Node37</title>
-<g id="a_Node000037"><a xlink:href="FORTJoystickHelpers_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000037"><a xlink:href="FORTJoystickHelpers_8h.html" target="_top" xlink:title="Strongly typed helpers for decoding Fort joystick and keypad payloads.">
 <polygon fill="white" stroke="#666666" points="1623.64,-140 1467.64,-140 1467.64,-110 1623.64,-110 1623.64,-140"/>
 <text text-anchor="start" x="1475.64" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">fort_agent/uart/FORTJoystick</text>
 <text text-anchor="middle" x="1545.64" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">/FORTJoystickHelpers.h</text>

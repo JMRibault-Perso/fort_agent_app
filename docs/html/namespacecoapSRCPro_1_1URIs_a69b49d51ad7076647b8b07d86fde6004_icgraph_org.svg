@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Helpers returning canonical URIs for SRC Pro resources.">
 <polygon fill="#999999" stroke="#666666" points="369,-37 199,-37 199,-18 369,-18 369,-37"/>
 <text text-anchor="middle" x="284" y="-25" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::URIs::SMCUSafety</text>
 </a>
@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#aa1272f2e5400eb7ce9330aa0274bad9d" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="namespacecoapSRCPro.html#a41cb0abf7d80154a529fec7f1b6dcbb0" target="_top" xlink:title="Request raw SMCU safety payload, optionally enabling observation.">
 <polygon fill="white" stroke="#666666" points="160.5,-56 2.5,-56 2.5,-37 160.5,-37 160.5,-56"/>
 <text text-anchor="middle" x="81.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::getSMCUSafety</text>
 </a>
@@ -38,7 +38,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="namespacecoapSRCPro.html#ae9adad58cacee982e55b8362d673130d" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="namespacecoapSRCPro.html#ae9adad58cacee982e55b8362d673130d" target="_top" xlink:title="Push raw safety block bytes back to the SMCU slot.">
 <polygon fill="white" stroke="#666666" points="163,-19 0,-19 0,0 163,0 163,-19"/>
 <text text-anchor="middle" x="81.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">coapSRCPro::postSMCUSafety</text>
 </a>

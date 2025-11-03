@@ -21,7 +21,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Compute CRC&#45;16 used by joystick and keypad payloads.">
 <polygon fill="#999999" stroke="#666666" points="454,-37 363,-37 363,-18 454,-18 454,-37"/>
 <text text-anchor="middle" x="408.5" y="-25" font-family="Helvetica,sans-Serif" font-size="10.00">compute_crc16</text>
 </a>
@@ -30,7 +30,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="FORTJoystickHelpers_8cpp.html#a7d0ef2e3f3dd15201b18b4146732befd" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="FORTJoystickHelpers_8cpp.html#a7d0ef2e3f3dd15201b18b4146732befd" target="_top" xlink:title="Decode a combined report and update cached state structures.">
 <polygon fill="white" stroke="#666666" points="327,-56 178,-56 178,-37 327,-37 327,-56"/>
 <text text-anchor="middle" x="252.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">decode_combined_payload</text>
 </a>
@@ -48,7 +48,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="FORTJoystickHelpers_8cpp.html#a2fa084c688310613f3bad7bef64cc45f" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="FORTJoystickHelpers_8cpp.html#a2fa084c688310613f3bad7bef64cc45f" target="_top" xlink:title="Dump joystick and keypad state to stdout for debugging.">
 <polygon fill="white" stroke="#666666" points="306.5,-19 198.5,-19 198.5,0 306.5,0 306.5,-19"/>
 <text text-anchor="middle" x="252.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">printJoystickStatus</text>
 </a>

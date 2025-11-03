@@ -81,6 +81,9 @@ $(function() {
   <div class="headertitle"><div class="title">FORTJoystickHelpers.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Strongly typed helpers for decoding Fort joystick and keypad payloads.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
@@ -100,22 +103,28 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionjsCal__t.html">jsCal_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrated joystick data, includes a field for if the data is valid.  <a href="unionjsCal__t.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packed joystick sample with a validity flag supplied by the controller.  <a href="unionjsCal__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfrc__joystick__data__t.html">frc_joystick_data_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aggregated calibrated joystick axes reported by the SRC Pro handheld.  <a href="structfrc__joystick__data__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfrc__keypad__data__t.html">frc_keypad_data_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keypad button payload coupled with a CRC-16 guard.  <a href="structfrc__keypad__data__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfrc__combined__data__t.html">frc_combined_data_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite report carrying keypad and joystick blocks back-to-back.  <a href="structfrc__combined__data__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBatteryStatus.html">BatteryStatus</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Human readable battery metrics parsed from SRC telemetry.  <a href="structBatteryStatus.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:afbb0893568cbcd25b7128dca6fa5d145" id="r_afbb0893568cbcd25b7128dca6fa5d145"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#afbb0893568cbcd25b7128dca6fa5d145">CALIBRATED_JS_DATA_BITS</a>&#160;&#160;&#160;(12)</td></tr>
+<tr class="memdesc:afbb0893568cbcd25b7128dca6fa5d145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of data bits used in calibrated joystick samples.  <br /></td></tr>
 <tr class="separator:afbb0893568cbcd25b7128dca6fa5d145"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb4a7516a6657dda283de70e7b10d9db" id="r_adb4a7516a6657dda283de70e7b10d9db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#adb4a7516a6657dda283de70e7b10d9db">CALIBRATED_JS_RESERVED_BITS</a>&#160;&#160;&#160;(16 - 1 - <a class="el" href="FORTJoystickHelpers_8h.html#afbb0893568cbcd25b7128dca6fa5d145">CALIBRATED_JS_DATA_BITS</a>)</td></tr>
+<tr class="memdesc:adb4a7516a6657dda283de70e7b10d9db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remaining bit count dedicated to flags and reserved padding.  <br /></td></tr>
 <tr class="separator:adb4a7516a6657dda283de70e7b10d9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -136,6 +145,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="FORTJoystickHelpers_8h.html#ae164b826b0f76852a1035c50c471cec2a1664b9243c7de356b1d97aed2b87b55a">R_Left</a> = 1 &lt;&lt; 10
 <br />
  }</td></tr>
+<tr class="memdesc:ae164b826b0f76852a1035c50c471cec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit flag identifiers for each keypad button.  <a href="FORTJoystickHelpers_8h.html#ae164b826b0f76852a1035c50c471cec2">More...</a><br /></td></tr>
 <tr class="separator:ae164b826b0f76852a1035c50c471cec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a383d303d1109545c9e98fd6b0bfe2179" id="r_a383d303d1109545c9e98fd6b0bfe2179"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#a383d303d1109545c9e98fd6b0bfe2179">SRCPMode</a> : uint8_t { <br />
 &#160;&#160;<a class="el" href="FORTJoystickHelpers_8h.html#a383d303d1109545c9e98fd6b0bfe2179a0fcffcea99ac916e547b68cf3698cda2">LOCAL_MODE</a> = 0x04
@@ -147,26 +157,36 @@ Enumerations</h2></td></tr>
 , <a class="el" href="FORTJoystickHelpers_8h.html#a383d303d1109545c9e98fd6b0bfe2179a85e8153f914565013f74e3f0df4e96fd">DISPLAY_TEXT_MODE</a> = 0x0E
 <br />
  }</td></tr>
+<tr class="memdesc:a383d303d1109545c9e98fd6b0bfe2179"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode identifiers matching SRC Pro CoAP telemetry responses.  <a href="FORTJoystickHelpers_8h.html#a383d303d1109545c9e98fd6b0bfe2179">More...</a><br /></td></tr>
 <tr class="separator:a383d303d1109545c9e98fd6b0bfe2179"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a34741c4fceff38c66b26c2129dd37999" id="r_a34741c4fceff38c66b26c2129dd37999"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#a34741c4fceff38c66b26c2129dd37999">isButtonPressed</a> (uint16_t status, <a class="el" href="FORTJoystickHelpers_8h.html#ae164b826b0f76852a1035c50c471cec2">KeypadButton</a> button)</td></tr>
+<tr class="memdesc:a34741c4fceff38c66b26c2129dd37999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick bitmask helper for checking keypad button state.  <br /></td></tr>
 <tr class="separator:a34741c4fceff38c66b26c2129dd37999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fa084c688310613f3bad7bef64cc45f" id="r_a2fa084c688310613f3bad7bef64cc45f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#a2fa084c688310613f3bad7bef64cc45f">printJoystickStatus</a> (const <a class="el" href="structfrc__combined__data__t.html">frc_combined_data_t</a> &amp;js)</td></tr>
+<tr class="memdesc:a2fa084c688310613f3bad7bef64cc45f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump joystick and keypad state to stdout for debugging.  <br /></td></tr>
 <tr class="separator:a2fa084c688310613f3bad7bef64cc45f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f8045a15a5adcb76e648f3e2fb496d8" id="r_a4f8045a15a5adcb76e648f3e2fb496d8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#a4f8045a15a5adcb76e648f3e2fb496d8">compute_crc16</a> (const uint8_t *data, size_t size)</td></tr>
+<tr class="memdesc:a4f8045a15a5adcb76e648f3e2fb496d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute CRC-16 used by joystick and keypad payloads.  <br /></td></tr>
 <tr class="separator:a4f8045a15a5adcb76e648f3e2fb496d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d0ef2e3f3dd15201b18b4146732befd" id="r_a7d0ef2e3f3dd15201b18b4146732befd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#a7d0ef2e3f3dd15201b18b4146732befd">decode_combined_payload</a> (const uint8_t *data, size_t size)</td></tr>
+<tr class="memdesc:a7d0ef2e3f3dd15201b18b4146732befd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode a combined report and update cached state structures.  <br /></td></tr>
 <tr class="separator:a7d0ef2e3f3dd15201b18b4146732befd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3413a023e32b549e81549f69ddc78761" id="r_a3413a023e32b549e81549f69ddc78761"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structBatteryStatus.html">BatteryStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#a3413a023e32b549e81549f69ddc78761">decode_battery_payload</a> (const uint8_t *payload, size_t size)</td></tr>
+<tr class="memdesc:a3413a023e32b549e81549f69ddc78761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract battery telemetry values from a CBOR payload.  <br /></td></tr>
 <tr class="separator:a3413a023e32b549e81549f69ddc78761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a321879b3aa9e7522c584aeb21bf5d966" id="r_a321879b3aa9e7522c584aeb21bf5d966"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#a321879b3aa9e7522c584aeb21bf5d966">displayTextOnJoystick</a> (const std::string &amp;text, const std::string &amp;subtext)</td></tr>
+<tr class="memdesc:a321879b3aa9e7522c584aeb21bf5d966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render text on the SRC Pro user display.  <br /></td></tr>
 <tr class="separator:a321879b3aa9e7522c584aeb21bf5d966"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21971a6ea22f0b02b9ddfcbaebb7600f" id="r_a21971a6ea22f0b02b9ddfcbaebb7600f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FORTJoystickHelpers_8h.html#a21971a6ea22f0b02b9ddfcbaebb7600f">vibrateJoystick</a> (bool leftMotor, bool rightMotor)</td></tr>
+<tr class="memdesc:a21971a6ea22f0b02b9ddfcbaebb7600f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger joystick vibration motors.  <br /></td></tr>
 <tr class="separator:a21971a6ea22f0b02b9ddfcbaebb7600f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Strongly typed helpers for decoding Fort joystick and keypad payloads. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="afbb0893568cbcd25b7128dca6fa5d145" name="afbb0893568cbcd25b7128dca6fa5d145"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afbb0893568cbcd25b7128dca6fa5d145">&#9670;&#160;</a></span>CALIBRATED_JS_DATA_BITS</h2>
 
@@ -178,6 +198,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Number of data bits used in calibrated joystick samples. </p>
 
 </div>
 </div>
@@ -192,6 +214,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Remaining bit count dedicated to flags and reserved padding. </p>
 
 </div>
 </div>
@@ -215,6 +239,8 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Bit flag identifiers for each keypad button. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae164b826b0f76852a1035c50c471cec2ab61541208db7fa7dba42c85224405911" name="ae164b826b0f76852a1035c50c471cec2ab61541208db7fa7dba42c85224405911"></a>Menu&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae164b826b0f76852a1035c50c471cec2a105b296a83f9c105355403f3332af50f" name="ae164b826b0f76852a1035c50c471cec2a105b296a83f9c105355403f3332af50f"></a>Pause&#160;</td><td class="fielddoc"></td></tr>
@@ -242,6 +268,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Mode identifiers matching SRC Pro CoAP telemetry responses. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a383d303d1109545c9e98fd6b0bfe2179a0fcffcea99ac916e547b68cf3698cda2" name="a383d303d1109545c9e98fd6b0bfe2179a0fcffcea99ac916e547b68cf3698cda2"></a>LOCAL_MODE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a383d303d1109545c9e98fd6b0bfe2179abb042e19dc038741fbf4720961c9ebc2" name="a383d303d1109545c9e98fd6b0bfe2179abb042e19dc038741fbf4720961c9ebc2"></a>REMOTE_MODE&#160;</td><td class="fielddoc"></td></tr>
@@ -279,6 +307,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Compute CRC-16 used by joystick and keypad payloads. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -312,6 +342,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Extract battery telemetry values from a CBOR payload. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -345,6 +377,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Decode a combined report and update cached state structures. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -383,6 +417,13 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Render text on the SRC Pro user display. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="FORTJoystickHelpers_8h_a321879b3aa9e7522c584aeb21bf5d966_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -425,6 +466,8 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Quick bitmask helper for checking keypad button state. </p>
+
 </div>
 </div>
 <a id="a2fa084c688310613f3bad7bef64cc45f" name="a2fa084c688310613f3bad7bef64cc45f"></a>
@@ -442,6 +485,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Dump joystick and keypad state to stdout for debugging. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -475,6 +520,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Trigger joystick vibration motors. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
