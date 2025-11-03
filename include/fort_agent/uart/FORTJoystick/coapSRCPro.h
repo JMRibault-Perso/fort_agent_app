@@ -40,7 +40,8 @@ namespace coapSRCPro {
     /** Strongly typed URI segments for composing CoAP paths. */
     struct Uri {
         std::vector<std::string> segments;
-        Uri(std::initializer_list<std::string> s) : segments(s) {}
+        std::vector<std::string> queries;
+        Uri(std::initializer_list<std::string> s, std::initializer_list<std::string> q = {}) : segments(s), queries(q) {}
     }; 
 
     // ---------- Centralized URIs ----------
@@ -57,20 +58,19 @@ namespace coapSRCPro {
         inline Uri SMCUCombinedSafety{"sf","transmitter","combined"};
 
         // Device Info
-        inline Uri RadioMode{"deviceInfo?radioMode"};
-        inline Uri RadioPower{"deviceInfo?radioPowerDB"};
-        inline Uri RadioChannel{"deviceInfo?radioChannel"};
-        inline Uri RadioStatus{"deviceInfo?radioStatus"};
-        inline Uri RadioUsed{"deviceInfo?radioUsed"};
-        inline Uri FirmwareVersion{"deviceInfo?fwVersion"};
-        inline Uri CpuTemp{"deviceInfo?cpuTempC"};
-        inline Uri DeviceTemp{"deviceInfo?deviceTempC"};
-        inline Uri GaugeTemp{"deviceInfo?gaugeTempC"};
-        inline Uri GyroTemp{"deviceInfo?gyroTempC"};
-        inline Uri BatteryStatus{"deviceInfo?batteryStatus"};
-        inline Uri SystemStatus{"deviceInfo?sys1"};
-        inline Uri LockdownStatus{"deviceInfo?lockdownStatus"};
-        
+        inline Uri RadioMode{{"deviceInfo"}, {"radioMode"}};
+        inline Uri RadioPower{{"deviceInfo"}, {"radioPowerDB"}};
+        inline Uri RadioChannel{{"deviceInfo"}, {"radioChannel"}};
+        inline Uri RadioStatus{{"deviceInfo"}, {"radioStatus"}};
+        inline Uri RadioUsed{{"deviceInfo"}, {"radioUsed"}};
+        inline Uri FirmwareVersion{{"deviceInfo"}, {"fwVersion"}};
+        inline Uri CpuTemp{{"deviceInfo"}, {"cpuTempC"}};
+        inline Uri DeviceTemp{{"deviceInfo"}, {"deviceTempC"}};
+        inline Uri GaugeTemp{{"deviceInfo"}, {"gaugeTempC"}};
+        inline Uri GyroTemp{{"deviceInfo"}, {"gyroTempC"}};
+        inline Uri BatteryStatus{{"deviceInfo"}, {"batteryStatus"}};
+        inline Uri SystemStatus{{"deviceInfo"}, {"sys1"}};
+        inline Uri LockdownStatus{{"deviceInfo"}, {"lockdownStatus"}};
 
         // Config
         inline Uri SerialNumber{"cfg","setup","serialNumber"};
@@ -79,12 +79,13 @@ namespace coapSRCPro {
         inline Uri DeviceUID{"cfg","setup","deviceUID"};
         inline Uri DeviceRev{"cfg","setup","deviceRev"};
         inline Uri SystemReset{"cfg","setup","systemReset"};
-        inline Uri DisplayMode{"cfg","setup","userSettings?99"};
-        inline Uri VibrateLeft{"cfg","setup","userSettings?10"};
-        inline Uri VibrateRight{"cfg","setup","userSettings?11"};
-        inline Uri VibrateBoth{"cfg","setup","userSettings?12"};
+        inline Uri DisplayModePost{{"cfg","setup","userSettings"}, {"99=1"}};
+        inline Uri DisplayMode{{"cfg","setup","userSettings"}}; //, {"99"}};
+        inline Uri VibrateLeft{{"cfg","setup","userSettings"}}; //, {"10"}};
+        inline Uri VibrateRight{{"cfg","setup","userSettings"}}; //, {"11"}};
+        inline Uri VibrateBoth{{"cfg","setup","userSettings"}}; //, {"12"}};
         inline Uri FirmareFileData(const std::string& filename) {
-            return {"fs", "data?" + filename};
+            return {{"fs", "data"}, {filename}};
         };
         inline Uri FirmwareMetaData{"fs","metadata"};
 
@@ -181,7 +182,7 @@ namespace coapSRCPro {
     /** Read current user display mode. */
     void getDisplayMode(uint16_t mid);
     // payload should be a CBOR-encoded byte string of 0 or 1
-    /** Set user display mode (0 = normal, 1 = alternate). */
+    /** Set user display mode 99 (0 = normal, 1 = alternate). */
     void postDisplayMode(uint16_t mid, uint8_t mode /*0 or 1*/);
     // Vibrate: left=10, right=11, both=12; CBOR-encoded byte string containing number 1
     /** Vibrate only the left motor. */

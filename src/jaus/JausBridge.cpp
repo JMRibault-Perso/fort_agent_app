@@ -27,6 +27,7 @@ void JausBridge::startServiceLoop() {
     // Verbose stuff
     coapSRCPro::getSerialNumber(JS_MID);
     coapSRCPro::getModelNumber(JS_MID);
+    //coapSRCPro::getFirmwareVersion(JS_MID);
 
     // send Observe request for joystick/combined resource
     coapSRCPro::unsubscribeCombinedJoystickKeypad(JS_MID);
@@ -41,10 +42,11 @@ void JausBridge::startServiceLoop() {
     // send Observe request for SRCP Mode resource
     //sendObserveSRCPModeRequest(1);
     //sendObserveSRCPModeRequest(0);
+    //coapSRCPro::getSystemStatus(JS_MID);
 
     coapSRCPro::postVibrateBoth(JS_MID); // post vibration
 
-
+    //coapSRCPro::getCpuTempC(JS_MID); // observe CPU temp
 
     // Initialize state machine with InitializeState
     stateMachine = std::make_unique<VehicleStateMachine>(
@@ -111,8 +113,15 @@ bool JausBridge::evaluateCoapJausMessage(JausBridge::JausPort jausPort, const ui
         case JausPort::RADIOUSED: // Radio Used
             break;
         case JausPort::FIRMWAREVERSION: // Firmware Version
+            if (payloadLen != 0) {
+                std::string firmware(reinterpret_cast<const char*>(payload), payloadLen);
+                std::cout << "JAUS: Received Firmware Version: " << firmware << std::endl;
+            }
             break;
         case JausPort::CPUTEMP: // CPU Temp
+            if (payloadLen != 0) {
+                std::cout << "JAUS: CPU Temperature: " << payload << std::endl;
+            }
             break;
         case JausPort::DEVICETEMP: // Device Temp
             break;
@@ -128,6 +137,10 @@ bool JausBridge::evaluateCoapJausMessage(JausBridge::JausPort jausPort, const ui
                 }
             break;
         case JausPort::SYSTEMSTATUS: // System Status
+            if (payloadLen != 0) {
+                std::string systemStatus = std::string(reinterpret_cast<const char*>(payload), payloadLen);
+                std::cout << "JAUS: System Status: " << systemStatus << std::endl;
+            }
             break;
         case JausPort::LOCKDOWNSTATUS: // Lockdown Status
             break;
@@ -156,13 +169,15 @@ bool JausBridge::evaluateCoapJausMessage(JausBridge::JausPort jausPort, const ui
         case JausPort::SYSTEMRESET: // System Reset
             break;
         case JausPort::DISPLAYMODE: // Display Mode
+                if (payloadLen != 0) {
+                    spdlog::debug("JAUS: Received Display Mode payload of length {}", payloadLen);
+                }
             break;
         case JausPort::VIBRATIONLEFT: // Vibration Left
             break;
         case JausPort::VIBRATIONRIGHT: // Vibration Right
             break;
         case JausPort::VIBRATIONBOTH: // Vibration Both
-            spdlog::debug("JAUS: Decoded combined joystick payload successfully");
             break;
         case JausPort::FIRMWAREFILEDATA: // Firmware File Data
             break;
@@ -191,6 +206,8 @@ bool JausBridge::evaluateCoapJausMessage(JausBridge::JausPort jausPort, const ui
         case JausPort::SCP03ROTATE: // SCP03 Rotate
             break;
         case JausPort::OTPWRITEDEVTEST: // OTP Write Dev Test
+            break;
+        case JausPort::DISPLAYTEXT : // Display Text
             break;
         default:
             spdlog::warn("JAUS: Unknown port {}, cannot handle message", static_cast<uint16_t>(jausPort));

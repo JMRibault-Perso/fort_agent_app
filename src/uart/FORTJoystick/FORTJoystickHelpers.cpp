@@ -183,6 +183,7 @@ void displayTextOnJoystick(const std::string& text, const std::string& subtext) 
     std::cout << "Text: " << text << "\n";
     std::cout << "Subtext: " << subtext << "\n";
 
+    coapSRCPro::postDisplayMode(JS_MID, 1); // Switch to display text mode
     coapSRCPro::postDisplayTextRawLines(JS_MID, text, subtext, true);
 }
 

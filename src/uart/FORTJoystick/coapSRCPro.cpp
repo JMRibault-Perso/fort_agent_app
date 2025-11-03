@@ -1,5 +1,6 @@
 #include <cbor.h>
 #include <algorithm>
+#include <array>
 #include <fort_agent/uart/FORTJoystick/coapSRCPro.h>
 #include <fort_agent/uartCoapBridgeSingleton.h>
 #include <fort_agent/jaus/JausBridgeSingleton.h>
@@ -39,7 +40,7 @@ namespace coapSRCPro {
                                 bool observe = false,
                                 uint16_t observeValue = 0) {
         return Coap::buildMessage(Coap::Type::CON, method, mid,
-                                uri.segments, payload, {}, fmt, observe, observeValue);
+                                uri.segments, uri.queries, payload, {}, fmt, observe, observeValue);
         }
 
     namespace detail {
@@ -81,6 +82,16 @@ namespace coapSRCPro {
             return buf;
         }
 
+        std::vector<uint8_t> cborEncodeUint32(uint32_t value) {
+            vector<uint8_t> buf(8);
+            CborEncoder enc;
+            cbor_encoder_init(&enc, buf.data(), buf.size(), 0);
+            cbor_encode_uint(&enc, value);
+            size_t n = cbor_encoder_get_buffer_size(&enc, buf.data());
+            buf.resize(n);
+            return buf;
+        }
+
         std::vector<uint8_t> cborEncodeInt(int64_t value) {
             vector<uint8_t> buf(16);
             CborEncoder enc;
@@ -110,6 +121,47 @@ namespace coapSRCPro {
             buf.resize(n);
             return buf;
         }
+
+        enum class UserSettingKey : uint8_t {
+            DisplayMode = 99,
+            VibrateLeft = 10,
+            VibrateRight = 11,
+            VibrateBoth = 12
+        };
+
+        struct UserSettings {
+            UserSettingKey key;
+            uint32_t value;
+        };
+
+        std::vector<uint8_t> encodeUserSettings(const UserSettings& s) {
+            // Allocate a buffer large enough for your encoding
+            std::vector<uint8_t> buffer(32);
+            CborEncoder rootEncoder, arrayEncoder;
+
+            // Initialize encoder
+            cbor_encoder_init(&rootEncoder, buffer.data(), buffer.size(), 0);
+
+            // Create an array with 2 elements
+            CborEncoder array;
+            cbor_encoder_create_array(&rootEncoder, &array, 2);
+
+            // Encode key (uint8_t promoted to uint64_t)
+            cbor_encode_uint(&array, (uint8_t)s.key);
+
+            // Encode value (uint32_t promoted to uint64_t)
+            cbor_encode_uint(&array, s.value);
+
+            // Close the array
+            cbor_encoder_close_container(&rootEncoder, &array);
+
+            // Compute how many bytes were written
+            size_t len = cbor_encoder_get_buffer_size(&rootEncoder, buffer.data());
+            buffer.resize(len);
+
+            return buffer;
+        }
+
 
         // CBOR for firmware metadata: a simple CBOR map { "filename": <text>, "length": <uint>, "crc32": <uint> }
         std::vector<uint8_t> cborEncodeFileMetadata(const std::string& filename,
@@ -319,35 +371,36 @@ namespace coapSRCPro {
     }
 
     void getDisplayMode(uint16_t mid) {
+        std::vector<uint8_t> payload{static_cast<uint8_t>(99)};
         detail::sendRequest<Coap::Method::GET, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::DISPLAYMODE>(
-            mid, URIs::DisplayMode);
+            mid, URIs::DisplayMode, payload);
     }
 
     void postDisplayMode(uint16_t mid, uint8_t mode) {
         // payload is CBOR-encoded byte string containing number 0 or 1 (single byte)
-        vector<uint8_t> raw{mode};
-        auto payload = CBORHelpers::cborEncodeByteString(raw);
+        CBORHelpers::UserSettings settings{CBORHelpers::UserSettingKey::DisplayMode, mode};
+        auto payload = CBORHelpers::encodeUserSettings(settings);
         detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::DISPLAYMODE>(
             mid, URIs::DisplayMode, payload);
     }
 
     void postVibrateLeft(uint16_t mid) {
-        vector<uint8_t> raw{1};
-        auto payload = CBORHelpers::cborEncodeByteString(raw);
+        CBORHelpers::UserSettings settings{CBORHelpers::UserSettingKey::VibrateLeft, 1};
+        auto payload = CBORHelpers::encodeUserSettings(settings);
         detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::VIBRATIONLEFT>(
             mid, URIs::VibrateLeft, payload);
     }
 
     void postVibrateRight(uint16_t mid) {
-        vector<uint8_t> raw{1};
-        auto payload = CBORHelpers::cborEncodeByteString(raw);
+        CBORHelpers::UserSettings settings{CBORHelpers::UserSettingKey::VibrateRight, 1};
+        auto payload = CBORHelpers::encodeUserSettings(settings);
         detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::VIBRATIONRIGHT>(
             mid, URIs::VibrateRight, payload);
     }
 
     void postVibrateBoth(uint16_t mid) {
-        vector<uint8_t> raw{1};
-        auto payload = CBORHelpers::cborEncodeByteString(raw);
+        CBORHelpers::UserSettings settings{CBORHelpers::UserSettingKey::VibrateBoth, 1};
+        auto payload = CBORHelpers::encodeUserSettings(settings);
         detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::VIBRATIONBOTH>(
             mid, URIs::VibrateBoth, payload);
     }

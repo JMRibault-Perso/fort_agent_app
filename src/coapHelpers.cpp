@@ -90,31 +90,91 @@ std::array<uint8_t, 4> Coap::createResetMsg(uint16_t mid) {
 }
 
 
-static void encodeOption(std::vector<uint8_t>& out, uint16_t number, const std::string& value, uint16_t& lastNumber) {
+static void encodeOption(std::vector<uint8_t>& out,
+                         uint16_t number,
+                         const std::string& value,
+                         uint16_t& lastNumber) {
     uint16_t delta = number - lastNumber;
     lastNumber = number;
 
-    uint8_t deltaNibble = (delta < 13) ? delta : 13;
-    uint8_t lenNibble = (value.size() < 13) ? value.size() : 13;
+    auto encodeExtended = [&](uint16_t val, uint8_t& nibble) {
+        if (val < 13) {
+            nibble = val;
+        } else if (val < 269) {
+            nibble = 13;
+        } else {
+            nibble = 14;
+        }
+    };
+
+    uint8_t deltaNibble, lenNibble;
+    encodeExtended(delta, deltaNibble);
+    encodeExtended(value.size(), lenNibble);
 
     out.push_back((deltaNibble << 4) | lenNibble);
+
+    // Extended delta
+    if (deltaNibble == 13) out.push_back(delta - 13);
+    else if (deltaNibble == 14) {
+        out.push_back((delta - 269) >> 8);
+        out.push_back((delta - 269) & 0xFF);
+    }
+
+    // Extended length
+    if (lenNibble == 13) out.push_back(value.size() - 13);
+    else if (lenNibble == 14) {
+        out.push_back((value.size() - 269) >> 8);
+        out.push_back((value.size() - 269) & 0xFF);
+    }
+
+    // Value bytes
     out.insert(out.end(), value.begin(), value.end());
 }
 
-static void encodeUintOption(std::vector<uint8_t>& out, uint16_t number, uint16_t value, uint16_t& lastNumber) {
+static void encodeUintOption(std::vector<uint8_t>& out,
+                             uint16_t number,
+                             uint32_t value,
+                             uint16_t& lastNumber) {
     uint16_t delta = number - lastNumber;
     lastNumber = number;
 
-    uint8_t len = (value <= 0xFF) ? 1 : 2;
-    uint8_t deltaNibble = (delta < 13) ? delta : 13;
-    uint8_t lenNibble = len;
+    auto encodeExtended = [&](uint16_t val, uint8_t& nibble) {
+        if (val < 13) nibble = val;
+        else if (val < 269) nibble = 13;
+        else nibble = 14;
+    };
+
+    // Determine value length (shortest encoding)
+    uint8_t valBytes[4];
+    int len = 0;
+    if (value > 0xFFFF) { len = 4; }
+    else if (value > 0xFF) { len = 2; }
+    else if (value > 0) { len = 1; }
+    else { len = 0; }
+
+    uint8_t deltaNibble, lenNibble;
+    encodeExtended(delta, deltaNibble);
+    encodeExtended(len, lenNibble);
 
     out.push_back((deltaNibble << 4) | lenNibble);
-    if (len == 1) {
-        out.push_back(static_cast<uint8_t>(value));
-    } else {
-        out.push_back(static_cast<uint8_t>((value >> 8) & 0xFF));
-        out.push_back(static_cast<uint8_t>(value & 0xFF));
+
+    // Extended delta
+    if (deltaNibble == 13) out.push_back(delta - 13);
+    else if (deltaNibble == 14) {
+        out.push_back((delta - 269) >> 8);
+        out.push_back((delta - 269) & 0xFF);
+    }
+
+    // Extended length
+    if (lenNibble == 13) out.push_back(len - 13);
+    else if (lenNibble == 14) {
+        out.push_back((len - 269) >> 8);
+        out.push_back((len - 269) & 0xFF);
+    }
+
+    // Value bytes (big‑endian)
+    for (int i = len - 1; i >= 0; --i) {
+        out.push_back((value >> (i * 8)) & 0xFF);
     }
 }
 
@@ -126,6 +186,7 @@ static uint16_t computeCRC16(const std::vector<uint8_t>& data) {
 
 std::vector<uint8_t> Coap::buildMessage(Type type, Method method, uint16_t mid,
                                         const std::vector<std::string>& uriSegments,
+                                        const std::vector<std::string>& uriQueries,
                                         const std::vector<uint8_t>& payload,
                                         const std::vector<uint8_t>& token,
                                         Format contentFormat,
@@ -164,6 +225,11 @@ std::vector<uint8_t> Coap::buildMessage(Type type, Method method, uint16_t mid,
     // Content-Format option
     if (contentFormat != Format::NONE) {
         encodeUintOption(msg, 12, (uint16_t)contentFormat, lastOpt); // Content-Format = 12
+    }
+
+    // URI-Query options
+    for (const auto& query : uriQueries) {
+        encodeOption(msg, 15, query, lastOpt); // Uri-Query = 15
     }
 
     // Payload
