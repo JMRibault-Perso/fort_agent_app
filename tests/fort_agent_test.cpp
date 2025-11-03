@@ -1,8 +1,9 @@
-#include <fort_agent/fort_agent.h>
 #include <gtest/gtest.h>
 
-namespace {
-    TEST(FortAgentTest, RememberToTest) {
-        EXPECT_EQ(getFortAgentVersion(), std::string("0.0.1"));
-    }
+#include <string>
+
+std::string getFortAgentVersion();
+
+TEST(FortAgentVersionTest, MatchesProjectVersionMacro) {
+    EXPECT_EQ(getFortAgentVersion(), std::string(fort_agent_VERSION));
 }

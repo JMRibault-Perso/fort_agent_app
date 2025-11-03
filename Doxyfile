@@ -1,0 +1,40 @@
+#--------------------------------------------------------------------------- 
+# Project related configuration
+#--------------------------------------------------------------------------- 
+PROJECT_NAME           = "fort_agent_app"
+OUTPUT_DIRECTORY       = docs
+OPTIMIZE_OUTPUT_FOR_C  = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+
+#--------------------------------------------------------------------------- 
+# Build related configuration
+#--------------------------------------------------------------------------- 
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+GENERATE_XML           = NO
+
+#--------------------------------------------------------------------------- 
+# Diagram support (requires Graphviz)
+#--------------------------------------------------------------------------- 
+HAVE_DOT               = YES
+DOT_PATH               = /usr/bin
+CLASS_DIAGRAMS         = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
+
+#--------------------------------------------------------------------------- 
+# Input
+#--------------------------------------------------------------------------- 
+INPUT                  = src include
+FILE_PATTERNS          = *.h *.hpp *.cpp
+RECURSIVE              = YES
+
+#--------------------------------------------------------------------------- 
+# Documentation style
+#--------------------------------------------------------------------------- 
+JAVADOC_AUTOBRIEF      = YES
+MULTILINE_CPP_IS_BRIEF = YES

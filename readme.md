@@ -24,7 +24,7 @@ https://hriwiki.atlassian.net/wiki/spaces/HRIIN/pages/2315813055/Agility
 ### Dependencies
 At the moment these are pulled in by cmake `FetchContent`
 1. googletest: `release-1.11.0` -- https://github.com/google/googletest.git
-2. boost: `boost-1.78.0` -- https://github.com/boostorg/boost.git
+2. boost: `boost-1.84.0` -- https://github.com/boostorg/boost.git
 3. fmtlib: `8.1.1` -- https://github.com/fmtlib/fmt.git
 4. spdlog: `v1.9.2` -- https://github.com/gabime/spdlog.git
 
@@ -51,9 +51,17 @@ cmake --build build --target fort_agent_app
 #### Targets
 1. `fort_agent_app` -- Main application
 2. `fort_agent_lib` -- Dont need typically
-3. `fort_agent_test` -- Dont need typically
+3. `fort_agent_test` -- Unit test suite (includes JAUS client mocks)
 
-### Instalation
+#### Running Tests
+Once a build directory exists you can build and run the unit tests:
+```
+cmake --build build --target fort_agent_test
+./build/tests/fort_agent_test
+```
+The suite includes coverage for CoAP helpers, the port tracker, and exposes a Google Mock based `JAUSClient` in `tests/mocks/MockJausClient.h` so features that normally depend on OpenJAUS can be exercised in isolation.
+
+### Installation
 At the moment this is a statically compiled standalone application.
 
 

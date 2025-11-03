@@ -4,16 +4,28 @@
 #include <fort_agent/jaus/states/IVehicleState.h>
 #include <fort_agent/jaus/states/ReadyState.h>
 
+/**
+ * @brief Waits for the operator to bring the vehicle into READY state.
+ *
+ * Control has already been granted.  The next step is to request a resume
+ * command and poll JAUS status until the vehicle reports READY, at which point
+ * the machine progresses to @ref ReadyState.
+ */
 class StandbyState : public IVehicleState {
 public:
     StandbyState(JAUSClient& client) : 
         IVehicleState(), client(client), resumeRequested(false), readyStateGranted(false), rDownPressed(false) {}
 
+    /** Prompt the operator when the standby phase begins. */
     void enter() override {
         displayTextOnJoystick("Vehicle on Standby", "Press 1 to Activate");
     }
 
     // TODO, some of those action should be triggered by JAUS messages/state managment instead of keypad input
+    /**
+     * First R-Down press sends Resume and triggers an immediate status query to
+     * verify when READY is reached.
+     */
     void handleInput(const frc_combined_data_t& input) override {
         if (isRDown(input.keypad_data.buttonStatus) && !rDownPressed) {
             rDownPressed = true;
@@ -40,6 +52,7 @@ public:
     }
 
 
+    /** Promote to ReadyState once JAUS reports READY. */
     std::unique_ptr<IVehicleState> next() override {
         return readyStateGranted ? std::make_unique<ReadyState>(client) : nullptr;
     }
