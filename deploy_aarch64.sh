@@ -2,7 +2,7 @@
 
 # Set these to match your setup
 TARGET_USER=root
-TARGET_HOST=192.168.86.35
+TARGET_HOST=192.168.3.87
 TARGET_PATH=fort_agent
 BINARY_NAME=fort_agent_app
 LOCAL_BINARY=./build/aarch64/apps/$BINARY_NAME

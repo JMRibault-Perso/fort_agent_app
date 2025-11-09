@@ -68,7 +68,7 @@ private:
 
     std::map<uint16_t, MappedMid> mids;
     boost::asio::steady_timer midExpirationTimer;
-
+public:
     // Debug helper
     static std::string dataToString(const void *data, size_t len);
 };

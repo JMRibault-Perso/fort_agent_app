@@ -50,9 +50,16 @@ void JAUSClientImpl::initializeJAUS() {
     component.addMessageCallback(&JAUSClientImpl::handleIncomingReportGeomagneticProperty);
     component.addMessageCallback(&JAUSClientImpl::handleIncomingReportWrenchEffort);
 
-
-    // Run the Components which starts the sending/receiving/processing of messages
-    component.run();
+    try
+    {
+        // Run the Components which starts the sending/receiving/processing of messages
+        component.run();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
 
 }
 

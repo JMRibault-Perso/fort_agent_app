@@ -379,6 +379,11 @@ namespace coapSRCPro {
     void postDisplayMode(uint16_t mid, uint8_t mode) {
         // payload is CBOR-encoded byte string containing number 0 or 1 (single byte)
         CBORHelpers::UserSettings settings{CBORHelpers::UserSettingKey::DisplayMode, mode};
+
+        // JSON: 
+        // frc_settings {
+            // binary 
+        //}
         auto payload = CBORHelpers::encodeUserSettings(settings);
         detail::sendRequest<Coap::Method::POST, Coap::Format::APPLICATION_CBOR, JausBridge::JausPort::DISPLAYMODE>(
             mid, URIs::DisplayMode, payload);

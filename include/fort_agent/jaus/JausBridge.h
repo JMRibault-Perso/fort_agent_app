@@ -77,7 +77,7 @@ public:
 
 private:
     struct BridgeMessage {
-        enum class Kind { JoysticInput, JAUSResponse } kind;
+        enum class Kind { JoystickInput, JAUSResponse } kind;
         frc_combined_data_t joystickInput; // Serial port joystick input
     };
 

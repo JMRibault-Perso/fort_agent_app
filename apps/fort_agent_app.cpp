@@ -147,6 +147,10 @@ int main(int argc, char *argv[]) {
         // Initialize JAUS Bridge
         // Create JAUS client implementation
         auto client = std::make_unique<JAUSClientImpl>();
+        
+        //TODO: set JAUS configuration using system::Application::setOjConfiguration(JSON);
+        // This configuration should be read from the .ojconf file and passed to OpenJAUS
+
         // Get singleton instance of JausBridge
         auto& jausBridge = JausBridgeSingleton::instance(std::move(client));
 
@@ -157,6 +161,7 @@ int main(int argc, char *argv[]) {
 
         // Start JAUS service loop, must be done after UartCoapBridge is initialized
         jausBridge.startServiceLoop(); 
+       
         // Start IO service loop
         ioService.run();
         return 0;

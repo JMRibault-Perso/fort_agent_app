@@ -15,6 +15,9 @@
 #define JS_MID 0x3000
 using namespace coapSRCPro;
 
+// To avoid flooding with identical joystick inputs
+static frc_combined_data_t lastJs = {};
+
 JausBridge::JausBridge(std::unique_ptr<JAUSClient> client) : 
     jausClient(std::move(client))  {
     stateMachine = nullptr;    
@@ -52,9 +55,13 @@ void JausBridge::startServiceLoop() {
     stateMachine = std::make_unique<VehicleStateMachine>(
     std::make_unique<InitializeState>(*jausClient));
 
+    lastJs.keypad_data.buttonStatus = 0xFFFF; // force first input to be processed
+
     jausClient->initializeJAUS(); // Initialize JAUS client before starting loop
     running = true;
     serviceThread = std::thread(&JausBridge::serviceLoop, this);
+
+
 }
 
 void JausBridge::stopServiceLoop() {
@@ -81,7 +88,7 @@ void JausBridge::serviceLoop() {
         }
 
         switch (msg.kind) {
-            case BridgeMessage::Kind::JoysticInput:
+            case BridgeMessage::Kind::JoystickInput:
                 stateMachine->handleInput(msg.joystickInput);
                 break;
             case BridgeMessage::Kind::JAUSResponse:
@@ -228,19 +235,25 @@ void JausBridge::postJAUSResponse() {
 }
 
 
-void JausBridge::postInput(const frc_combined_data_t& input) {
-    static frc_combined_data_t lastJs = {};
 
+void JausBridge::postInput(const frc_combined_data_t& input) {
     if (std::memcmp(&input, &lastJs, sizeof(frc_combined_data_t)) == 0) {
         return; // No change, no need to post constantly
     }
     lastJs = input;
 
-    {
+    if (input.joystick_data.leftXAxis.dataOK == 0) {
+        // nothing is going to be shown on the joystick screen if data is not OK
+        std::cout << "JAUS: Pause button pressed on keypad." << std::endl;
+    }
+    else if (isButtonPressed(input.keypad_data.buttonStatus, KeypadButton::Pause)) {
+        // have to wait until data is Ok before printing again - TODO - reprint last message?
+        std::cout << "JAUS: Pause button releasing." << std::endl;
+    } else {    // normal operation
         std::lock_guard<std::mutex> lock(queueMutex);
         BridgeMessage msg;
         msg.joystickInput = input;
-        msg.kind = BridgeMessage::Kind::JoysticInput;
+        msg.kind = BridgeMessage::Kind::JoystickInput;
         inputQueue.push(msg);
     }
     queueCV.notify_one();
